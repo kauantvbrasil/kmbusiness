@@ -312,6 +312,21 @@ html,body{max-width:100%;overflow-x:hidden}
 <section class="section" id="produtos"><div class="toolbar"><p class="muted">Produtos e quantidades disponíveis</p><button class="primary" data-open="product">+ Produto</button></div><div class="card tablewrap"><table><thead><tr><th>Produto</th><th>Preço</th><th>Custo</th><th>Estoque</th></tr></thead><tbody id="productsRows"></tbody></table></div></section>
 <section class="section" id="financeiro"><div class="toolbar"><p class="muted">Recebimentos e despesas</p><button class="primary" data-open="expense">+ Despesa</button></div><div class="card"><h3>Despesas rápidas</h3><div class="radio"><button class="secondary" data-expense="Caixa">Caixa</button><button class="secondary" data-expense="Papel Seda">Papel Seda</button><button class="secondary" data-expense="Adesivos">Adesivos</button><button class="secondary" data-expense="Brindes">Brindes</button></div></div><div class="card tablewrap"><table><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Valor</th></tr></thead><tbody id="expensesRows"></tbody></table></div></section></main></div>
 <div id="modalOverlay" class="overlay hidden"><div class="modal"><h2 id="modalTitle"></h2><div id="modalBody"></div></div></div><div id="toast" class="toast hidden" role="status"></div>
+<style>
+/* K&M BUSINESS 2.0: edição protegida e responsiva */
+.kmbEditSection{padding:18px;background:rgba(6,18,35,.7);border:1px solid rgba(52,110,179,.36);border-radius:16px;margin:14px 0;display:block}
+.kmbEditSection h3{margin:0 0 15px;font-size:16px;color:#dcecff}
+.kmbEditSummary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:10px 0}
+.kmbEditSummary span{display:flex;flex-direction:column;gap:7px;border-radius:12px;padding:12px;background:#0a1a30;border:1px solid #254569;color:#9fb3d0;font-size:12px}
+.kmbEditSummary strong{font-size:17px;color:#fff}
+.kmbEditNotice,.kmbEditWarning{padding:12px 14px;border:1px solid #345e90;background:#0a1d34;border-radius:12px;color:#c8ddfa;font-size:13px;line-height:1.5}
+.kmbEditWarning{border-color:#a56a27;color:#ffd8ad;background:#302012}
+.kmbEditItem{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;border-bottom:1px solid #243850;padding:12px 0}
+.kmbEditItem>.wide{grid-column:1/-1}.kmbEditItem>.secondary{grid-column:1/-1;justify-self:start}
+.kmbEditReadonly{padding:12px;margin:8px 0;border:1px solid #263b55;border-radius:10px;background:#071425;color:#c5d9f2}
+.kmbEditParcel{padding:12px 0;border-bottom:1px solid #243850}.kmbEditParcel:last-child{border:0}
+@media(max-width:650px){.kmbEditItem{grid-template-columns:1fr 1fr}.kmbEditItem>.wide{grid-column:1/-1}.kmbEditSummary strong{font-size:13px}.kmbEditSummary span{padding:9px}.kmbEditSection{padding:13px}}
+</style>
 <script type="module">
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const SUPABASE_URL='https://xzcwmhrdfueutareqxjw.supabase.co';
@@ -362,9 +377,63 @@ function renderCollections(valid){
 }
 
 // Correções administrativas: preservam o histórico e dependem das permissões RLS do Supabase.
-function editSale(id){const s=state.sales.find(x=>String(x.id)===String(id));if(!s)return;
-const opts=state.clients.map(c=>`<option value="${esc(c.id)}" ${String(c.id)===String(s.cliente_id)?'selected':''}>${esc([c.nome,c.sobrenome].filter(Boolean).join(' '))}</option>`).join('');
-modal('Editar venda #'+s.numero,`<form id="kmEditSale"><p class="muted">Corrija a identificação do cliente e a data. Valores, itens e pagamentos exigem conciliação para não alterar o histórico financeiro.</p><div class="field"><label>Cliente</label><select name="cliente_id"><option value="">Cliente não identificado</option>${opts}</select></div><div class="field"><label>Data da venda</label><input type="date" name="data_venda" value="${esc(s.data_venda||today())}" required></div><div class="actions">${cancel}<button class="primary" type="submit">Salvar correção</button></div></form>`);bindCancel();formSubmit('kmEditSale',async f=>{const {error}=await db.from('kmb_vendas').update({cliente_id:f.get('cliente_id')||null,data_venda:f.get('data_venda')}).eq('id',id);if(error)throw error});}
+// Edição administrativa: carregamento integral via RPC e gravações auditadas.
+async function editSale(id){
+  const sale=state.sales.find(x=>String(x.id)===String(id));
+  if(!sale)return;
+  modal('Editar venda #'+sale.numero,`<p class="muted">Carregando dados protegidos da venda...</p>`);
+  $('modalOverlay').querySelector('.modal').classList.add('kmbSaleModal');
+  try{
+    const {data,error}=await db.rpc('kmb_obter_venda_para_edicao',{p_venda_id:id});
+    if(error)throw error;
+    renderSaleEditor(data);
+  }catch(err){$('modalBody').innerHTML=`<p class="muted">Não foi possível carregar a venda: ${esc(err.message)}</p><div class="actions"><button class="secondary" type="button" id="cancelModal">Fechar</button></div>`;bindCancel()}
+}
+function renderSaleEditor(s){
+  const clients=state.clients.filter(c=>!c.arquivado||c.id===s.cliente_id);
+  const clientOptions=clients.map(c=>`<option value="${esc(c.id)}" ${c.id===s.cliente_id?'selected':''}>${esc([c.nome,c.sobrenome].filter(Boolean).join(' '))}</option>`).join('');
+  const prodOptions=state.products.filter(p=>p.ativo).sort((a,b)=>collator.compare(a.nome,b.nome));
+  const productSelect=(val)=>`<option value="">Selecione um produto</option>${prodOptions.map(p=>`<option value="${esc(p.id)}" ${p.id===val?'selected':''}>${esc(p.nome)} (${Number(p.estoque_atual)} un.)</option>`).join('')}`;
+  const disabled=Boolean(s.itens_sem_vinculo);
+  const itens=s.itens||[],parcelas=s.parcelas||[],pagamentos=s.pagamentos||[];
+  const moneyInput=n=>Number(n||0).toFixed(2);
+  const itemRow=(item={})=>`<div class="kmbEditItem" data-item>
+    <div class="field wide"><label>Produto</label><select data-field="produto_id" required>${productSelect(item.produto_id)}</select></div>
+    <div class="field"><label>Qtd.</label><input data-field="quantidade" type="number" min="1" step="1" required value="${Number(item.quantidade||1)}"></div>
+    <div class="field"><label>Preço unitário (R$)</label><input data-field="preco_unitario" type="number" min="0" step="0.01" required value="${moneyInput(item.preco_unitario)}"></div>
+    <div class="field"><label>Custo unitário (R$)</label><input data-field="custo_unitario" type="number" min="0" step="0.01" required value="${moneyInput(item.custo_unitario)}"></div>
+    <button class="secondary" type="button" data-remove-item aria-label="Remover item">Remover</button>
+  </div>`;
+  modal('Editar venda #'+esc(s.numero),`
+  <div class="kmbEditSummary"><span>Total <strong>${money(s.valor_total)}</strong></span><span>Recebido <strong>${money(s.valor_recebido)}</strong></span><span>Saldo <strong>${money(s.saldo_pendente)}</strong></span></div>
+  <div class="kmbEditNotice">Cada seção é salva separadamente e auditada. Após salvar, os dados são recarregados. Pagamentos já recebidos não são editados ou apagados aqui.</div>
+  <form id="kmbEditIdentity" class="kmbEditSection"><h3>01 · Identificação</h3><div class="formgrid"><div class="field"><label>Cliente</label><select name="cliente_id"><option value="">Não identificado</option>${clientOptions}</select></div><div class="field"><label>Data da venda</label><input name="data_venda" type="date" value="${esc(s.data_venda)}" required></div><div class="field wide"><label>Observações</label><textarea name="observacoes" rows="3">${esc(s.observacoes||'')}</textarea></div><div class="field wide"><label>Motivo da correção</label><input name="motivo" required minlength="3" placeholder="Ex.: Corrigir cadastro da venda"></div></div><button type="submit" class="primary">Salvar identificação</button></form>
+  <form id="kmbEditItems" class="kmbEditSection"><h3>02 · Produtos, quantidades e preços</h3>
+  ${disabled?'<p class="kmbEditWarning">Há itens históricos sem vínculo ao estoque. A edição de produtos está bloqueada para proteger o inventário.</p>':''}
+  <div id="kmbEditItemsRows">${disabled?itens.map(i=>`<div class="kmbEditReadonly">${esc(i.descricao)} · ${Number(i.quantidade)} un. · ${money(i.preco_unitario)} cada</div>`).join(''):itens.map(itemRow).join('')}</div>
+  ${disabled?'':`<button type="button" class="secondary" id="kmbAddEditItem">+ Adicionar produto</button>`}
+  <div class="field" style="margin-top:12px"><label>Motivo da alteração</label><input name="motivo" minlength="3" required placeholder="Ex.: Corrigir quantidade registrada"></div>
+  <p class="muted" style="font-size:12px">Quando existem pagamentos ou parcelas, mudanças no total são bloqueadas nesta seção para evitar divergências financeiras.</p>
+  <button type="submit" class="primary" ${disabled?'disabled':''}>Salvar produtos</button></form>
+  <form id="kmbEditDiscount" class="kmbEditSection"><h3>03 · Desconto e cobranças</h3><div class="field"><label>Desconto total (R$)</label><input type="number" name="desconto" min="0" step="0.01" value="${moneyInput(s.desconto)}" required></div>
+  <div class="field"><label>Motivo da alteração</label><input name="motivo" minlength="3" required placeholder="Ex.: Ajuste de desconto"></div>
+  <p class="muted" style="font-size:12px">Caso o total mude e reste saldo, informe o novo planejamento. Parcelas existentes são preservadas no histórico da renegociação.</p>
+  <div class="field"><label>Novo planejamento do saldo (opcional)</label><select id="kmbPlanMode"><option value="keep">Manter plano (somente se permitido)</option><option value="new">Reorganizar saldo em uma parcela</option></select></div>
+  <div class="formgrid hidden" id="kmbPlanFields"><div class="field"><label>Vencimento do novo saldo</label><input type="date" name="novo_vencimento"></div><div class="field"><label>Forma prevista</label><select name="nova_forma"><option value="">Não informada</option><option value="pix">Pix</option><option value="dinheiro">Dinheiro</option><option value="credito">Crédito</option><option value="debito">Débito</option></select></div></div>
+  <button type="submit" class="primary">Salvar desconto / planejamento</button></form>
+  <section class="kmbEditSection"><h3>04 · Parcelas (${parcelas.length})</h3><div id="kmbEditInstallments">${parcelas.length?parcelas.map(p=>`<form class="kmbEditParcel" data-parcela="${esc(p.id)}"><div class="kmbEditReadonly">Parcela ${Number(p.numero)} · ${money(p.valor)} · ${esc(p.status)}</div><div class="formgrid"><div class="field"><label>Vencimento</label><input type="date" name="vencimento" required value="${esc(p.vencimento||'')}" ${p.status!=='pendente'?'disabled':''}></div><div class="field"><label>Forma prevista</label><select name="forma" ${p.status!=='pendente'?'disabled':''}><option value="">Não informada</option>${['pix','dinheiro','credito','debito'].map(m=>`<option value="${m}" ${p.forma_prevista===m?'selected':''}>${m.toUpperCase()}</option>`).join('')}</select></div><div class="field wide"><label>Motivo</label><input name="motivo" minlength="3" ${p.status==='pendente'?'required':'disabled'} placeholder="Ex.: Corrigir vencimento"></div></div><button class="primary" type="submit" ${p.status!=='pendente'?'disabled':''}>Salvar parcela</button></form>`).join(''):'<p class="muted">Não há parcelas registradas.</p>'}</div></section>
+  <section class="kmbEditSection"><h3>05 · Pagamentos recebidos (${pagamentos.length})</h3>${pagamentos.length?pagamentos.map(pg=>`<div class="kmbEditReadonly">${esc(pg.data_pagamento)} · ${money(pg.valor)} · ${esc(pg.forma_pagamento)}</div>`).join(''):'<p class="muted">Nenhum pagamento recebido.</p>'}<p class="muted" style="font-size:12px">Registros de recebimento são preservados para fins de auditoria.</p></section>
+  <div class="actions"><button type="button" class="secondary" id="cancelModal">Fechar</button></div>`);
+  $('modalOverlay').querySelector('.modal').classList.add('kmbSaleModal');bindCancel();
+  const rpc=async(name,args)=>{const {data,error}=await db.rpc(name,args);if(error)throw error;return data};
+  const save=async(form,cb)=>{const btn=form.querySelector('[type="submit"]');btn.disabled=true;try{await cb(new FormData(form));await refresh();toast('Alteração salva e auditada.');await editSale(s.venda_id)}catch(e){toast('Não foi possível salvar: '+e.message)}finally{btn.disabled=false}};
+  $('kmbEditIdentity').onsubmit=e=>{e.preventDefault();save(e.currentTarget,f=>rpc('kmb_editar_identificacao_venda',{p_venda_id:s.venda_id,p_versao:s.versao_edicao,p_cliente_id:f.get('cliente_id')||null,p_data:f.get('data_venda'),p_observacoes:f.get('observacoes'),p_motivo:f.get('motivo')}))};
+  if(!disabled){$('kmbAddEditItem').onclick=()=>{$('kmbEditItemsRows').insertAdjacentHTML('beforeend',itemRow({}));};$('kmbEditItemsRows').onclick=e=>{const b=e.target.closest('[data-remove-item]');if(b)b.closest('[data-item]').remove()};}
+  $('kmbEditItems').onsubmit=e=>{e.preventDefault();const rows=[...$('kmbEditItemsRows').querySelectorAll('[data-item]')];if(disabled||!rows.length){toast('É necessário pelo menos um produto editável.');return}const items=rows.map(el=>{const get=k=>el.querySelector(`[data-field="${k}"]`).value;return {produto_id:get('produto_id')||null,quantidade:Number(get('quantidade')),preco_unitario:Number(get('preco_unitario')),custo_unitario:Number(get('custo_unitario'))}});save(e.currentTarget,f=>rpc('kmb_editar_itens_venda',{p_venda_id:s.venda_id,p_versao:s.versao_edicao,p_itens:items,p_motivo:f.get('motivo')}))};
+  $('kmbPlanMode').onchange=e=>$('kmbPlanFields').classList.toggle('hidden',e.target.value!=='new');
+  $('kmbEditDiscount').onsubmit=e=>{e.preventDefault();const form=e.currentTarget;save(form,async f=>{let plans=null;if($('kmbPlanMode').value==='new'){const amount=Number(s.itens.reduce((a,i)=>a+Number(i.quantidade)*Number(i.preco_unitario),0))-Number(f.get('desconto'))-Number(s.valor_recebido);if(amount<-.001)throw Error('Desconto maior que o saldo disponível.');plans=amount>0?[{valor:Math.round(amount*100)/100,vencimento:f.get('novo_vencimento'),forma:f.get('nova_forma')||null}]:[];}return rpc('kmb_editar_desconto_venda',{p_venda_id:s.venda_id,p_versao:s.versao_edicao,p_desconto:Number(f.get('desconto')),p_parcelas:plans,p_motivo:f.get('motivo')})})};
+  document.querySelectorAll('#kmbEditInstallments .kmbEditParcel').forEach(form=>form.onsubmit=e=>{e.preventDefault();save(form,f=>rpc('kmb_editar_parcela',{p_parcela_id:form.dataset.parcela,p_versao:s.versao_edicao,p_vencimento:f.get('vencimento'),p_forma:f.get('forma')||null,p_motivo:f.get('motivo')}))});
+}
 async function cancelSale(id){const s=state.sales.find(x=>String(x.id)===String(id));if(!s)return;
 if(received(s.id)>0.001){toast('Esta venda tem pagamentos. É necessário conciliar ou estornar antes de cancelar. Nenhum dado foi alterado.');return}
 if(!confirm(`Cancelar a venda #${s.numero}? Ela sairá dos totais, mas permanecerá registrada para auditoria. O estoque NÃO será ajustado automaticamente.`))return;
