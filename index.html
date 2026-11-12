@@ -163,8 +163,68 @@ input,textarea,select{min-height:43px}
 @media(min-width:1200px){main{max-width:1220px!important}.km-dash-kpis{gap:16px}.km-dash-mainrow{gap:16px}.km-dash-panel{padding:22px}}
 @media(max-width:620px){#km-brand{font-size:15px!important;padding-left:14px!important}#km-brand::before{width:27px;height:27px;margin-right:9px}#km-menu{right:12px!important}.km-dash-heading{padding-right:4px}.km-dash-search{margin-top:10px}.km-dash-kpi strong{font-size:clamp(17px,5vw,23px)}.km-dash-kpi{padding:13px}.km-dash-panel{padding:14px}.km-dash-actions button{min-height:72px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style><style>
+
+/* K&M BUSINESS 3.0: visual premium baseado no conceito aprovado. Somente apresentação. */
+:root,:root[data-theme="dark"]{--bg:#050914!important;--card:#0b1728!important;--tx:#eff6ff!important;--mu:#a1b1c9!important;--bd:#203751!important;--pri:#0f8cff!important;color-scheme:dark!important}
+html,body{max-width:100%;overflow-x:hidden;background:#040914!important}
+body{background:radial-gradient(ellipse 70% 38% at 55% 0%,#071a36 0%,transparent 85%),#040914!important}
+#km-brand{width:242px!important;right:auto!important;height:100px!important;display:flex!important;justify-content:center!important;background:#050d1b!important;border-right:1px solid #123455!important;border-bottom:0!important;padding:12px!important;z-index:1004!important;box-shadow:none!important}
+#km-brand::before{display:none!important}
+.km-brand-monogram{font-weight:1000;letter-spacing:-.06em;font-size:33px;font-style:italic;color:white;line-height:1.02;text-shadow:0 2px 15px #0a8cff99;text-align:center}
+.km-brand-monogram span{color:#168fff}.km-brand-monogram small{display:block;letter-spacing:.13em;font-size:11px;font-style:normal;color:#2e9eff;margin-top:8px}
+.km-brand-mobile{display:none}
+#km-menu{display:none!important}
+#nav{display:flex!important;position:fixed!important;top:100px!important;left:0!important;right:auto!important;bottom:0!important;width:242px!important;max-width:none!important;transform:none!important;background:linear-gradient(180deg,#050d1b,#050b17)!important;border:0!important;border-right:1px solid #173657!important;border-radius:0!important;padding:13px 12px 22px!important;box-shadow:none!important;gap:3px!important;z-index:1002!important;overflow-y:auto!important;justify-content:flex-start!important}
+#nav button{width:100%!important;min-height:42px!important;border:1px solid transparent!important;border-radius:11px!important;padding:9px 14px!important;font-size:13px!important;font-weight:650!important;background:transparent!important;color:#c6d4e7!important;box-shadow:none!important;display:flex!important;gap:13px!important}
+#nav button b{font-size:20px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:23px!important;font-weight:600!important}
+#nav button.on{background:linear-gradient(105deg,#0063db,#084c9b 85%,#063366)!important;border:1px solid #1e91ff!important;color:white!important;box-shadow:0 0 20px #0084ff45,inset 0 1px #95d6ff36!important}
+#nav button.on b{color:#47baff}#nav button:hover:not(.on){background:#0e2541!important}
+#km-shade{display:none!important}
+main{margin-left:242px!important;max-width:none!important;width:calc(100% - 242px)!important;padding:26px clamp(16px,2vw,32px) 65px!important}
+.km-dash{max-width:1560px;margin:0 auto 28px!important}
+.km-dash-heading{margin-bottom:18px!important}.km-dash-eyebrow{display:none!important}
+.km-dash-heading h1{font-size:27px!important;font-weight:800!important}.km-dash-heading h1::first-letter{color:#2e9aff}.km-dash-heading p{font-size:13px!important}
+.km-dash-ghost{padding:10px 14px!important;border-radius:12px!important}
+.km-dash-search{max-width:570px;background:#071326!important;border:1px solid #284b72!important;height:48px!important;margin:0 0 20px auto!important;border-radius:15px!important;box-shadow:inset 0 1px #ffffff09}
+.km-dash-search input{font-size:13px!important;min-width:0!important;min-height:0!important}
+.km-dash-search button{padding:9px 13px!important;font-size:12px!important}
+.km-dash-kpis{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;margin-bottom:15px!important}
+.km-dash-kpi{min-width:0!important;padding:17px 19px!important;background:radial-gradient(circle at 95% 110%,#073263 0%,transparent 48%),linear-gradient(140deg,#0b1b30,#050b15)!important;border:1px solid #203c5d!important;border-radius:17px!important;box-shadow:inset 0 1px #ffffff0c,0 6px 20px #0004!important}
+.km-dash-kpi-icon{height:36px!important;width:38px!important;border:1px solid #155899!important;border-radius:10px!important;background:linear-gradient(145deg,#06477a,#071b36)!important;color:#46bcff!important;font-size:23px!important;display:grid!important;place-items:center!important;box-shadow:0 0 17px #008cff33!important;margin-bottom:9px!important}
+.km-dash-kpi-label{font-size:12px!important;color:#d6e4f7!important}.km-dash-kpi strong{font-size:clamp(19px,2vw,29px)!important;line-height:1.1!important;margin:8px 0!important;white-space:nowrap;letter-spacing:-.04em!important}
+.km-dash-kpi small{font-size:11px!important;color:#3bdda7!important}.km-dash-danger{background:radial-gradient(circle at 95% 110%,#3a1527 0%,transparent 48%),linear-gradient(140deg,#231321,#090e19)!important}.km-dash-danger small{color:#ff9dab!important}
+.km-dash-mainrow{grid-template-columns:minmax(0,1.6fr) minmax(310px,1fr)!important;gap:15px!important;margin-bottom:15px!important}
+.km-dash-panel{min-width:0!important;padding:17px!important;border:1px solid #244363!important;background:linear-gradient(135deg,#0b1e34,#06101e 72%)!important;border-radius:17px!important;box-shadow:inset 0 1px #ffffff10!important}
+.km-dash-panel-title b{font-size:15px!important}.km-dash-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
+.km-dash-actions button{min-height:76px!important;font-size:24px!important;border-radius:11px!important;background:linear-gradient(160deg,#10233a,#07111f)!important;border:1px solid #2b4769!important}
+.km-dash-actions span{font-size:11px!important}.km-dash-actions button.primary{background:linear-gradient(145deg,#078aff,#0051bb)!important;border-color:#53bbff!important}
+.km-dash-listrow{min-width:0!important;padding:12px 0!important}.km-dash-listrow strong{font-size:13px!important}
+.km-dash-original{display:none!important}
+.km-legacy-tools{margin-top:16px!important;border:1px solid #1c3653!important;border-radius:14px;background:#08182a!important;overflow:hidden}.km-legacy-tools summary{cursor:pointer;list-style:none;padding:15px 18px;font-size:13px;font-weight:750;color:#bddbfa}.km-legacy-tools summary span{float:right}.km-legacy-inside{padding:13px}
+.card,.item,.sheet{background-color:#0b182a!important;border-color:#213a56!important}
+#km3panel{z-index:1200!important}
+@media(max-width:1099px){.km-dash-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}.km-dash-mainrow{grid-template-columns:1fr!important}}
+@media(max-width:760px){
+ #km-brand{height:65px!important;width:100%!important;right:0!important;justify-content:flex-start!important;padding:0 16px!important;border-right:0!important;border-bottom:1px solid #1b3a5c!important}
+ .km-brand-monogram{display:none!important}.km-brand-mobile{display:inline!important;font-size:15px!important;font-weight:900!important;color:#fff!important;letter-spacing:.015em!important}.km-brand-mobile strong{color:#239bff!important}
+ #km-menu{display:grid!important;right:12px!important;top:calc(10px + env(safe-area-inset-top,0px))!important;width:44px!important;height:44px!important;padding:0!important;font-size:22px!important;background:#0d2747!important;border:1px solid #2b6ca7!important}
+ #nav{left:auto!important;right:0!important;top:0!important;bottom:0!important;width:min(285px,82vw)!important;max-width:none!important;padding:calc(74px + env(safe-area-inset-top,0px)) 12px 18px!important;transform:translateX(110%)!important;border-left:1px solid #285786!important;border-right:0!important;z-index:1003!important;box-shadow:-12px 0 60px #0008!important}
+ #nav.km-open{transform:translateX(0)!important}#nav button{min-height:44px!important;font-size:13px!important;padding:8px 12px!important}#nav button b{font-size:19px!important}
+ #km-shade.km-open{display:block!important;z-index:1001!important}
+ main{margin-left:0!important;width:100%!important;padding:calc(82px + env(safe-area-inset-top,0px)) 14px 55px!important}
+ .km-dash-heading h1{font-size:24px!important}.km-dash-heading p{font-size:12px!important}.km-dash-ghost{font-size:11px!important;padding:9px!important}
+ .km-dash-search{max-width:none!important;margin:0 0 15px!important;height:45px!important;padding:4px 5px 4px 10px!important}.km-dash-search button{padding:8px 10px!important}
+ .km-dash-kpis{gap:10px!important}.km-dash-kpi{padding:13px 12px!important;border-radius:14px!important}.km-dash-kpi strong{font-size:clamp(17px,5vw,23px)!important}.km-dash-kpi-label{font-size:11px!important}.km-dash-kpi small{font-size:10px!important}
+ .km-dash-mainrow{grid-template-columns:1fr!important;gap:12px!important}.km-dash-panel{padding:13px!important}.km-dash-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important}.km-dash-actions button{min-height:72px!important}
+ .km-dash-listrow{gap:8px!important}.km-dash-listrow strong{font-size:12px!important}
+ .km-dash-ghost{max-width:110px!important}
+}
+@media(max-width:350px){.km-dash-heading h1{font-size:21px!important}.km-dash-ghost{font-size:10px!important}.km-dash-kpi strong{font-size:17px!important}}
+@media print{#nav,#km-menu,#km-brand{display:none!important}main{margin:0!important;width:100%!important}}
+
 </style></head>
-<body><div id="km-brand">K&M <span>BUSINESS 3.0</span><small id="km-info">Central de gestão</small></div><div id="km-shade"></div><button id="km-menu" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
+<body><div id="km-brand"><div class="km-brand-monogram">K<span>&</span>M<small>BUSINESS 3.0</small></div><span class="km-brand-mobile">K&M <strong>BUSINESS 3.0</strong></span></div><div id="km-shade"></div><button id="km-menu" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
 <main id="app"></main>
 <button class="fab" id="fab" aria-label="Nova venda">+</button>
 <nav id="nav" onclick="if(event.target.closest('button'))document.body.classList.remove('kmMenuOpen')"></nav>
@@ -221,8 +281,14 @@ function stats(){
 function allInst(){const a=[];S.sales.forEach(s=>s.inst.forEach((i,n)=>a.push({s,i,n})));return a}
 
 function render(){
-  $("nav").innerHTML=[["home","📊","Início"],["cobr","🗓️","Cobranças"],["sales","🧾","Vendas"],["prod","📦","Estoque"],["clients","👥","Clientes"],["more","⚙️","Mais"]]
-   .map(([k,e,t])=>`<button class="${tab===k||(k==="more"&&["km","reports","ledger","recurring","daily","partners","inventory","alerts","forecast"].includes(tab))?"on":""}" onclick="go('${k}')"><b>${e}</b>${t}</button>`).join("");
+  $("nav").innerHTML=[
+   ["home","⌂","Dashboard"],["sales","🛒","Vendas"],["clients","♧","Clientes"],
+   ["prod","▣","Estoque"],["km","▦","Catálogo"],["ledger","↗","Financeiro"],
+   ["cobr","▤","Cobranças"],["reports","▥","Relatórios"],
+   ["recurring","↻","Recorrências"],["daily","◫","Fechamentos"],
+   ["partners","♙","Sócios"],["inventory","⇄","Movimentações"],
+   ["alerts","⚑","Alertas"],["forecast","◷","Previsões"],["more","⚙","Mais ferramentas"]
+  ].map(([k,e,t])=>`<button class="${tab===k?'on':''}" onclick="go('${k}')"><b>${e}</b><span>${t}</span></button>`).join("");
   $("fab").style.display=(["home","prod","more","km","clients","reports","ledger","recurring","daily","partners","inventory","alerts","forecast"].includes(tab))?"none":"block";
   if(tryClose())save();
   $("app").innerHTML={home,cobr,sales,prod,clients,more,km,reports,ledger,recurring,daily,partners,inventory,alerts,forecast}[tab]();
@@ -262,7 +328,7 @@ function kmDashboardPremium(){
  </section>`;
 }
 function kmSearchGlobal(){const el=document.getElementById('kmGlobalSearch');const q=el?.value?.trim();if(!q)return;window.kmGlobalTerm=q;go('sales');const input=document.querySelector('main input[type="search"],main input[placeholder*="Buscar"]');if(input){input.value=q;input.dispatchEvent(new Event('input',{bubbles:true}));}}
-function home(){return kmDashboardPremium()+homeOriginal()}
+function home(){return kmDashboardPremium()+`<details class="km-legacy-tools"><summary>Ferramentas e indicadores clássicos <span>⌄</span></summary><div class="km-legacy-inside">${homeOriginal()}</div></details>`}
 
 function homeOriginal(){
   const t=stats(),all=allInst().filter(x=>!x.i.paid).sort((a,b)=>a.i.d.localeCompare(b.i.d));
