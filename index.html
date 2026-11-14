@@ -9,35 +9,89 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <style>
-:root{--bg:#edf2f8;--card:#ffffff;--tx:#101827;--mu:#61728b;--bd:#dce5f1;--pri:#1262e4;--ok:#12a150;--bad:#e5484d;--warn:#d98a00;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#080d16;--card:#121b2a;--tx:#eef4ff;--mu:#99abc5;--bd:#263751;--pri:#287df4;--ok:#3ccf85;--bad:#ff6b6f;--warn:#f0b13a;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#080d16;--card:#121b2a;--tx:#eef4ff;--mu:#99abc5;--bd:#263751;--pri:#287df4;--ok:#3ccf85;--bad:#ff6b6f;--warn:#f0b13a;color-scheme:dark}
+:root{--bg:#050609;--card:#101217;--tx:#f2f5fb;--mu:#98a3b7;--bd:#242c39;--pri:#184a91;--ok:#53d2a1;--bad:#ff737b;--warn:#f5b85e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+:root[data-theme="light"]{--bg:#0b0d12;--card:#151a22;--tx:#f4f6fc;--mu:#a1acc1;--bd:#2b3443;--pri:#20599e;--ok:#53d2a1;--bad:#ff737b;--warn:#f5b85e;color-scheme:dark}
+:root[data-theme="dark"]{--bg:#050609;--card:#101217;--tx:#f2f5fb;--mu:#98a3b7;--bd:#242c39;--pri:#184a91;--ok:#53d2a1;--bad:#ff737b;--warn:#f5b85e;color-scheme:dark}
 *{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:84px}
+body{margin:0;background:radial-gradient(ellipse at 110% -5%,rgba(20,61,111,.23),transparent 45%),var(--bg);color:var(--tx);font:15px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:84px}
 main{max-width:640px;margin:0 auto;padding:14px}
 h1{font-size:20px;margin:4px 0 12px;letter-spacing:-.03em}h2{font-size:15px;margin:18px 0 8px;color:var(--mu);text-transform:uppercase;letter-spacing:.04em}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;box-shadow:0 3px 14px rgba(0,20,55,.045)}
+.card{background:linear-gradient(146deg,rgba(23,30,40,.89),rgba(12,14,19,.97));border:1px solid rgba(105,144,198,.17);border-radius:16px;padding:13px;box-shadow:0 6px 24px rgba(0,0,0,.23)}
 .k{font-size:12px;color:var(--mu)}.v{font-size:19px;font-weight:700;margin-top:2px}
 .ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
 .row{display:flex;gap:10px;align-items:center}.grow{flex:1;min-width:0}
 .thumb{width:52px;height:52px;border-radius:10px;object-fit:cover;background:var(--bd);flex:none;display:flex;align-items:center;justify-content:center;font-size:22px}
 .item{margin-bottom:8px}.sub{font-size:12.5px;color:var(--mu)}
-button,.btn{font:inherit;border:0;border-radius:10px;padding:9px 13px;background:var(--pri);color:#fff;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
-button.g{background:var(--bd);color:var(--tx)}button.r{background:transparent;color:var(--bad);padding:4px 8px}
+button,.btn{font:inherit;border:1px solid rgba(81,135,201,.25);border-radius:10px;padding:9px 13px;background:linear-gradient(145deg,#1d559c,#123565);color:#fff;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+button.g{background:rgba(30,55,90,.28);color:var(--tx);border:1px solid rgba(97,149,213,.18)}button.r{background:transparent;color:var(--bad);padding:4px 8px}
 .chip{font-size:11px;padding:2px 8px;border-radius:99px;font-weight:700;background:var(--bd)}
 .chip.bad{background:var(--bad);color:#fff}.chip.warn{background:var(--warn);color:#fff}.chip.ok{background:var(--ok);color:#fff}
-nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--bd);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+nav{position:fixed;left:0;right:0;bottom:0;background:rgba(10,13,20,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--bd);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
 nav button{flex:1;background:none;color:var(--mu);font-size:11px;padding:6px 2px;border-radius:8px}
 nav button b{display:block;font-size:19px}nav button.on{color:var(--pri);background:rgba(42,125,244,.09)}
 .fab{position:fixed;right:16px;bottom:calc(76px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:50%;font-size:28px;padding:0;box-shadow:0 6px 18px rgba(0,0,0,.3);z-index:6}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10;display:flex;align-items:flex-end;justify-content:center}
-.sheet{background:var(--card);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px))}
+.sheet{background:linear-gradient(145deg,#17202d,#0b0d12);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px))}
 label{display:block;font-size:12px;color:var(--mu);margin:10px 0 3px}
-input,select,textarea{width:100%;font:inherit;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx)}
+input,select,textarea{width:100%;font:inherit;padding:10px;border-radius:10px;border:1px solid var(--bd);background:#0b1018;color:var(--tx)}
 .bar{height:6px;border-radius:9px;background:var(--bd);overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--ok)}
 .inst{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid var(--bd);font-size:13.5px}
 .empty{text-align:center;color:var(--mu);padding:30px 10px}
+.day-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:23px 0 10px;padding:8px 2px 10px;border-bottom:1px solid rgba(72,110,165,.35)}
+.day-head strong{font-size:15px;letter-spacing:.025em}.day-head small{font-size:11px;color:var(--mu)}
+.sale-status{display:inline-flex;align-items:center;gap:5px;font-size:11px;letter-spacing:.02em;font-weight:700;border-radius:18px;padding:4px 9px;background:rgba(216,149,45,.12);color:var(--warn);border:1px solid rgba(216,149,45,.2)}
+.sale-status.done{background:rgba(64,176,130,.1);color:var(--ok);border-color:rgba(64,176,130,.2)}
+.sale-closed{opacity:.76}
+.glass{background:linear-gradient(130deg,rgba(22,58,109,.4),rgba(8,14,25,.36));border:1px solid rgba(80,138,219,.23);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+
+/* K&M Insights: somente interface e calculos locais */
+.section-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:14px 0}.section-top h1{margin:0}
+.pillbar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:13px 0}.pillbar button{font-size:12px;padding:10px 3px;background:#111a26;color:#9fb0cb}.pillbar button.active{background:linear-gradient(130deg,#164075,#0a213c);color:#fff;border-color:#3d6fa7}
+.hero-panel{background:linear-gradient(145deg,#121d2b,#090d13 64%);border:1px solid rgba(71,121,183,.32);border-radius:20px;padding:19px;box-shadow:inset 0 1px 0 #35517735,0 10px 38px #0005}
+.hero-panel .hero-label{font-size:11px;letter-spacing:1.8px;color:#8da3c0;text-transform:uppercase}
+.hero-panel .hero-value{font-size:32px;font-weight:800;letter-spacing:-1px;margin:5px 0}
+.spark{display:flex;align-items:end;height:88px;gap:8px;border-bottom:1px solid #24344b;margin-top:14px}.spark .spark-col{flex:1;min-width:0;text-align:center}.spark .spark-bar{background:linear-gradient(0deg,#102d50,#3778b7);border-radius:6px 6px 1px 1px;min-height:3px;margin:auto;width:75%}.spark .spark-label{color:#91a3bc;font-size:9px;margin:5px 0 3px}
+.delta{display:inline-flex;padding:4px 8px;border-radius:8px;font-size:11px;font-weight:700;background:#13273c;color:#9cc6fb}.delta.down{background:#301c28;color:#ff9baa}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.quick{display:block;text-align:left;background:linear-gradient(140deg,#172438,#0d1119);border:1px solid #2a3c54;padding:14px;border-radius:14px}.quick small{display:block;color:#95a7bf;font-size:11px;margin-top:4px}
+.finance-day{background:rgba(21,38,60,.5);border:1px solid #2a415e;border-radius:12px;padding:12px;margin:9px 0}.finance-day.today{border-color:#437cb6}
+.finance-day .sum{display:flex;justify-content:space-between;gap:10px;align-items:center}.finance-day .sum strong{font-size:14px}.finance-day .sum small{color:var(--mu);font-size:11px}
+.finance-entry{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #273647;padding:9px 0;font-size:12px}
+.finance-entry:first-of-type{margin-top:8px}
+.toolbar-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.toolbar-filters select,.toolbar-filters input{min-width:0}
+.mini-meta{font-size:11px;color:var(--mu);margin:7px 0}.receipt-card{display:flex;justify-content:space-between;align-items:center;gap:10px}.receipt-card b{display:block}
+@media(max-width:390px){.pillbar{gap:4px}.pillbar button{font-size:11px}.hero-panel .hero-value{font-size:27px}}
+
+/* KM COMMAND CENTER: exclusivamente apresentacao / consultas em memoria */
+:root{--kmglass:rgba(19,42,69,.44)}
+body{background:radial-gradient(circle at 95% -7%,rgba(16,52,99,.2),transparent 36%),#050608}
+.card,.hero-panel,.finance-day{transition:border-color .18s ease,transform .18s ease}
+.card:focus-within{border-color:#315078}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #70adff;outline-offset:2px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.km-badge{display:inline-block;border:1px solid #284c76;background:rgba(25,62,111,.25);border-radius:30px;color:#9cc5f0;font-size:11px;padding:4px 10px}
+.km-head{margin:7px 0 17px;padding:20px;border:1px solid #27466c;border-radius:20px;background:linear-gradient(120deg,rgba(24,53,87,.6),rgba(6,9,14,.96) 67%);box-shadow:0 14px 30px #0004}
+.km-head h1{font-size:25px;margin:10px 0 4px}.km-head p{color:#9baec7;font-size:12px;margin:0}
+.km-tabs{display:flex;gap:7px;overflow-x:auto;scrollbar-width:thin;margin:13px -1px 16px;padding-bottom:7px}
+.km-tabs button{flex:none;font-size:12px;padding:9px 12px;background:#0b1018;color:#a1b2c7;border:1px solid #26364b;white-space:nowrap}
+.km-tabs button.on{background:linear-gradient(135deg,#17395e,#0c2038);border-color:#3a638e;color:#fff}
+.km-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:13px 0}
+.km-kpi{padding:14px;border-radius:15px;border:1px solid rgba(58,106,165,.24);background:linear-gradient(145deg,#111b2a,#0a0d12)}
+.km-kpi span{display:block;font-size:11px;color:#9aacc3}.km-kpi strong{display:block;font-size:19px;margin:5px 0;overflow-wrap:anywhere}.km-kpi small{font-size:10px;color:#91abc5}
+.km-chart{padding:15px;border:1px solid #263c57;border-radius:15px;background:linear-gradient(145deg,rgba(16,33,53,.68),rgba(8,10,14,.96));margin:10px 0}
+.km-chartline{display:grid;grid-template-columns:minmax(74px,1fr) 2.4fr auto;gap:9px;align-items:center;font-size:12px;margin:10px 0}
+.km-chartline .track{background:#182534;height:9px;border-radius:8px;overflow:hidden}.km-chartline .fill{height:100%;background:linear-gradient(90deg,#204d7b,#65a4df);border-radius:8px}
+.km-chartline label{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#c8d7ea}
+.km-chartline b{font-size:11px;font-variant-numeric:tabular-nums}
+.km-selector{display:grid;grid-template-columns:1fr 1fr;gap:8px}.km-selector label{margin-top:4px}
+.km-report{padding:15px;border:1px solid #263c55;border-radius:14px;background:rgba(11,17,27,.78);margin:11px 0}
+.km-report h3{font-size:13px;margin:0 0 12px;color:#bdd5f2}.km-report .inst{gap:8px}.km-report .inst span:first-child{min-width:0;overflow-wrap:anywhere}
+.km-banner{border-left:3px solid #31689d;padding:10px 12px;margin:9px 0;background:rgba(24,62,107,.15);font-size:12px;color:#b5c8de}
+.km-notice{padding:12px;background:rgba(61,95,137,.13);border:1px solid #2c4562;border-radius:12px;margin:10px 0;color:#b9cbe0;font-size:12px}
+.km-compact .card.item{padding:8px 10px;margin-bottom:5px;border-radius:10px}.km-compact .thumb{height:38px;width:38px}
+.km-chip{padding:3px 7px;background:#15263b;border-radius:8px;color:#9cc3ed;font-size:11px}
+@media(min-width:700px){main{max-width:840px}.km-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.card,.hero-panel,.finance-day{transition:none}}
 </style>
 </head>
 <body>
@@ -49,6 +103,8 @@ input,select,textarea{width:100%;font:inherit;padding:10px;border-radius:10px;bo
 <script>
 const KEY="agenda_vendas_v1";
 let S={products:[],sales:[]},tab="home",filter="";
+let insightsPeriod="day",insightsOffset=0,saleFilter="all",saleDateFilter="",stockSmart="default",financeOffset=0,receiptSearch="";
+let kmPanel="executive",kmSpan="month",kmSpanOffset=0,kmStockMode="value",kmSearch="",kmCustomerQuery="",kmCritical=1,kmCompact=false,kmCatalogCompact=false,kmDateFrom="",kmDateTo="",kmMinPrice="",kmMaxPrice="",kmCalendarMode="due";
 let stockSort="default",catalogSort="default"; // Preferências apenas visuais, nunca sincronizadas
 try{const r=localStorage.getItem(KEY);if(r)S=JSON.parse(r)}catch(e){}
 for(const k of["expenses","closings","config","proofs","catalog","cphotos"])if(!Array.isArray(S[k]))S[k]=[];
@@ -73,10 +129,10 @@ function allInst(){const a=[];S.sales.forEach(s=>s.inst.forEach((i,n)=>a.push({s
 
 function render(){
   $("nav").innerHTML=[["home","📊","Início"],["cobr","🗓️","Cobranças"],["sales","🧾","Vendas"],["prod","📦","Pods"],["more","⚙️","Mais"]]
-   .map(([k,e,t])=>`<button class="${tab===k||(k==="more"&&tab==="km")?"on":""}" onclick="go('${k}')"><b>${e}</b>${t}</button>`).join("");
-  $("fab").style.display=(tab==="prod"||tab==="more"||tab==="km")?"none":"block";
+   .map(([k,e,t])=>`<button class="${tab===k||(k==="more"&&(tab==="km"||tab==="insights"||tab==="calendar"||tab==="receipts"||tab==="command"))?"on":""}" onclick="go('${k}')"><b>${e}</b>${t}</button>`).join("");
+  $("fab").style.display=(tab==="prod"||tab==="more"||["km","insights","calendar","receipts","command"].includes(tab))?"none":"block";
   if(tryClose())save();
-  $("app").innerHTML={home,cobr,sales,prod,more,km}[tab]();
+  $("app").innerHTML={home,cobr,sales,prod,more,km,insights,calendarFinance,receipts,command:kmCommand}[tab]();
 }
 const go=t=>{tab=t;render();scrollTo(0,0)};
 
@@ -101,6 +157,8 @@ function home(){
    <div class="card"><div class="k">A receber</div><div class="v warn">${money(t.open)}</div></div>
   </div>
   ${t.late>0?`<div class="card item" style="margin-top:10px;border-color:var(--bad)"><b class="bad">⚠️ ${money(t.late)} em atraso</b><div class="sub">${atr.length} parcela(s) vencida(s)</div></div>`:""}
+  <button class="quick" onclick="go('command')" style="width:100%;margin:14px 0"><b>◆ K&M Command Center</b><small>34 melhorias de gestão · análises sem gravação na nuvem</small></button>
+  <button class="quick" onclick="go('insights')" style="width:100%;margin:14px 0"><b>◈ K&M Insights</b><small>Resumo diário, semanal, quinzenal e mensal · Comparativo de vendas</small></button>
   ${kmCard()}
   <h2>Hoje (${hoje.length})</h2>${hoje.length?hoje.map(instRow).join(""):`<div class="empty">Nada vence hoje 🎉</div>`}
   <h2>Atrasadas (${atr.length})</h2>${atr.length?atr.slice(0,5).map(instRow).join(""):`<div class="empty">Nenhuma atrasada</div>`}
@@ -141,29 +199,49 @@ function proofForm(id,n){const im=getProof(id,n);modal(`<h1>🧾 Comprovante</h1
   <div class="row" style="margin-top:12px">${im?`<button class="r" onclick="setProof('${id}',${n},'');save();closeM();render()">Remover</button>`:""}<button class="g" onclick="closeM()">Fechar</button></div>`)}
 
 function sales(){
-  const q=(filter||"").toLowerCase();
-  const list=[...S.sales].filter(s=>!q||(s.client+s.name).toLowerCase().includes(q)).sort((a,b)=>b.date.localeCompare(a.date));
-  return`<h1>Vendas</h1><input placeholder="🔍 Buscar cliente ou pod" value="${esc(filter)}" oninput="filter=this.value;render();document.querySelector('input').focus()">
-  <div style="height:10px"></div>${list.length?list.map(s=>{
-   const p=paid(s),pct=Math.min(100,p/s.price*100);
-   return`<details class="card item"><summary style="list-style:none;cursor:pointer"><div class="row">${thumb(s)}<div class="grow"><b>${esc(s.name)}</b>
-   <div class="sub">${esc(s.client||"Sem nome")} · ${fmt(s.date)}</div>
-   <div class="sub">Venda ${money(s.price)} · Custo ${money(s.cost)} · Lucro <b class="${s.price-s.cost>=0?"ok":"bad"}">${money(s.price-s.cost)}</b></div></div></div>
-   <div class="bar"><i style="width:${pct}%"></i></div><div class="sub">Recebido ${money(p)} de ${money(s.price)}</div></summary>
-   ${s.inst.map((i,n)=>`<div class="inst"><span>${n+1}ª · ${fmt(i.d)} · ${money(i.v)} <span class="chip ${status(i)}">${i.paid?"pago":status(i)==="bad"?"atrasada":"aberta"}</span></span><span class="row" style="gap:6px">${i.paid?`<button class="g" onclick="proofForm('${s.id}',${n})">${getProof(s.id,n)?"🧾":"＋🧾"}</button>`:""}<button class="${i.paid?"g":""}" onclick="pay('${s.id}',${n})">${i.paid?"Desfazer":"Pago"}</button></span></div>`).join("")}
-   ${s.note?`<div class="sub" style="margin-top:6px">📝 ${esc(s.note)}</div>`:""}
-   <div class="row" style="justify-content:flex-end;flex-wrap:wrap;margin-top:8px"><button onclick="printReceipt('${s.id}')">🧾 Recibo</button><button class="g" onclick="saleForm('${s.id}')">✏️ Editar venda</button><button class="r" onclick="delSale('${s.id}')">Excluir venda</button></div></details>`}).join(""):`<div class="empty">Nenhuma venda ainda. Toque no + para registrar.</div>`}`;
+  const q=norm(filter||"");
+  const list=[...S.sales].filter(s=>{
+    const searchable=norm([s.client,s.name,s.phone,s.price,s.cost,s.note,s.date].join(" "));
+    const done=Array.isArray(s.inst)&&s.inst.length>0&&s.inst.every(i=>i.paid);
+    const partial=!done&&(s.inst||[]).some(i=>i.paid);
+    return (!q||searchable.includes(q))&&(!saleDateFilter||s.date===saleDateFilter)&&(!kmDateFrom||s.date>=kmDateFrom)&&(!kmDateTo||s.date<=kmDateTo)&&(!kmMinPrice||+s.price>=+kmMinPrice)&&(!kmMaxPrice||+s.price<=+kmMaxPrice)&&
+      (saleFilter==="all"||(saleFilter==="done"&&done)||(saleFilter==="open"&&!done)||(saleFilter==="partial"&&partial));
+  });
+  const groups=new Map();
+  list.forEach(s=>{const d=s.date||"Sem data";if(!groups.has(d))groups.set(d,[]);groups.get(d).push(s)});
+  const dates=[...groups.keys()].sort((a,b)=>b.localeCompare(a));
+  const row=s=>{
+    const p=paid(s),pct=s.price?Math.min(100,p/s.price*100):0;
+    const done=Array.isArray(s.inst)&&s.inst.length>0&&s.inst.every(i=>i.paid);
+    return`<details class="card item ${done?"sale-closed":""}"><summary style="list-style:none;cursor:pointer"><div class="row">${thumb(s)}<div class="grow"><div class="row" style="justify-content:space-between;align-items:flex-start;gap:5px"><b>${esc(s.client||"Sem nome")}</b><span class="sale-status ${done?"done":""}">${done?"✓ Pago":p>0?"◷ Parcial":"◷ Pendente"}</span></div>
+    <div class="sub">${esc(s.name)} · ${fmt(s.date)}</div>
+    <div class="sub">Venda <b>${money(s.price)}</b> · Lucro ${money(s.price-s.cost)}</div></div></div>
+    <div class="bar"><i style="width:${pct}%"></i></div><div class="sub">Recebido ${money(p)} de ${money(s.price)}</div></summary>
+    ${s.inst.map((i,n)=>`<div class="inst"><span>${n+1}ª · ${fmt(i.d)} · ${money(i.v)} <span class="chip ${status(i)}">${i.paid?"pago":status(i)==="bad"?"atrasada":"aberta"}</span></span><span class="row" style="gap:6px">${i.paid?`<button class="g" onclick="proofForm('${s.id}',${n})">${getProof(s.id,n)?"🧾":"＋🧾"}</button>`:""}<button class="${i.paid?"g":""}" onclick="pay('${s.id}',${n})">${i.paid?"Desfazer":"Pago"}</button></span></div>`).join("")}
+    ${s.note?`<div class="sub" style="margin-top:6px">📝 ${esc(s.note)}</div>`:""}
+    <div class="row" style="justify-content:flex-end;flex-wrap:wrap;margin-top:8px"><button onclick="printReceipt('${s.id}')">🧾 Recibo</button><button class="g" onclick="saleForm('${s.id}')">✏️ Editar venda</button><button class="r" onclick="delSale('${s.id}')">Excluir venda</button></div></details>`;
+  };
+  return`<h1>Vendas</h1><input id="salesSearch" placeholder="🔍 Buscar cliente, produto, telefone, valor ou data" value="${esc(filter)}" oninput="filter=this.value;render();const el=$('salesSearch');el.focus();el.setSelectionRange(el.value.length,el.value.length)">
+  <div class="toolbar-filters"><select aria-label="Filtrar situação da venda" onchange="saleFilter=this.value;render()"><option value="all" ${saleFilter==="all"?"selected":""}>Todas as situações</option><option value="open" ${saleFilter==="open"?"selected":""}>Pendentes + parciais</option><option value="partial" ${saleFilter==="partial"?"selected":""}>Pagamento parcial</option><option value="done" ${saleFilter==="done"?"selected":""}>Totalmente pagas</option></select>
+  <input type="date" aria-label="Filtrar data da venda" value="${saleDateFilter}" onchange="saleDateFilter=this.value;render()"></div>
+  <details class="km-report"><summary style="cursor:pointer;font-weight:600">⚙️ Filtros avançados: período e valor</summary><div class="km-selector"><div><label>De</label><input type="date" value="${kmDateFrom}" onchange="kmDateFrom=this.value;render()"></div><div><label>Até</label><input type="date" value="${kmDateTo}" onchange="kmDateTo=this.value;render()"></div><div><label>Valor mínimo</label><input type="number" value="${kmMinPrice}" onchange="kmMinPrice=this.value;render()" placeholder="R$"></div><div><label>Valor máximo</label><input type="number" value="${kmMaxPrice}" onchange="kmMaxPrice=this.value;render()" placeholder="R$"></div></div><button class="g" style="margin-top:9px" onclick="kmDateFrom='';kmDateTo='';kmMinPrice='';kmMaxPrice='';saleDateFilter='';saleFilter='all';render()">Limpar filtros avançados</button></details><div class="mini-meta">${list.length} venda(s) encontrada(s) ${saleDateFilter?` · <a href="#" onclick="saleDateFilter='';render();return false">Limpar data</a>`:""}</div>
+  ${dates.length?dates.map(d=>{const day=groups.get(d);day.sort((a,b)=>{
+    const aDone=a.inst?.length&&a.inst.every(i=>i.paid)?1:0,bDone=b.inst?.length&&b.inst.every(i=>i.paid)?1:0;
+    return aDone-bDone; // Ordem de cadastro mantida dentro dos dois grupos.
+  });const pending=day.filter(s=>!(s.inst?.length&&s.inst.every(i=>i.paid))).length;
+  const dayBilled=sumList(day,s=>s.price),dayPaid=sumList(day,paid),dayProfit=sumList(day,s=>s.price-s.cost);
+  const label=d==="Sem data"?d:d.split("-").reverse().join("/");
+  return`<div class="day-head"><strong>📅 ${esc(label)}</strong><small>${pending} pendente${pending===1?"":"s"} · ${day.length-pending} pago${day.length-pending===1?"":"s"}</small></div><div class="mini-meta" style="margin:-5px 3px 12px">Vendido <b>${money(dayBilled)}</b> · Recebido das vendas <b class="ok">${money(dayPaid)}</b> · Lucro bruto <b>${money(dayProfit)}</b></div>${day.map(row).join("")}`}).join(""):`<div class="empty">Nenhuma venda ainda. Toque no + para registrar.</div>`}`;
 }
-// Recibo gerado a partir da venda existente; não altera dados nem sincronização.
+// Recibo premium apenas de leitura: não modifica registros ou serviços de nuvem.
 function printReceipt(id){
   const s=S.sales.find(x=>x.id===id);if(!s)return alert("Venda não encontrada.");
-  const amount=paid(s),pending=Math.max(0,s.price-amount),full=amount>=s.price-0.009;
-  const lines=(s.inst||[]).map((i,n)=>`<tr><td>${n+1}ª · ${esc(fmt(i.d))}</td><td>${money(i.v)}</td><td>${i.paid?"Pago":"Pendente"}</td></tr>`).join("");
-  const safe=(v)=>esc(v||"Não informado");
-  const html=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Recibo K&M · ${esc(s.id)}</title><style>
-  *{box-sizing:border-box}body{margin:0;background:#eaf0f8;color:#111927;font:14px/1.5 Arial,sans-serif}.paper{max-width:620px;margin:24px auto;background:white;padding:36px;border-radius:14px;box-shadow:0 8px 35px #07172b17}.head{display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #1262e4;padding-bottom:18px}.brand{font-weight:900;font-size:25px;letter-spacing:-1px;color:#101a2b}.brand span{color:#1262e4}.muted{color:#66758c;font-size:12px}h1{font-size:19px;margin:24px 0 15px}section{padding:14px 0;border-bottom:1px solid #e3e9f2}.r{display:flex;justify-content:space-between;gap:15px;margin:5px 0}.r strong{text-align:right}table{width:100%;border-collapse:collapse;margin-top:10px}th,td{padding:9px 7px;text-align:left;border-bottom:1px solid #e3e9f2}th{color:#64758b;font-size:12px}.total{font-size:18px;font-weight:bold;color:#1262e4}.tag{font-weight:bold;color:${full?"#137744":"#a66a00"}}.small{font-size:11px;color:#7a8597;margin-top:22px}.actions{text-align:center;margin:15px}.actions button{padding:12px 20px;background:#1262e4;color:white;border:0;border-radius:8px;font-weight:bold;cursor:pointer}@media print{body{background:white}.paper{margin:0;max-width:none;padding:10mm;box-shadow:none;border-radius:0}.actions{display:none}}@media(max-width:600px){.paper{margin:8px;padding:20px}}
-  </style></head><body><div class="actions"><button onclick="window.print()">Imprimir / Salvar em PDF</button></div><div class="paper"><div class="head"><div class="brand">K<span>&</span>M <span>IMPORTS</span></div><div class="muted">RECIBO DE VENDA</div></div><h1>Comprovante de negociação</h1><section><div class="r"><span>Nº da venda</span><strong>${safe(s.id)}</strong></div><div class="r"><span>Data da venda</span><strong>${esc(fmt(s.date))}</strong></div><div class="r"><span>Cliente</span><strong>${safe(s.client)}</strong></div><div class="r"><span>Contato</span><strong>${safe(s.phone)}</strong></div></section><section><div class="r"><span>Produto</span><strong>${safe(s.name)}</strong></div><div class="r"><span>Valor total</span><strong>${money(s.price)}</strong></div></section><section><b>Parcelas e pagamentos</b><table><thead><tr><th>Parcela / vencimento</th><th>Valor</th><th>Situação</th></tr></thead><tbody>${lines}</tbody></table></section><section><div class="r"><span>Valor recebido</span><strong>${money(amount)}</strong></div><div class="r"><span>Saldo em aberto</span><strong>${money(pending)}</strong></div><div class="r total"><span>Status</span><span class="tag">${full?"QUITADO":"PAGAMENTO PENDENTE"}</span></div></section>${s.note?`<section><b>Observações</b><div>${esc(s.note)}</div></section>`:""}<p class="small">Documento gerado a partir do registro interno da venda. Não é nota fiscal e não comprova o pagamento de parcelas marcadas como pendentes.</p></div></body></html>`;
-  const w=window.open("","_blank");if(!w){alert("Autorize janelas pop-up para gerar o recibo.");return}w.document.open();w.document.write(html);w.document.close();
+  const received=paid(s),balance=Math.max(0,s.price-received),done=Array.isArray(s.inst)&&s.inst.length>0&&s.inst.every(i=>i.paid);
+  const lines=(s.inst||[]).map((i,n)=>`<tr><td>${String(n+1).padStart(2,"0")}</td><td>${esc(fmt(i.d))}</td><td style="text-align:right">${money(i.v)}</td><td><span class="pill ${i.paid?"settled":""}">${i.paid?"Pago":"Pendente"}</span></td></tr>`).join("");
+  const html=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Recibo • K&M Imports</title><style>
+  *{box-sizing:border-box}body{margin:0;background:#080a10;color:#e9eef9;font:14px/1.55 -apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif}.toolbar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px max(14px,calc((100vw - 730px)/2));background:rgba(7,10,16,.94);border-bottom:1px solid #25344c;backdrop-filter:blur(18px)}button{cursor:pointer;font-size:13px;font-weight:600;border:1px solid #31598e;border-radius:10px;padding:10px 14px;background:#143967;color:white}.close{background:#17202d;border-color:#36445a;font-size:21px;line-height:1;padding:8px 13px}.paper{max-width:690px;margin:25px auto 55px;background:#fff;color:#18202d;box-shadow:0 20px 90px #0008;border-radius:3px;overflow:hidden}.top{background:#080d16;color:white;padding:34px 38px 32px;position:relative}.top:after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0f2748,#357ac6,#0c2442)}.brand{font-size:30px;font-weight:900;letter-spacing:-1.6px;line-height:1}.brand span{color:#498fe5}.strap{font-size:10px;letter-spacing:3px;color:#9db2ce;text-transform:uppercase;margin-top:11px}.top-row{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.doc-label{text-align:right;font-size:10px;letter-spacing:1.7px;color:#a5b6ca}.doc-label b{display:block;color:white;font-size:13px;letter-spacing:.7px;margin-top:5px}.body{padding:32px 38px 34px}.eyebrow{color:#476993;letter-spacing:2px;font-size:10px;font-weight:800;text-transform:uppercase}.title{font-weight:800;font-size:22px;letter-spacing:-.6px;margin:6px 0 26px}.headline{display:grid;grid-template-columns:1fr 1fr;gap:24px}.label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8290a3}.value{font-size:14px;font-weight:700;overflow-wrap:anywhere;margin-top:3px}.value.small{font-size:12px}.block{margin-top:26px;border-top:1px solid #e5eaf2;padding-top:20px}h2{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#667993;margin:0 0 14px}.line{display:flex;justify-content:space-between;gap:18px;align-items:baseline;margin:10px 0}.line span:first-child{color:#6c788b}.line strong{text-align:right;overflow-wrap:anywhere}.product{background:#f2f5f9;border-left:3px solid #1b528c;border-radius:2px;padding:15px;margin-top:10px}.product strong{font-size:15px}.columns{display:grid;grid-template-columns:1fr 1fr;gap:14px}table{border-collapse:collapse;width:100%;font-size:12px}th{color:#65768d;text-align:left;font-size:10px;letter-spacing:.7px;text-transform:uppercase}th,td{padding:11px 7px;border-bottom:1px solid #e5eaf2}th:first-child,td:first-child{padding-left:0}.pill{display:inline-block;padding:4px 8px;border-radius:20px;color:#9b6b21;background:#fff4e2;font-size:10px;font-weight:800}.pill.settled{color:#28775d;background:#e4f7ee}.totalbox{margin-top:24px;background:#081321;color:white;padding:22px;border-radius:4px}.totalbox .line span:first-child{color:#b0c0d4}.grand{font-size:25px;font-weight:800}.state{font-size:11px;font-weight:800;letter-spacing:1px;color:${done?"#66dbb0":"#f9c775"}}.foot{border-top:1px solid #e8edf4;margin-top:28px;padding-top:15px;font-size:10px;color:#7d8a9c}.obs{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.watermark{letter-spacing:2px;font-size:10px;color:#9da9bb;margin-top:8px}@media(max-width:600px){.paper{margin:12px 8px 36px}.top{padding:26px 22px}.body{padding:25px 22px}.brand{font-size:26px}.headline{gap:16px}.columns{grid-template-columns:1fr}table{font-size:11px}th,td{padding:9px 3px}.doc-label{font-size:9px}}@media print{@page{size:A4;margin:12mm}body{background:#fff}.toolbar{display:none}.paper{margin:0;box-shadow:none;max-width:none;border-radius:0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.top{print-color-adjust:exact;-webkit-print-color-adjust:exact}.totalbox{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+  </style></head><body><div class="toolbar"><button onclick="window.print()">↗ Imprimir / salvar PDF</button><button class="close" title="Fechar recibo" aria-label="Fechar recibo" onclick="window.close();setTimeout(()=>{if(!window.closed){history.length>1?history.back():location.replace('about:blank')}},150)">×</button></div><article class="paper"><div class="top"><div class="top-row"><div><div class="brand">K<span>&</span>M <span>IMPORTS</span></div><div class="strap">Identidade • Cuidado • Confiança</div></div><div class="doc-label">DOCUMENTO DIGITAL<b>RECIBO DE VENDA</b></div></div></div><div class="body"><div class="eyebrow">Registro comercial</div><div class="title">Detalhes da sua compra</div><div class="headline"><div><div class="label">Cliente</div><div class="value">${esc(s.client||"Não informado")}</div></div><div><div class="label">Data da venda</div><div class="value">${esc(fmt(s.date))}</div></div><div><div class="label">Identificador da venda</div><div class="value small">${esc(s.id)}</div></div><div><div class="label">Contato</div><div class="value small">${esc(s.phone||"Não informado")}</div></div></div><div class="block"><h2>01 / Produto</h2><div class="product"><div class="label">Descrição</div><strong>${esc(s.name)}</strong><div class="line"><span>Quantidade registrada</span><strong>01</strong></div><div class="line"><span>Valor da venda</span><strong>${money(s.price)}</strong></div></div></div><div class="block"><h2>02 / Pagamentos</h2><table><thead><tr><th>Parcela</th><th>Vencimento</th><th style="text-align:right">Valor</th><th>Status</th></tr></thead><tbody>${lines}</tbody></table></div><div class="totalbox"><div class="line"><span>Valor total</span><strong class="grand">${money(s.price)}</strong></div><div class="line"><span>Valor recebido</span><strong>${money(received)}</strong></div><div class="line"><span>Saldo pendente</span><strong>${money(balance)}</strong></div><div class="line" style="border-top:1px solid #30445a;padding-top:14px;margin-top:15px"><span>Situação</span><strong class="state">${done?"✓ QUITADO":"◷ PAGAMENTO PENDENTE"}</strong></div></div>${s.note?`<div class="block"><h2>03 / Observações</h2><div class="obs">${esc(s.note)}</div></div>`:""}<div class="foot">Este documento reflete os registros da venda no momento de sua emissão. Não substitui nota fiscal e não comprova parcelas pendentes.<div class="watermark">K&M IMPORTS • REGISTRO DIGITAL</div></div></div></article></body></html>`;
+  const w=window.open("","_blank");if(!w){alert("Autorize janelas pop-up para abrir o recibo.");return}w.document.open();w.document.write(html);w.document.close();
 }
 
 function delSale(id){if(confirm("Excluir esta venda?")){S.sales=S.sales.filter(s=>s.id!==id);S.proofs=S.proofs.filter(x=>!x.id.startsWith(id+"_"));save();render()}}
@@ -225,7 +303,8 @@ function catUI(){
    <div class="row" style="margin:8px 0;flex-wrap:wrap"><button onclick="catAddFlav()">+ Sabores</button><button class="g" onclick="catEditModel()">Editar modelo</button><button class="r" onclick="catDelModel()">Excluir</button></div>
    <div class="sub" style="margin-bottom:6px">Toque num sabor para foto, renomear ou apagar.</div>
    <div style="display:flex;flex-wrap:wrap;gap:6px">${m.f.map((f,j)=>({f,j})).sort((a,b)=>a.f.localeCompare(b.f,"pt")).map(({f,j})=>`<button class="g" style="width:auto;padding:6px 10px" onclick="catFlav(${j})">${esc(f)}${CPH().some(y=>y.id===phId(f))?" 📷":""}</button>`).join("")||`<div class="empty">Nenhum sabor ainda. Toque em "+ Sabores".</div>`}</div>`}
-  modal(h);
+  h=`<button class="g" style="margin-bottom:10px" onclick="kmCatalogCompact=!kmCatalogCompact;catUI()">${kmCatalogCompact?"▣ Exibição padrão":"☷ Exibição compacta"}</button>`+h;
+  modal(`<div class="${kmCatalogCompact?"km-compact":""}">${h}</div>`);
 }
 function catAddBrand(){const n=(prompt("Nome da marca:")||"").trim();if(!n)return;if(CATS().some(b=>b.id===slug(n)||norm(b.name)===norm(n)))return alert("Essa marca já existe");const b={id:slug(n),name:n,models:[]};CATS().push(b);cb=b.id;cm=-1;save();catUI()}
 function catRenBrand(){const B=cBrand(),n=(prompt("Novo nome da marca:",B.name)||"").trim();if(!n)return;const o=B.name;[S.products,S.sales].forEach(L=>L.forEach(x=>{if(x.brand===o)x.brand=n;if((x.name||"").startsWith(o+" "))x.name=n+x.name.slice(o.length)}));B.name=n;save();catUI()}
@@ -246,10 +325,10 @@ const bOpts=sel=>[...new Set(S.products.map(pbKey))].sort((a,b)=>a==="~"?1:b==="
 const puf=p=>{const b=CATS().find(x=>x.name===p.brand),m=b&&b.models.find(x=>x.n===p.model);return m&&m.p||0};
 function prodList(){const q=norm(pfilter),sk=p=>+p.stock||0;
   const l=S.products.filter(p=>(!q||norm(p.name).includes(q))&&(!pfBrand||pbKey(p)===pfBrand)&&(!pfStock||(pfStock==="0"?sk(p)<=0:sk(p)<=1)))
-   .sort((a,b)=>stockSort==="az"?a.name.localeCompare(b.name,"pt",{numeric:true}):stockSort==="za"?b.name.localeCompare(a.name,"pt",{numeric:true}):(a.brand?0:1)-(b.brand?0:1)||(a.brand||"").localeCompare(b.brand||"","pt")||puf(a)-puf(b)||(a.model||"").localeCompare(b.model||"","pt",{numeric:true})||(a.flavor||a.name).localeCompare(b.flavor||b.name,"pt"));
+   .sort((a,b)=>stockSmart==="low"?sk(a)-sk(b)||a.name.localeCompare(b.name,"pt"):stockSmart==="high"?sk(b)-sk(a)||a.name.localeCompare(b.name,"pt"):stockSmart==="profit"?(b.price-b.cost)-(a.price-a.cost):stockSmart==="price"?b.price-a.price:stockSmart==="margin"?((b.price-b.cost)/(b.price||1))-((a.price-a.cost)/(a.price||1)):stockSmart==="slow"?kmLastSale(a)-kmLastSale(b):stockSort==="az"?a.name.localeCompare(b.name,"pt",{numeric:true}):stockSort==="za"?b.name.localeCompare(a.name,"pt",{numeric:true}):(a.brand?0:1)-(b.brand?0:1)||(a.brand||"").localeCompare(b.brand||"","pt")||puf(a)-puf(b)||(a.model||"").localeCompare(b.model||"","pt",{numeric:true})||(a.flavor||a.name).localeCompare(b.flavor||b.name,"pt"));
   let last="";
-  return l.length?l.map(p=>{const g=stockSort==="default"?(p.brand?p.brand+(p.model?" · "+p.model:""):"Outros"):"",h=g&&g!==last?`<h2 style="margin:14px 0 6px">${esc(g)}</h2>`:"";last=g;const vend=S.sales.filter(s=>s.pid===p.id).length;
-   return h+`<div class="card item"><div class="row">${thumb(p)}<div class="grow"><b>${esc(p.brand&&p.flavor?p.flavor:p.name)}</b>
+  return l.length?l.map(p=>{const g=stockSort==="default"&&stockSmart==="default"?(p.brand?p.brand+(p.model?" · "+p.model:""):"Outros"):"",h=g&&g!==last?`<h2 style="margin:14px 0 6px">${esc(g)}</h2>`:"";last=g;const vend=S.sales.filter(s=>s.pid===p.id).length;
+   return h+`<div class="card item"><div class="row">${kmCompact?"":thumb(p)}<div class="grow"><b>${esc(p.brand&&p.flavor?p.flavor:p.name)}</b>
    <div class="sub">Custo ${money(p.cost)} · Venda ${money(p.price)} · Lucro ${money(p.price-p.cost)}</div>
    <div class="sub">Estoque: <b class="${p.stock<=1?"bad":""}">${p.stock}</b> · Vendidos: ${vend}</div></div>
    <div style="display:grid;gap:4px"><button class="g" onclick="prodForm('${p.id}')">Editar</button></div></div></div>`}).join(""):`<div class="empty">${S.products.length?"Nenhum pod encontrado.":"Cadastre seus pods com foto, custo e preço."}</div>`}
@@ -258,6 +337,8 @@ function prod(){
   <input placeholder="🔍 Buscar pod" value="${esc(pfilter)}" oninput="pfilter=this.value;$('pl').innerHTML=prodList()" style="margin-top:10px">
   <div class="grid" style="margin-top:8px"><select onchange="pfBrand=this.value;$('pl').innerHTML=prodList()"><option value="">Todas as marcas</option>${bOpts(pfBrand)}</select>
   <select onchange="pfStock=this.value;$('pl').innerHTML=prodList()"><option value="">Todo estoque</option><option value="1" ${pfStock==="1"?"selected":""}>Estoque baixo (≤1)</option><option value="0" ${pfStock==="0"?"selected":""}>Sem estoque</option></select></div>
+  <label for="stockSmart">Estoque inteligente</label><select id="stockSmart" onchange="stockSmart=this.value;$('pl').innerHTML=prodList()"><option value="default" ${stockSmart==="default"?"selected":""}>Organização original</option><option value="low" ${stockSmart==="low"?"selected":""}>Menor quantidade primeiro</option><option value="high" ${stockSmart==="high"?"selected":""}>Maior quantidade primeiro</option><option value="profit" ${stockSmart==="profit"?"selected":""}>Maior lucro unitário</option><option value="price" ${stockSmart==="price"?"selected":""}>Maior preço de venda</option><option value="margin" ${stockSmart==="margin"?"selected":""}>Maior margem de lucro</option><option value="slow" ${stockSmart==="slow"?"selected":""}>Sem vendas recentes primeiro</option></select>
+  <div class="row" style="justify-content:space-between;margin-top:12px"><button class="g" onclick="kmCompact=!kmCompact;render()">${kmCompact?"▣ Cartões grandes":"☷ Lista compacta"}</button><button class="g" onclick="kmPanel='stock';go('command')">▤ Analisar estoque</button></div><div class="mini-meta">${S.products.length} produtos · ${S.products.filter(x=>(+x.stock||0)<=1).length} com estoque baixo/zerado · ${S.products.reduce((a,x)=>a+(+x.stock||0),0)} unidades cadastradas</div>
   <label for="stockSort">Ordenar estoque</label><select id="stockSort" onchange="stockSort=this.value;$('pl').innerHTML=prodList()"><option value="default" ${stockSort==="default"?"selected":""}>Por marca e modelo (original)</option><option value="az" ${stockSort==="az"?"selected":""}>Nome: A → Z</option><option value="za" ${stockSort==="za"?"selected":""}>Nome: Z → A</option></select>
    <div id="pl" style="margin-top:10px">${prodList()}</div>`;
 }
@@ -340,6 +421,8 @@ function exAdd(){const v=+$("xv").value,d=$("xd").value.trim();if(!v||!d)return 
 function exDel(id){S.expenses=S.expenses.filter(x=>x.id!==id);save();exOpen()}
 function more(){
   return`<h1>Ferramentas</h1>
+  <button class="quick" onclick="go('command')" style="width:100%;margin:0 0 10px"><b>◆ Command Center Premium</b><small>Dashboard, clientes, estoque, projeções, análise e ferramentas</small></button>
+  <div class="quick-grid"><button class="quick" onclick="go('insights')"><b>◈ Dashboard premium</b><small>4 períodos + comparativos</small></button><button class="quick" onclick="go('calendar')"><b>▦ Calendário financeiro</b><small>Parcelas e recebimentos</small></button><button class="quick" onclick="go('receipts')"><b>▤ Histórico de recibos</b><small>Reemitir por venda</small></button><button class="quick" onclick="go('sales')"><b>⌕ Busca inteligente</b><small>Filtros por situação e data</small></button></div>
   ${kmCard()}
   <div class="card item"><b>💸 Despesas</b><div class="sub">Frete, embalagem, anúncios e outros gastos entram no balanço.</div><button style="margin-top:8px" onclick="exOpen()">Abrir despesas</button></div>
   <div class="card item"><b>📚 Catálogo de marcas e sabores</b><div class="sub">Adicione ou edite marcas, modelos e sabores.</div><button style="margin-top:8px" onclick="catOpen()">Abrir catálogo</button></div>
@@ -482,6 +565,224 @@ function saveSale(){
   S.sales.push(s);save();closeM();tab="sales";render();
 }
 $("fab").onclick=()=>saleForm();
+
+
+/* ====== K&M INSIGHTS: SOMENTE LEITURA; NAO ALTERA FIREBASE NEM SALVA DADOS ====== */
+const dateObj=d=>new Date(d+"T12:00:00");
+const dateHuman=d=>{if(!d)return"Sem data";const [y,m,dd]=d.split("-");return `${dd}/${m}/${y}`};
+const periodWindow=(type,off=0)=>{
+  const now=today(),dt=dateObj(now),y=dt.getFullYear(),m=dt.getMonth(),day=dt.getDate();
+  let start,end;
+  if(type==="day"){start=addDays(now,off);end=start}
+  else if(type==="week"){
+    const monday=addDays(now,-((dt.getDay()+6)%7)+off*7);
+    start=monday;end=addDays(monday,6);
+  }else if(type==="fortnight"){
+    const half=day<=15?0:1;
+    const index=y*24+m*2+half+off,yy=Math.floor(index/24),mm=Math.floor((index%24+24)%24/2),hh=((index%2)+2)%2;
+    start=iso(new Date(yy,mm,hh?16:1,12));end=iso(new Date(yy,mm,hh?new Date(yy,mm+1,0).getDate():15,12));
+  }else{start=iso(new Date(y,m+off,1,12));end=iso(new Date(y,m+off+1,0,12))}
+  return {start,end};
+};
+const sumList=(items,f)=>items.reduce((v,x)=>v+(Number(f(x))||0),0);
+function periodStats(w){
+  const within=d=>!!d&&d>=w.start&&d<=w.end;
+  const sales=S.sales.filter(x=>within(x.date));
+  const expenses=(S.expenses||[]).filter(x=>within(x.date));
+  const payEntries=allInst().filter(({i})=>i.paid&&within(i.pd||i.d));
+  const billed=sumList(sales,x=>x.price),cost=sumList(sales,x=>x.cost),outlay=sumList(expenses,x=>x.v),received=sumList(payEntries,({i})=>i.v);
+  return {sales,n:sales.length,billed,cost,outlay,received,profit:billed-cost-outlay,ticket:sales.length?billed/sales.length:0,
+    open:sales.reduce((a,s)=>a+sumList((s.inst||[]).filter(i=>!i.paid),i=>i.v),0),
+    payments:payEntries.length};
+}
+const comparison=(a,b)=>{if(!b)return a?"Novo":"0%";const d=(a-b)/Math.abs(b)*100;return `${d>0?"+":""}${d.toFixed(1).replace(".",",")}%`};
+const cmpBadge=(a,b)=>`<span class="delta ${a<b?"down":""}">${comparison(a,b)} vs. anterior</span>`;
+function insights(){
+  const names={day:"Diário",week:"Semanal",fortnight:"Quinzenal",month:"Mensal"},win=periodWindow(insightsPeriod,insightsOffset),lastWin=periodWindow(insightsPeriod,insightsOffset-1),now=periodStats(win),prev=periodStats(lastWin);
+  const points=Array.from({length:6},(_,i)=>({i:i-5,w:periodWindow(insightsPeriod,insightsOffset+i-5)})).map(o=>({...o,v:periodStats(o.w).billed}));
+  const highest=Math.max(1,...points.map(p=>p.v));
+  const best={};now.sales.forEach(s=>{best[s.name]=(best[s.name]||0)+1});
+  const top=Object.entries(best).sort((a,b)=>b[1]-a[1]).slice(0,4);
+  return `<div class="section-top"><h1>◈ K&M Insights</h1><button class="g" onclick="go('more')">Voltar</button></div>
+  <div class="sub">Dashboard premium · indicadores calculados a partir dos registros atuais</div>
+  <div class="pillbar">${Object.entries(names).map(([key,label])=>`<button class="${insightsPeriod===key?"active":""}" onclick="insightsPeriod='${key}';insightsOffset=0;render()">${label}</button>`).join("")}</div>
+  <div class="row" style="justify-content:space-between;margin:12px 0"><button class="g" onclick="insightsOffset--;render()">‹ Anterior</button><div style="text-align:center"><b>${dateHuman(win.start)} ${win.start!==win.end?"a "+dateHuman(win.end):""}</b><div class="sub">${names[insightsPeriod]}</div></div><button class="g" onclick="insightsOffset++;render()" ${insightsOffset>=0?"disabled style='opacity:.45'":""}>Próximo ›</button></div>
+  <div class="hero-panel"><div class="hero-label">Faturamento do período</div><div class="hero-value">${money(now.billed)}</div>${cmpBadge(now.billed,prev.billed)}<div class="spark">${points.map((p,i)=>`<div class="spark-col"><div class="spark-bar" style="height:${Math.max(3,Math.round(p.v/highest*66))}px;${i===5?"background:linear-gradient(#5da0e5,#235185)":""}"></div><div class="spark-label">${dateHuman(p.w.start).slice(0,5)}</div></div>`).join("")}</div></div>
+  <div class="grid" style="margin-top:12px"><div class="card"><div class="k">Vendas realizadas</div><div class="v">${now.n}</div>${cmpBadge(now.n,prev.n)}</div><div class="card"><div class="k">Recebido no período</div><div class="v ok">${money(now.received)}</div>${cmpBadge(now.received,prev.received)}</div>
+  <div class="card"><div class="k">Lucro previsto*</div><div class="v ${now.profit>=0?"ok":"bad"}">${money(now.profit)}</div>${cmpBadge(now.profit,prev.profit)}</div><div class="card"><div class="k">Ticket médio</div><div class="v">${money(now.ticket)}</div>${cmpBadge(now.ticket,prev.ticket)}</div>
+  <div class="card"><div class="k">Custo dos produtos</div><div class="v">${money(now.cost)}</div></div><div class="card"><div class="k">Despesas do período</div><div class="v">${money(now.outlay)}</div></div><div class="card"><div class="k">Pendente das vendas</div><div class="v warn">${money(now.open)}</div></div><div class="card"><div class="k">Pagamentos recebidos</div><div class="v">${now.payments}</div></div></div>
+  <div class="mini-meta">* Lucro previsto = vendas − custos das vendas − despesas no período. Recebido considera a data em que a parcela foi marcada como paga (ou o vencimento, se não houver data de pagamento). O valor pendente refere-se às vendas do intervalo, não a toda a carteira.</div>
+  <h2>Mais vendidos no período</h2>${top.length?top.map(([name,count],n)=>`<div class="card item row"><span class="grow"><b>${n+1}. ${esc(name)}</b></span><span class="chip">${count} venda(s)</span></div>`).join(""):`<div class="empty">Sem vendas nesse período.</div>`}
+  <div class="quick-grid"><button class="quick" onclick="go('calendar')"><b>▦ Calendário</b><small>Vencimentos e pagamentos</small></button><button class="quick" onclick="go('sales')"><b>⌕ Ver vendas</b><small>Buscar e filtrar</small></button></div>`;
+}
+function calendarFinance(){
+  const dt=new Date();dt.setDate(1);dt.setMonth(dt.getMonth()+financeOffset);
+  const y=dt.getFullYear(),m=dt.getMonth(),days=new Date(y,m+1,0).getDate(),month=dt.toLocaleDateString("pt-BR",{month:"long",year:"numeric"});
+  const entries=allInst().filter(({i})=>{const d=i.d||"";return d.slice(0,7)===iso(dt).slice(0,7)});
+  const byDay=new Map();entries.forEach(x=>{const d=x.i.d;if(!byDay.has(d))byDay.set(d,[]);byDay.get(d).push(x)});
+  const totalDue=sumList(entries,({i})=>i.v),pending=sumList(entries.filter(({i})=>!i.paid),({i})=>i.v);
+  const padDay=n=>String(n).padStart(2,"0"),prefix=`${y}-${padDay(m+1)}-`;
+  return `<div class="section-top"><h1>▦ Calendário financeiro</h1><button class="g" onclick="go('more')">Voltar</button></div>
+  <div class="row" style="justify-content:space-between;margin:12px 0"><button class="g" onclick="financeOffset--;render()">‹</button><b style="text-transform:capitalize">${month}</b><button class="g" onclick="financeOffset++;render()">›</button></div>
+  <div class="grid" style="margin-bottom:13px"><div class="card"><div class="k">Total com vencimento no mês</div><div class="v">${money(totalDue)}</div></div><div class="card"><div class="k">Ainda pendente</div><div class="v warn">${money(pending)}</div></div></div>
+  <div class="mini-meta">Organizado por data de vencimento. Parcelas pagas aparecem na data original de vencimento. O resumo de recebimentos por data de pagamento fica no K&M Insights.</div>
+  ${Array.from({length:days},(_,n)=>prefix+padDay(n+1)).filter(d=>byDay.has(d)).map(d=>{const a=byDay.get(d).sort((x,y)=>Number(x.i.paid)-Number(y.i.paid));const due=sumList(a,({i})=>i.v),open=sumList(a.filter(x=>!x.i.paid),({i})=>i.v);
+  return `<div class="finance-day ${d===today()?"today":""}"><div class="sum"><strong>📅 ${dateHuman(d)} ${d===today()?"· Hoje":""}</strong><small>${a.length} parcela(s)</small></div><div class="sub" style="margin:4px 0 8px">Previsto ${money(due)} · <span class="warn">Pendente ${money(open)}</span></div>${a.map(({s,i,n})=>`<div class="finance-entry"><div class="grow"><b>${esc(s.client||"Sem cliente")}</b><div class="sub">${esc(s.name)} · ${n+1}ª parcela</div></div><div style="text-align:right"><b>${money(i.v)}</b><div class="sub ${i.paid?"ok":"warn"}">${i.paid?"✓ Pago":"Pendente"}</div></div></div>`).join("")}</div>`}).join("")||`<div class="empty">Nenhuma parcela com vencimento neste mês.</div>`}`;
+}
+function receipts(){
+  const q=norm(receiptSearch),list=[...S.sales].filter(s=>!q||norm([s.client,s.name,s.date,s.id,s.price].join(" ")).includes(q)).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+  return `<div class="section-top"><h1>▤ Histórico de recibos</h1><button class="g" onclick="go('more')">Voltar</button></div>
+  <div class="sub">Recibos reemitidos das vendas cadastradas. Nenhuma cópia nova é salva.</div><input id="receiptSearch" style="margin:12px 0" placeholder="Buscar cliente, produto, data ou valor" value="${esc(receiptSearch)}" oninput="receiptSearch=this.value;render();const e=$('receiptSearch');e.focus();e.setSelectionRange(e.value.length,e.value.length)">
+  <div class="mini-meta">${list.length} registro(s) disponível(is)</div>
+  ${list.map(s=>{const p=paid(s),done=s.inst?.length&&s.inst.every(i=>i.paid);return `<div class="card item receipt-card"><div class="grow"><b>${esc(s.client||"Sem nome")}</b><div class="sub">${esc(s.name)} · ${dateHuman(s.date)}</div><div class="sub">${money(s.price)} · <span class="${done?"ok":"warn"}">${done?"Quitado":`Recebido ${money(p)}`}</span></div></div><div style="display:grid;gap:5px"><button onclick="printReceipt('${s.id}')">🧾 Abrir</button><button class="g" onclick="kmReceiptShare('${s.id}')">Compartilhar</button></div></div>`}).join("")||`<div class="empty">Nenhum recibo encontrado.</div>`}`;
+}
+
+
+/* ===================================================================
+   K&M COMMAND CENTER 3.0
+   TODOS os calculos abaixo sao de SOMENTE LEITURA em S.
+   Nao chama save(), cloudSave(), db, Firebase nem escreve campos em S.
+   Preferencias de visualizacao apenas variaveis JavaScript na sessao.
+   =================================================================== */
+const kmNum=n=>Number(n)||0;
+const kmPercent=(n,d)=>d?100*n/d:0;
+const kmDate=d=>d?new Date(d+"T12:00:00"):new Date(0);
+const kmShort=d=>d?dateHuman(d).slice(0,5):"—";
+const kmQuantity=p=>Math.max(0,kmNum(p.stock));
+const kmSaleDone=s=>(s.inst||[]).length>0&&(s.inst||[]).every(i=>i.paid);
+const kmPaid=s=>sumList((s.inst||[]).filter(i=>i.paid),i=>i.v);
+const kmLastSale=p=>{const a=S.sales.filter(s=>s.pid===p.id).map(s=>s.date).filter(Boolean).sort();return a.length?kmDate(a.at(-1)).getTime():0};
+const kmStockTotal=()=>({units:sumList(S.products,kmQuantity),cost:sumList(S.products,p=>kmQuantity(p)*kmNum(p.cost)),revenue:sumList(S.products,p=>kmQuantity(p)*kmNum(p.price)),critical:S.products.filter(p=>kmQuantity(p)<=kmCritical).length});
+const kmWithin=(d,win)=>!!d&&d>=win.start&&d<=win.end;
+const kmWin=()=>periodWindow(kmSpan,kmSpanOffset);
+const kmRank=(a,key,limit=10)=>[...a].sort((x,y)=>kmNum(key(y))-kmNum(key(x))).slice(0,limit);
+const kmCompare=(now,prev)=>`<span class="km-badge">${comparison(now,prev)} vs. período anterior</span>`;
+const kmKpi=(label,value,hint="")=>`<div class="km-kpi"><span>${label}</span><strong>${value}</strong><small>${hint}</small></div>`;
+const kmChart=(title,items,formatter=(v)=>String(v))=>{
+ const max=Math.max(1,...items.map(x=>Math.max(0,kmNum(x.value))));
+ return `<div class="km-chart"><b>${esc(title)}</b>${items.length?items.map(x=>`<div class="km-chartline"><label title="${esc(x.label)}">${esc(x.label)}</label><div class="track"><div class="fill" style="width:${Math.max(0,kmPercent(x.value,max))}%"></div></div><b>${formatter(x.value)}</b></div>`).join(""):`<div class="empty">Sem registros nesse período.</div>`}</div>`;
+};
+const kmCurrentSales=()=>S.sales.filter(s=>kmWithin(s.date,kmWin()));
+const kmVisits=()=>{
+ const res=new Map(); S.sales.forEach(s=>{const phone=String(s.phone||"").replace(/\D/g,"");const name=norm(s.client||"");if(!phone&&!name)return;const key=phone?"p:"+phone:"n:"+name;
+ const x=res.get(key)||{key,client:s.client||"Sem nome",phone:s.phone||"",sales:[],total:0,received:0};x.sales.push(s);x.total+=kmNum(s.price);x.received+=kmPaid(s);res.set(key,x)});
+ return [...res.values()].sort((a,b)=>b.total-a.total);
+};
+function kmReceiptShare(id){
+ const s=S.sales.find(x=>x.id===id);if(!s)return;
+ const text=`K&M IMPORTS | Registro de venda\nCliente: ${s.client||"Não informado"}\nData: ${dateHuman(s.date)}\nProduto: ${s.name}\nValor: ${money(s.price)}\nRecebido: ${money(kmPaid(s))}\nPendente: ${money(Math.max(0,s.price-kmPaid(s)))}\nSituação: ${kmSaleDone(s)?"Quitado":"Pendente"}\nDocumento informativo, não substitui nota fiscal.`;
+ if(navigator.share)navigator.share({title:"Registro K&M Imports",text}).catch(()=>{});
+ else if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>alert("Resumo do recibo copiado."),()=>prompt("Copie o texto:",text));
+ else prompt("Copie o texto:",text);
+}
+function kmCustomerDetails(key){
+ const c=kmVisits().find(x=>x.key===key);if(!c)return;
+ const sorted=[...c.sales].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+ modal(`<div class="row" style="justify-content:space-between"><h1 style="margin:0">Histórico de cliente</h1><button class="g" onclick="closeM()">✕</button></div><h2>${esc(c.client)}</h2><div class="sub">${esc(c.phone||"Telefone não cadastrado")}</div><div class="km-kpis">${kmKpi("Compras",c.sales.length)}${kmKpi("Total comprado",money(c.total))}${kmKpi("Total recebido",money(c.received))}${kmKpi("Saldo",money(c.total-c.received))}</div>${sorted.map(s=>`<div class="card item"><b>${esc(s.name)}</b><div class="sub">${dateHuman(s.date)} · ${money(s.price)} · ${kmSaleDone(s)?"Quitado":"Pendente"}</div><div class="row" style="margin-top:8px"><button class="g" onclick="printReceipt('${esc(s.id)}')">Recibo</button><button class="g" onclick="kmReceiptShare('${esc(s.id)}')">Compartilhar</button></div></div>`).join("")}`);
+}
+const kmRecentSale=(p)=>{
+ const last=kmLastSale(p);return last?Math.max(0,Math.floor((kmDate(today())-last)/864e5)):null;
+};
+function kmPanelExecutive(){
+ const w=kmWin(),current=periodStats(w),prior=periodStats(periodWindow(kmSpan,kmSpanOffset-1)),stock=kmStockTotal();
+ const week=Array.from({length:7},(_,i)=>({d:addDays(today(),-6+i)}));
+ const pending=allInst().filter(x=>!x.i.paid),late=pending.filter(x=>x.i.d<today());
+ const topProduct=new Map(); current.sales.forEach(s=>{const k=s.name||"Produto sem nome",v=topProduct.get(k)||{label:k,value:0};v.value++;topProduct.set(k,v)});
+ const clients=kmVisits();
+ return `<div class="km-kpis">${kmKpi("Faturamento",money(current.billed),comparison(current.billed,prior.billed)+" vs anterior")}${kmKpi("Lucro após despesas",money(current.profit),comparison(current.profit,prior.profit)+" vs anterior")}${kmKpi("Recebido no período",money(current.received),"Baseado nas datas de pagamento")}${kmKpi("Ticket médio",money(current.ticket),current.n+" vendas")}${kmKpi("A receber geral",money(sumList(pending,({i})=>i.v)),pending.length+" parcelas")}${kmKpi("Vencido geral",money(sumList(late,({i})=>i.v)),late.length+" parcelas")}${kmKpi("Estoque a custo",money(stock.cost),stock.units+" unidades")}${kmKpi("Clientes identificados",clients.length,clients.filter(c=>c.sales.length>1).length+" recorrentes")}</div>
+ ${kmChart("Evolução das vendas · últimos 7 dias",week.map(({d})=>({label:kmShort(d),value:sumList(S.sales.filter(s=>s.date===d),s=>s.price)})),money)}
+ ${kmChart("Produtos mais vendidos no período",kmRank([...topProduct.values()],x=>x.value,7))}
+ <div class="quick-grid"><button class="quick" onclick="kmPanel='stock';render()"><b>▣ Estoque e margem</b><small>Classificação e oportunidades</small></button><button class="quick" onclick="kmPanel='finance';render()"><b>◷ Recebimentos</b><small>Previsão e inadimplência</small></button><button class="quick" onclick="kmPanel='customers';render()"><b>♙ Clientes</b><small>Recompra e histórico</small></button><button class="quick" onclick="go('insights')"><b>▤ Resumo 4 em 1</b><small>Períodos e comparativos</small></button></div>`;
+}
+function kmPanelSales(){
+ const sales=kmCurrentSales(),billed=sumList(sales,x=>x.price),cost=sumList(sales,x=>x.cost);
+ const perProduct=new Map(),perDay=new Map();
+ sales.forEach(s=>{const k=s.name||"Produto sem nome",p=perProduct.get(k)||{label:k,value:0,revenue:0,profit:0};p.value++;p.revenue+=kmNum(s.price);p.profit+=kmNum(s.price)-kmNum(s.cost);perProduct.set(k,p);
+ const d=s.date||"Sem data",x=perDay.get(d)||{label:d,value:0,count:0};x.value+=kmNum(s.price);x.count++;perDay.set(d,x)});
+ const products=[...perProduct.values()];const margin=billed?100*(billed-cost)/billed:0;
+ const period=periodStats(kmWin()),last=periodStats(periodWindow(kmSpan,kmSpanOffset-1));
+ return `<div class="km-kpis">${kmKpi("Vendas",sales.length,comparison(sales.length,last.n)+" vs anterior")}${kmKpi("Faturamento",money(billed),comparison(billed,last.billed)+" vs anterior")}${kmKpi("Margem bruta",margin.toFixed(1).replace(".",",")+"%","Sem despesas operacionais")}${kmKpi("Ticket médio",money(period.ticket),comparison(period.ticket,last.ticket)+" vs anterior")}</div>
+ ${kmChart("Faturamento por dia",[...perDay.values()].sort((a,b)=>a.label.localeCompare(b.label)).slice(-20),money)}
+ ${kmChart("Ranking de mais vendidos",kmRank(products,p=>p.value,10))}
+ ${kmChart("Ranking de maior lucro bruto",kmRank(products,p=>p.profit,10).map(p=>({...p,value:p.profit})),money)}
+ ${kmChart("Margem de lucro dos produtos (%)",kmRank(products,p=>p.revenue?100*p.profit/p.revenue:0,10).map(p=>({...p,value:p.revenue?Math.max(0,100*p.profit/p.revenue):0})),v=>v.toFixed(1)+"%")}
+ <div class="km-report"><h3>Filtros e busca de vendas</h3><button onclick="go('sales')">Consultar registros ›</button></div>`;
+}
+function kmPanelStock(){
+ const list=[...S.products],stock=kmStockTotal(),q=norm(kmSearch),sorted=list.filter(p=>!q||norm([p.name,p.brand,p.model,p.flavor].join(" ")).includes(q));
+ const count=p=>S.sales.filter(s=>s.pid===p.id).length;
+ const scores=sorted.map(p=>({p,n:count(p),days:kmRecentSale(p),value:kmQuantity(p)*kmNum(p.cost),profit:kmQuantity(p)*(kmNum(p.price)-kmNum(p.cost)),margin:p.price?(100*(kmNum(p.price)-kmNum(p.cost))/kmNum(p.price)):0}));
+ const volume=sumList(scores,x=>x.n),abc=[...scores].sort((a,b)=>b.n-a.n),sum={},vocab=["A","B","C"];
+ let acc=0;abc.forEach(x=>{acc+=x.n;sum[x.p.id]=!volume?"Sem vendas":(acc-x.n)/volume<.8?"A":(acc-x.n)/volume<.95?"B":"C"});
+ const order={value:(a,b)=>b.value-a.value,profit:(a,b)=>b.profit-a.profit,units:(a,b)=>kmQuantity(a.p)-kmQuantity(b.p),sales:(a,b)=>b.n-a.n,slow:(a,b)=>(b.days??999999)-(a.days??999999),margin:(a,b)=>b.margin-a.margin,az:(a,b)=>(a.p.name||"").localeCompare(b.p.name||"","pt")};
+ scores.sort(order[kmStockMode]||order.value);
+ return `<div class="km-kpis">${kmKpi("Unidades disponíveis",stock.units,"Quantidade em estoque")}${kmKpi("Capital em estoque",money(stock.cost),"Estoque × custo")}${kmKpi("Venda potencial",money(stock.revenue),"Estoque × preço")}${kmKpi("Lucro bruto potencial",money(stock.revenue-stock.cost),"Se todo estoque for vendido")}</div>
+ <div class="km-banner">Curva ABC calculada pela quantidade vendida por produto cadastrado. A: ~80% das unidades; B: ~15%; C: restante. Sem movimentação histórica completa, 'parado' significa sem venda registrada ou sem venda recente no histórico disponível.</div>
+ <div class="km-selector"><div><label>Pesquisar produto</label><input id="kmStockSearch" placeholder="Marca, modelo ou sabor" value="${esc(kmSearch)}" oninput="kmSearch=this.value;kmRepaintPanel('stock')"></div><div><label>Ordenar</label><select onchange="kmStockMode=this.value;kmRepaintPanel('stock')">${[["value","Maior capital"],["profit","Maior lucro potencial"],["units","Menor estoque"],["sales","Mais vendidos"],["slow","Mais tempo sem venda"],["margin","Maior margem"],["az","Nome A–Z"]].map(([k,v])=>`<option value="${k}" ${k===kmStockMode?"selected":""}>${v}</option>`).join("")}</select></div></div>
+ <div class="row" style="justify-content:space-between;margin:12px 0"><b>Estoque crítico: até ${kmCritical} unidade(s)</b><div class="row"><button class="g" onclick="kmCritical=Math.max(0,kmCritical-1);render()">−</button><button class="g" onclick="kmCritical++;render()">+</button></div></div>
+ <div class="km-report"><h3>Produtos em atenção</h3>${scores.filter(x=>kmQuantity(x.p)<=kmCritical).slice(0,15).map(x=>`<div class="inst"><span>${esc(x.p.name)}</span><b class="warn">${kmQuantity(x.p)} un.</b></div>`).join("")||`<div class="sub">Nenhum produto no limite definido.</div>`}</div>
+ ${kmChart("Capital parado por produto (custo)",kmRank(scores,x=>x.value,8).map(x=>({label:x.p.name,value:x.value})),money)}
+ <div class="km-report"><h3>Rentabilidade e classificação (${scores.length})</h3>${scores.slice(0,70).map(x=>`<div class="inst"><span><b>${esc(x.p.name)}</b><br><span class="sub">${kmQuantity(x.p)} un. · ABC ${esc(sum[x.p.id])} · ${x.n} venda(s) · margem ${x.margin.toFixed(1)}% · ${x.days===null?"sem vendas registradas":x.days+" dias desde última venda"}</span></span><b>${money(x.value)}</b></div>`).join("")||`<div class="empty">Sem produtos cadastrados.</div>`}${scores.length>70?`<div class="sub">Mostrando 70 de ${scores.length}. Use a pesquisa para refinar.</div>`:""}</div>`;
+}
+function kmPanelCustomers(){
+ const all=kmVisits(),q=norm(kmCustomerQuery),clients=all.filter(c=>!q||norm([c.client,c.phone].join(" ")).includes(q));
+ const recurring=all.filter(c=>c.sales.length>1);const revenue=sumList(all,x=>x.total);
+ return `<div class="km-kpis">${kmKpi("Clientes identificados",all.length,"Por telefone ou nome")}${kmKpi("Clientes recorrentes",recurring.length,"Mais de uma venda")}${kmKpi("Taxa de recompra",(kmPercent(recurring.length,all.length)).toFixed(1)+"%","Entre clientes identificados")}${kmKpi("Receita identificada",money(revenue),"De clientes cadastrados nas vendas")}</div>
+ <div class="km-notice">Vendas com o mesmo telefone são reunidas. Sem telefone, o agrupamento usa o nome normalizado, podendo juntar homônimos ou separar variações de escrita. Nenhum cadastro novo é criado.</div>
+ ${kmChart("Clientes com maiores compras",kmRank(all,x=>x.total,10).map(x=>({label:x.client,value:x.total})),money)}
+ <label>Buscar cliente</label><input id="kmCustomerSearch" placeholder="Nome ou telefone" value="${esc(kmCustomerQuery)}" oninput="kmCustomerQuery=this.value;kmRepaintPanel('customers')">
+ <div class="km-report"><h3>Histórico de compras (${clients.length})</h3>${clients.slice(0,70).map(c=>`<div class="inst"><span><b>${esc(c.client)}</b><br><span class="sub">${c.sales.length} compra(s) · recebido ${money(c.received)}</span></span><span style="text-align:right"><b>${money(c.total)}</b><br><button class="g" style="margin-top:5px" onclick="kmCustomerDetails('${esc(c.key)}')">Histórico ›</button></span></div>`).join("")||`<div class="empty">Nenhum cliente localizado.</div>`}${clients.length>70?`<div class="sub">Mostrando 70 resultados.</div>`:""}</div>`;
+}
+function kmPanelFinance(){
+ const pending=allInst().filter(({i})=>!i.paid),late=pending.filter(({i})=>i.d<today()),forecast=pending.filter(({i})=>i.d>=today());
+ const ranges=[["Próximos 7 dias",6],["Próximos 15 dias",14],["Próximos 30 dias",29]];
+ const daymap=new Map();forecast.forEach(({i,s})=>{if(!i.d)return;const x=daymap.get(i.d)||{label:i.d,value:0,count:0};x.value+=kmNum(i.v);x.count++;daymap.set(i.d,x)});
+ const aging=[["1–7 dias",1,7],["8–15 dias",8,15],["16–30 dias",16,30],["Mais de 30 dias",31,99999]].map(([label,min,max])=>({label,value:sumList(late.filter(({i})=>{const d=Math.floor((kmDate(today())-kmDate(i.d))/864e5);return d>=min&&d<=max}),({i})=>i.v)}));
+ return `<div class="km-kpis">${kmKpi("Total pendente",money(sumList(pending,({i})=>i.v)),pending.length+" parcelas")}${kmKpi("Total vencido",money(sumList(late,({i})=>i.v)),late.length+" parcelas")}${kmKpi("Vence hoje",money(sumList(forecast.filter(({i})=>i.d===today()),({i})=>i.v)),"Compromissos de hoje")}${kmKpi("Vencimentos futuros",money(sumList(forecast,({i})=>i.v)),"Inclui hoje")}</div>
+ <div class="km-kpis">${ranges.map(([name,days])=>kmKpi(name,money(sumList(forecast.filter(({i})=>i.d<=addDays(today(),days)),({i})=>i.v)),"Valores previstos, não garantidos")).join("")}</div>
+ ${kmChart("Contas vencidas por idade",aging,money)}
+ ${kmChart("Agenda de recebimentos (próximas 15 datas)",[...daymap.values()].sort((a,b)=>a.label.localeCompare(b.label)).slice(0,15).map(x=>({...x,label:kmShort(x.label)})),money)}
+ <div class="km-report"><h3>Parcelas mais atrasadas</h3>${[...late].sort((a,b)=>a.i.d.localeCompare(b.i.d)).slice(0,18).map(({s,i,n})=>`<div class="inst"><span><b>${esc(s.client||"Sem nome")}</b><br><span class="sub">${kmShort(i.d)} · ${n+1}ª parcela</span></span><b class="bad">${money(i.v)}</b></div>`).join("")||`<div class="sub">Nenhuma parcela vencida no registro atual.</div>`}</div>
+ <div class="quick-grid"><button class="quick" onclick="go('calendar')"><b>Calendário financeiro</b><small>Consultar vencimentos</small></button><button class="quick" onclick="go('cobr')"><b>Cobranças</b><small>Ver parcelas pendentes</small></button></div>`;
+}
+function kmPanelTools(){
+ const alerts=kmAlerts(),stock=kmStockTotal(),upcoming=allInst().filter(({i})=>!i.paid&&i.d<=addDays(today(),7));
+ const b=S.catalog||[];
+ return `<div class="km-report"><h3>Central de avisos (somente ao abrir o sistema)</h3><div class="km-banner">Nenhuma notificação push, e-mail ou aviso remoto é enviado. Tudo é calculado ao visualizar esta tela.</div>
+ <div class="inst"><span>Alertas financeiros existentes</span><b>${alerts.length}</b></div><div class="inst"><span>Produtos em estoque crítico</span><b>${stock.critical}</b></div><div class="inst"><span>Parcelas pendentes até 7 dias, incluindo atrasadas</span><b>${upcoming.length}</b></div><button class="g" style="margin-top:9px" onclick="go('km')">Ver alertas detalhados</button></div>
+ <div class="km-report"><h3>Catálogo: leitura e visualização</h3><div class="km-kpis">${kmKpi("Marcas",b.length)}${kmKpi("Modelos",sumList(b,x=>(x.models||[]).length))}${kmKpi("Sabores de marca",sumList(b,x=>(x.f||[]).length))}${kmKpi("Fotos salvas",(S.cphotos||[]).length)}</div>
+ <div class="row" style="flex-wrap:wrap;margin:9px 0"><button class="g" onclick="kmCatalogCompact=!kmCatalogCompact;catOpen()">${kmCatalogCompact?"Modo compacto ativo":"Catálogo compacto"}</button><button class="g" onclick="catOpen()">Abrir catálogo</button></div></div>
+ <div class="km-report"><h3>Modos de apresentação</h3><div class="row" style="flex-wrap:wrap"><button onclick="kmCompact=!kmCompact;render()">${kmCompact?"Cartões no estoque":"Estoque compacto"}</button><button class="g" onclick="theme('dark')">Preto premium</button></div><p class="sub">Essas opções não alteram nenhum produto e não são salvas no Firebase.</p></div>
+ <div class="km-report"><h3>Relatórios para download</h3><div class="row" style="flex-wrap:wrap"><button onclick="kmExportCSV('sales')">Exportar vendas CSV</button><button class="g" onclick="kmExportCSV('stock')">Exportar estoque CSV</button><button class="g" onclick="kmExportCSV('customers')">Exportar clientes CSV</button><button class="g" onclick="kmPrintSummary()">Imprimir resumo / PDF</button></div><p class="sub" style="margin-top:10px">Os relatórios são gerados no dispositivo. Nada é gravado na nuvem.</p></div>
+ <div class="km-report"><h3>Atalhos de operação</h3><div class="quick-grid"><button class="quick" onclick="go('receipts')">Histórico de recibos</button><button class="quick" onclick="go('sales')">Busca e filtros</button><button class="quick" onclick="go('insights')">Resumo 4 em 1</button><button class="quick" onclick="go('prod')">Estoque</button></div></div>`;
+}
+const kmCsvCell=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+function kmExportCSV(which){
+ let rows=[],name="";
+ if(which==="sales"){name="vendas";rows=[["Data","Cliente","Telefone","Produto","Valor","Custo","Recebido","Pendente","Situacao"],...S.sales.map(s=>[s.date,s.client,s.phone,s.name,s.price,s.cost,kmPaid(s),kmNum(s.price)-kmPaid(s),kmSaleDone(s)?"Pago":"Pendente"])]}
+ else if(which==="stock"){name="estoque";rows=[["Marca","Modelo","Produto","Quantidade","Custo unitario","Preco unitario"],...S.products.map(p=>[p.brand,p.model,p.name,p.stock,p.cost,p.price])]}
+ else{name="clientes";rows=[["Cliente","Telefone","Compras","Total","Recebido"],...kmVisits().map(c=>[c.client,c.phone,c.sales.length,c.total,c.received])]}
+ const csv='\ufeff'+rows.map(row=>row.map(kmCsvCell).join(';')).join('\r\n');
+ const url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));const a=document.createElement("a");a.href=url;a.download=`KM_${name}_${today()}.csv`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
+}
+function kmPrintSummary(){
+ const w=kmWin(),a=periodStats(w),b=periodStats(periodWindow(kmSpan,kmSpanOffset-1));
+ const html=`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Relatório K&M</title><style>body{font:14px Arial,sans-serif;color:#192338;max-width:720px;margin:40px auto;padding:20px}header{background:#0a1422;color:white;padding:30px}h1{margin:0}table{border-collapse:collapse;width:100%}td{padding:12px;border-bottom:1px solid #ddd}td:last-child{text-align:right;font-weight:bold}.sub{color:#65748a;font-size:12px}button{margin:18px 0;padding:12px}@media print{button{display:none}body{margin:0}}</style></head><body><header><h1>K&M IMPORTS</h1><p>Relatório financeiro • ${dateHuman(w.start)} a ${dateHuman(w.end)}</p></header><button onclick="print()">Imprimir / PDF</button><table>${[["Vendas",a.n],["Faturamento",money(a.billed)],["Custo de produtos",money(a.cost)],["Despesas",money(a.outlay)],["Lucro após despesas",money(a.profit)],["Recebido no período",money(a.received)],["Ticket médio",money(a.ticket)],["Comparativo de faturamento",comparison(a.billed,b.billed)]].map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join("")}</table><p class="sub">Gerado de informações existentes no momento da consulta. Não substitui documento fiscal.</p></body></html>`;
+ const win=window.open("","_blank");if(!win){alert("Permita pop-ups para abrir o relatório.");return}win.document.write(html);win.document.close();
+}
+function kmRepaintPanel(which){
+ const focused=document.activeElement,selection=focused&&focused.tagName==="INPUT"?{id:focused.id,start:focused.selectionStart,end:focused.selectionEnd}:null;
+ const box=$("kmPanelContent");if(box){box.innerHTML=kmSections[which]();if(selection&&selection.id){const el=$(selection.id);if(el){el.focus();if(selection.start!=null&&el.type==="text")el.setSelectionRange(selection.start,selection.end)}}}
+}
+const kmSections={executive:kmPanelExecutive,sales:kmPanelSales,stock:kmPanelStock,customers:kmPanelCustomers,finance:kmPanelFinance,tools:kmPanelTools};
+function kmCommand(){
+ const labels={executive:["◈","Visão geral"],sales:["▥","Vendas"],stock:["▣","Estoque"],customers:["♙","Clientes"],finance:["◷","Financeiro"],tools:["⚙","Ferramentas"]};
+ const w=kmWin(),names={day:"Diário",week:"Semanal",fortnight:"Quinzenal",month:"Mensal"};
+ return `<div class="km-head"><span class="km-badge">K&M / BUSINESS INTELLIGENCE</span><h1>Command Center</h1><p>Decisões inteligentes, dados existentes, sincronização preservada.</p></div>
+ <div class="km-tabs">${Object.entries(labels).map(([key,[icon,title]])=>`<button class="${key===kmPanel?"on":""}" onclick="kmPanel='${key}';render()">${icon} ${title}</button>`).join("")}</div>
+ ${["executive","sales"].includes(kmPanel)?`<div class="card"><div class="row" style="justify-content:space-between"><b>Período analisado</b><span class="km-chip">${names[kmSpan]}</span></div><div class="pillbar">${[["day","Dia"],["week","Semana"],["fortnight","Quinzena"],["month","Mês"]].map(([key,label])=>`<button class="${kmSpan===key?"active":""}" onclick="kmSpan='${key}';kmSpanOffset=0;render()">${label}</button>`).join("")}</div><div class="row" style="justify-content:space-between"><button class="g" onclick="kmSpanOffset--;render()">‹ Anterior</button><div class="sub" style="text-align:center">${dateHuman(w.start)}<br>a ${dateHuman(w.end)}</div><button class="g" onclick="kmSpanOffset++;render()" ${kmSpanOffset>=0?"disabled":""}>Próximo ›</button></div></div>`:""}
+ <div id="kmPanelContent">${kmSections[kmPanel]()}</div><div class="km-notice">🔒 Central analítica: somente leitura dos dados já presentes. Não altera a autenticação, coleções, gravação ou sincronização do Firebase.</div>`;
+}
 
 /* ====== NUVEM (Firebase): cole aqui as chaves do seu projeto ====== */
 const FB={apiKey:"AIzaSyBuFjPwSwD9Fv7FgT68Pd-r7jfzBvuLH4o",authDomain:"agenda-vendas-9922a.firebaseapp.com",projectId:"agenda-vendas-9922a",appId:"1:345264054186:web:80a2fa55bd025f2b5a55d3"};
