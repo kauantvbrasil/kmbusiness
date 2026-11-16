@@ -159,8 +159,10 @@ input,select,textarea{background:#101215!important;border-color:#2d333d!importan
 .chart-foot{font-size:10px;color:#8e98a8;padding-top:6px;line-height:1.5}
 @media(max-width:390px){.dashboard-chart{padding:13px 11px}.dashboard-chart-head strong{font-size:21px}.chart-controls button{padding:6px}}
 </style>
+<link rel="stylesheet" href="experience.css">
 </head>
 <body>
+<a class="km-skip" href="#app">Pular para o conteúdo</a>
 <nav id="nav"></nav>
 <main id="app"></main>
 <button class="fab" id="fab" aria-label="Nova venda">+</button>
@@ -203,7 +205,7 @@ function render(){
 }
 const go=t=>{toggleMenu(false);tab=t;render();scrollTo(0,0)};
 function toggleMenu(open){const layer=$("menuOverlay"),drawer=$("menuDrawer");if(!layer||!drawer)return;layer.classList.toggle("open",!!open);document.body.style.overflow=open?"hidden":"";if(!open)return;
-const items=[["home","◈","Início"],["sales","▤","Vendas"],["cobr","◷","Cobranças"],["prod","▣","Estoque"],["ops","⚡","Central de operações"],["command","◆","Command Center"],["insights","▥","Resumo 4 em 1"],["calendar","▦","Calendário financeiro"],["receipts","🧾","Recibos"],["km","📊","Inteligência financeira"],["more","⚙","Mais / Configurações"]];
+const items=[["home","◈","Início"],["sales","▤","Vendas"],["cobr","◷","Cobranças"],["prod","▣","Estoque"],["ops","⚡","Central de operações"],["command","◆","Visão estratégica"],["insights","▥","Indicadores por período"],["calendar","▦","Calendário financeiro"],["receipts","🧾","Recibos"],["km","📊","Inteligência financeira"],["more","⚙","Mais / Configurações"]];
 drawer.innerHTML=`<div class="drawer-title"><div><b>K&M IMPORTS</b><div class="sub">Seu espaço de trabalho</div></div><button class="g" onclick="toggleMenu(false)" aria-label="Fechar menu">✕</button></div>`+items.map(([k,ic,txt])=>`<button class="drawer-link ${tab===k?"on":""}" onclick="go('${k}')"><span>${ic}</span>${txt}</button>`).join("");}
 document.addEventListener("keydown",e=>{if(e.key==="Escape")toggleMenu(false)});
 
@@ -246,7 +248,7 @@ function home(){
   const low=S.products.filter(p=>(+p.stock||0)<=1).sort((a,b)=>(a.stock-b.stock)||byName(a,b));
   const gr={};S.sales.forEach(s=>{const p=S.products.find(x=>x.id===s.pid),k=rk==="mod"&&p&&p.brand&&p.model?p.brand+" "+p.model:s.name;(gr[k]=gr[k]||{n:0,l:0}).n++;gr[k].l+=s.price-s.cost});
   const rank=Object.entries(gr).sort((a,b)=>b[1].n-a[1].n||b[1].l-a[1].l).slice(0,6);
-  return`<h1>Minhas vendas</h1>
+  return`<header class="km-head"><span class="km-badge">K&M / SEU NEGÓCIO</span><h1>Mais clareza.<br>Mais tempo para cuidar.</h1><p>Seu dia de trabalho começa aqui. Confira os números e escolha o próximo passo.</p></header><section class="service-launch" aria-label="Cuidado com o cliente"><div><span class="eyebrow">RELACIONAMENTO</span><h2>Cada cliente, uma boa experiência.</h2><p>Organize um pedido, ouça quem comprou ou acompanhe o atendimento.</p></div><div class="service-actions"><a href="https://kmimportsz.github.io/formularioatendimento/" target="_blank" rel="noopener noreferrer">Preparar pedido ↗</a><a href="https://kmimportsz.github.io/formularioavaliacao/" target="_blank" rel="noopener noreferrer">Pedir avaliação ↗</a><a href="https://kmimportsz.github.io/kmdiretoria/" target="_blank" rel="noopener noreferrer">Central da equipe ↗</a></div></section><h2>Visão do negócio</h2>
   <div class="grid">
    <div class="card"><div class="k">Total vendido</div><div class="v">${money(t.sold)}</div></div>
    <div class="card"><div class="k">Quanto paguei (custo)</div><div class="v">${money(t.cost)}</div></div>
@@ -946,7 +948,7 @@ function opAddOrderLine(){const selected=$('ooProduct')?.value,p=S.products.find
 function opOrder(){return `${opBox('🛒 Calculadora de pedido',`<div class="sub">Simule compras de mercadorias. Nada é registrado no estoque ou no banco.</div><label>Produto</label><select id="ooProduct">${S.products.map(p=>`<option value="${p.id}">${esc(p.name)} · ${money(p.cost)}</option>`).join('')}</select><div class="ops-pair">${opInput('ooQty','Quantidade',1,'number','min="1"')}</div><button style="margin-top:10px" onclick="opAddOrderLine()">＋ Adicionar à simulação</button>`)}${opOrderLines.map((v,i)=>`<div class="inst"><span>${esc(v.name)} · ${v.q} un.</span><b>${money(v.q*v.cost)}</b><button class="r" onclick="opOrderLines.splice(${i},1);render()">✕</button></div>`).join('')}<div class="ops-result">Total simulado: ${money(opSum(opOrderLines,x=>x.q*x.cost))}</div><button class="g" style="margin-top:10px" onclick="opShareText('K&M | Simulação de pedido\\n'+opOrderLines.map(x=>x.name+' · '+x.q+' un. · '+money(x.q*x.cost)).join('\\n')+'\\nTotal: '+money(opSum(opOrderLines,x=>x.q*x.cost)))">Compartilhar pedido</button>`}
 function operationCenter(){const menu=[['today','✅','Tarefas do dia'],['priority','🚨','Prioridades'],['quick','⚡','Ações rápidas'],['charge','💬','Cobrança inteligente'],['share','📲','Resumo 4 em 1'],['goal','🎯','Calculadora de metas'],['forecast','💰','Fluxo de caixa'],['discount','🏷️','Análise de desconto'],['pricing','🧮','Precificação'],['health','📈','Saúde financeira'],['agenda','📅','Próximos 30 dias'],['installments','💳','Parcelamento'],['restock','📦','Reposição sugerida'],['expense','⭐','Gastos favoritos'],['products','🔎','Consulta de produtos'],['turnover','🔄','Giro de estoque'],['audit','🛡️','Inconsistências'],['order','🛒','Calculadora de pedido'],['receipts','🧾','Histórico de recibos']];
 const defs={today:opToday,priority:opPriority,quick:opQuick,charge:opChargeList,share:opShare,goal:opGoal,forecast:opForecast,discount:opDiscount,pricing:opPricing,health:opHealth,agenda:opAgenda,installments:opInstallments,restock:opRestock,expense:opExpenses,products:opProducts,turnover:opTurnover,audit:opAudit,order:opOrder,receipts:()=>`<button onclick="go('receipts')">Abrir histórico de recibos ↗</button>`};
-const chosen=menu.find(x=>x[0]===opPane)||menu[0];return `<div class="km-head"><span class="km-badge">K&M / OPERAÇÕES</span><h1>Central de operações</h1><p>Atendimento ágil e controle comercial. Simulações não alteram os dados.</p></div><div class="ops-toolbar"><button class="g" onclick="opPane='quick';render()">⚡ Atalhos</button><button class="g" onclick="opPane='today';render()">✅ Hoje</button><button class="g" onclick="opPane='priority';render()">🚨 Prioridades</button></div><details class="ops-box" ${opPane==='quick'?'open':''}><summary style="cursor:pointer;font-weight:700">☰ Escolher ferramenta · ${chosen[2]}</summary><div class="operate-grid">${menu.map(([key,ic,name])=>`<button class="${key===opPane?'on':''}" onclick="opSelectPane('${key}')">${ic} ${name}</button>`).join('')}</div></details><div class="km-section-head"><h1>${chosen[1]} ${chosen[2]}</h1></div>${defs[opPane]()}<div class="km-notice">🔒 Filtros, cálculos e favoritos visuais não usam o Firebase. Apenas as ações normais de registrar vendas, pagamentos e despesas continuam usando o salvamento original.</div>`}
+const chosen=menu.find(x=>x[0]===opPane)||menu[0];return `<div class="km-head"><span class="km-badge">K&M / OPERAÇÕES</span><h1>Central de operações</h1><p>Clareza para organizar. Tempo para atender melhor. Simulações não alteram os dados.</p></div><div class="ops-toolbar"><button class="g" onclick="opPane='quick';render()">⚡ Atalhos</button><button class="g" onclick="opPane='today';render()">✅ Hoje</button><button class="g" onclick="opPane='priority';render()">🚨 Prioridades</button></div><details class="ops-box" ${opPane==='quick'?'open':''}><summary style="cursor:pointer;font-weight:700">☰ Escolher ferramenta · ${chosen[2]}</summary><div class="operate-grid">${menu.map(([key,ic,name])=>`<button class="${key===opPane?'on':''}" onclick="opSelectPane('${key}')">${ic} ${name}</button>`).join('')}</div></details><div class="km-section-head"><h1>${chosen[1]} ${chosen[2]}</h1></div>${defs[opPane]()}<div class="km-notice">🔒 Filtros, cálculos e favoritos visuais não usam o Firebase. Apenas as ações normais de registrar vendas, pagamentos e despesas continuam usando o salvamento original.</div>`}
 
 /* ====== NUVEM (Firebase): cole aqui as chaves do seu projeto ====== */
 const FB={apiKey:"AIzaSyBuFjPwSwD9Fv7FgT68Pd-r7jfzBvuLH4o",authDomain:"agenda-vendas-9922a.firebaseapp.com",projectId:"agenda-vendas-9922a",appId:"1:345264054186:web:80a2fa55bd025f2b5a55d3"};
@@ -969,7 +971,7 @@ function listen(){
   },e=>console.error(e)));
 }
 function loginUI(){
-  $("login").innerHTML=`<div class="modal" style="align-items:center"><div class="sheet" style="border-radius:18px;max-width:380px"><h1>💨 Agenda de Vendas</h1>
+  $("login").innerHTML=`<div class="modal" style="align-items:center"><div class="sheet" style="border-radius:18px;max-width:380px"><h1>Seu negócio, bem cuidado.</h1>
   <label>E-mail</label><input id="le" type="email" autocomplete="username"><label>Senha (mín. 6 caracteres)</label><input id="lp" type="password" autocomplete="current-password">
   <div id="lm" class="bad sub" style="margin:8px 0"></div><div class="row"><button onclick="doLogin(0)">Entrar</button><button class="g" onclick="doLogin(1)">Criar conta</button></div></div></div>`;
 }
