@@ -1,0 +1,10 @@
+/* Scoped technical UI: no business-specific layout or workflows. */
+#kmTechnicalNotice{padding:12px 18px;background:#09111c;color:#d7e7ff;border-bottom:1px solid #26466b;font:13px/1.6 system-ui,sans-serif;overflow-wrap:anywhere}
+#kmTechnicalNotice[hidden]{display:none}
+#kmBackupTools{border-top:1px solid var(--bd,#242c39);margin-top:15px;padding-top:15px}
+.km-technical-actions{display:flex;gap:9px;flex-wrap:wrap}.km-technical-actions button{min-height:44px}
+#kmBackupFeedback{line-height:1.7;overflow-wrap:anywhere}#kmBackupFeedback:empty{display:none}
+#kmDiagnostics{margin-top:16px;border-top:1px solid var(--bd,#242c39);padding-top:8px}#kmDiagnostics summary{cursor:pointer;min-height:44px;display:list-item;padding:12px 0;font-size:13px}#kmDiagnosticRows{line-height:1.7}
+#app,#modal,#login{min-width:0}#modal .sheet,#login .sheet{scroll-padding-bottom:24px}#modal input,#login input,#modal select,#login select,#modal textarea{font-size:16px}
+@media(max-width:600px){.km-technical-actions button{flex:1;min-width:130px}#modal button,#login button{min-height:44px}#modal .sheet,#login .sheet{max-width:100%;overflow-x:hidden}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
