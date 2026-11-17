@@ -2,7 +2,7 @@
 
 Os botões de recibo existentes agora usam `receipt.js`. O documento é gerado a partir de uma cópia da venda no momento da abertura: cliente, contato, produto, total, valores recebidos e em aberto, forma de pagamento, datas completas, observações e identificação original da venda.
 
-- A paleta é preto e azul escuro neon. A impressão usa uma composição clara em A4, com marca e detalhes em azul profundo.
+- A paleta é fundo preto com detalhes em azul escuro neon. O PDF A4 preserva a mesma paleta escura, com textos claros e a marca K&M.
 - Um pagamento parcial recebe indicação explícita. Venda sem recebimento gera “Resumo da compra”, sem sugerir quitação. Diferenças entre parcelas e total são sinalizadas para conferência.
 - Datas de recebimento ausentes não são inventadas. Custos internos, taxas, margem e e-mail do responsável não são incluídos no documento do cliente.
 - O QR code contém exclusivamente o endereço do atendimento da K&M no WhatsApp. Não é assinatura digital nem verificação de autenticidade.
