@@ -1,0 +1,33 @@
+const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('assert');
+const root=require('path').resolve(__dirname,'..')+'/';
+const dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://kmimportsz.github.io/kmbusiness/',runScripts:'outside-only',pretendToBeVisual:true});
+const vm=require('vm'),run=code=>vm.runInContext(code,dom.getInternalVMContext());
+const w=dom.window,d=w.document;const runtimeErrors=[];w.addEventListener('error',e=>runtimeErrors.push(e.error));w.HTMLElement.prototype.scrollIntoView=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};w.scrollTo=()=>{};w.alert=msg=>{throw Error('Unexpected alert: '+msg)};w.confirm=()=>true;w.console.error=()=>{};
+for(const s of d.querySelectorAll('script:not([src])'))run(s.textContent);
+run(`S.products=[{id:'p1',name:'Produto Azul',brand:'Marca',model:'Modelo',flavor:'Azul',stock:5,cost:40,price:100}];S.sales=[{id:'sale1',pid:'p1',name:'Produto Azul',client:'Maria Silva',phone:'11912345678',date:today(),price:100,cost:40,inst:[{v:100,d:today(),paid:false}]}];S.config=[];`);
+run(fs.readFileSync(root+'central.js','utf8'));run(fs.readFileSync(root+'business3.js','utf8'));
+const click=(action,id='')=>{const b=[...d.querySelectorAll('[data-cx-action]')].find(b=>b.dataset.cxAction===action&&b.dataset.cxId===id);assert(b,action+' '+id+' exists');b.click();};
+const set=(id,value)=>{d.getElementById(id).value=value;};const flush=()=>new Promise(r=>setTimeout(r,10));
+const submit=()=>d.getElementById('cxForm').dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));
+(async()=>{
+ const bclick=(action,id='')=>{const b=[...d.querySelectorAll('[data-b3]')].find(b=>b.dataset.b3===action&&b.dataset.id===id);assert(b,action+' '+id+' exists');b.click();};
+ click('sale');set('cxSaleClient','tel:11912345678');d.getElementById('cxSaleClient').dispatchEvent(new w.Event('change'));set('cxSaleProduct','p1');d.getElementById('cxSaleProduct').dispatchEvent(new w.Event('change'));set('b3Owner','Jef');set('b3Fees','5');set('b3SaleExpenses','10');set('b3Method','PIX');d.getElementById('b3Fees').dispatchEvent(new w.Event('input',{bubbles:true}));assert(d.getElementById('b3Net').textContent.includes('45,00'));
+ const draft=JSON.parse(w.localStorage.getItem('agenda_vendas_v1_sale_draft_local'));assert.equal(draft.fields.sl.value,'Maria Silva');run('closeM();render()');bclick('draft');assert.equal(d.getElementById('sl').value,'Maria Silva');assert.equal(d.getElementById('b3Owner').value,'Jef');assert.equal(d.getElementById('b3Fees').value,'5');run('saveSale()');assert.equal(run('S.sales.length'),2);assert.equal(run('S.sales[1].fees'),5);assert.equal(run('S.sales[1].saleExpenses'),10);assert.equal(run('S.sales[1].owner'),'Jef');assert.equal(run('S.sales[1].paymentMethod'),'PIX');assert.equal(run('S.sales[1].events[0].label'),'Venda registrada');assert.equal(w.localStorage.getItem('agenda_vendas_v1_sale_draft_local'),null);
+ const saleId=run('S.sales[1].id');bclick('detail',saleId);assert(d.getElementById('modal').textContent.includes('45,00'));bclick('close');
+ // Repeat uses current inventory prices, not the historical price.
+ run('S.products[0].price=130');bclick('repeat',saleId);assert.equal(+d.getElementById('sv2').value,130);assert.equal(d.getElementById('sl').value,'Maria Silva');run('closeM();render()');
+ // Tokenized universal search supports owner plus amount.
+ set('cxSearch','Jef 100');d.getElementById('cxSearch').dispatchEvent(new w.Event('input',{bubbles:true}));assert(d.getElementById('cxResults').textContent.includes('Maria Silva'));
+ // Partial receipt preserves the sale total and creates no extra sale.
+ bclick('partial',saleId);set('b3Amount','40');set('b3PaidMethod','PIX');d.getElementById('b3Payment').dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));await flush();assert.equal(run('S.sales.length'),2);assert.equal(run(`S.sales.find(s=>s.id==='${saleId}').inst.reduce((a,i)=>a+i.v,0)`),100);assert.equal(run(`paid(S.sales.find(s=>s.id==='${saleId}'))`),40);assert.equal(run(`S.sales.find(s=>s.id==='${saleId}').inst.filter(i=>!i.paid)[0].v`),60);
+ bclick('partial',saleId);set('b3Amount','61');d.getElementById('b3Payment').dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));await flush();assert(d.getElementById('b3Feedback').textContent.includes('não pode superar'));bclick('close');
+ // Saved filters are user-local and restore the existing advanced filter variables.
+ run("saleFilter='open';kmMinPrice='50'");w.prompt=()=> 'Pendentes acima de 50';bclick('filter-save');run("saleFilter='all';kmMinPrice=''");const fid=JSON.parse(w.localStorage.getItem('agenda_vendas_v1_saved_filters_local'))[0].id;bclick('filter-load',fid);assert.equal(run('saleFilter'),'open');assert.equal(run('kmMinPrice'),'50');
+ bclick('report');assert(d.getElementById('b3Report').textContent.includes('Resultado'));assert(d.getElementById('b3Report').textContent.includes('Jef'));assert(d.getElementById('b3Report').textContent.includes('40,00'));bclick('report-close');bclick('alerts');assert(d.getElementById('b3Workspace').textContent.includes('Cobertura'));bclick('report-close');
+ // Fee-aware price simulation and a global action button.
+ d.getElementById('fab').click();bclick('pricing');set('b3PriceCost','50');set('b3PriceExpense','5');set('b3PriceFee','10');set('b3PriceMargin','40');bclick('price-calc');assert(d.getElementById('b3PricingResult').textContent.includes('110,00'));set('b3PriceMargin','90');bclick('price-calc');assert(d.getElementById('b3PricingResult').textContent.includes('menor que 100'));bclick('close');
+ // A server conflict on a receipt keeps the form and never updates local paid amounts.
+ w.firebase={};run('cloudOn=true;ready.sales=true');w.mockDb={collection:n=>({doc:id=>({id})}),runTransaction:async f=>f({get:async()=>({exists:true,data:()=>({changed:true})}),set:()=>{throw Error('must not write')}})};run('db=window.mockDb');bclick('partial',saleId);set('b3Amount','10');d.getElementById('b3Payment').dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));await flush();assert(d.getElementById('b3Feedback').textContent.includes('alterada por outra pessoa'));assert.equal(run(`paid(S.sales.find(s=>s.id==='${saleId}'))`),40);assert(!d.querySelector('#b3Payment [type="submit"]').disabled);
+ console.log('PASS: draft save/restore, sale metadata and net result, current-price repeat, token search, partial payment, overpayment rejection, saved filters, report, stock alerts, cloud conflict handling.');
+assert.equal(runtimeErrors.length,0,runtimeErrors.map(e=>e.message).join('; '));
+})().catch(e=>{console.error(e);process.exitCode=1});

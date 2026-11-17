@@ -1,0 +1,11 @@
+{
+  "name": "km-business",
+  "private": true,
+  "scripts": {
+    "test": "node tests/central.cjs && node tests/business3.cjs && node tests/inventory3.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "31.0.1",
+    "css-tree": "3.2.1"
+  }
+}

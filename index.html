@@ -303,6 +303,7 @@ function proofForm(id,n){const im=getProof(id,n);modal(`<h1>🧾 Comprovante</h1
 function sales(){
   const q=norm(filter||"");
   const list=[...S.sales].filter(s=>{
+    if(window.b3SelectedOwner&&s.owner!==window.b3SelectedOwner)return false;
     const searchable=norm([s.client,s.name,s.phone,s.price,s.cost,s.note,s.date].join(" "));
     const done=Array.isArray(s.inst)&&s.inst.length>0&&s.inst.every(i=>i.paid);
     const partial=!done&&(s.inst||[]).some(i=>i.paid);
@@ -668,9 +669,10 @@ function saveSale(){
     if(Math.abs(sum-price)>0.009&&!confirm("A soma das parcelas ("+money(sum)+") é diferente do valor da venda ("+money(price)+"). Salvar mesmo assim?"))return;
     if(redo())S.proofs=S.proofs.filter(x=>!x.id.startsWith(s.id+"_"));
     Object.assign(s,{pid,name,img:tmpImg,cost:+$("sc").value||0,price,client:$("sl").value.trim(),phone:$("sf").value,note:$("so").value.trim(),date:$("sdt").value||s.date,inst});
+    Object.assign(s,window.b3SaleMetadata||{});s.updatedAt=new Date().toISOString();s.events=[...(s.events||[]),{id:uid(),label:'Venda atualizada',actor:au?.currentUser?.email||'Registro local',at:s.updatedAt}];
     save();closeM();render();return;
   }
-  const s={id:uid(),pid,name,img:tmpImg,cost:+$("sc").value||0,price,client:$("sl").value.trim(),phone:$("sf").value,note:$("so").value.trim(),date:today(),inst};
+  const s={id:uid(),pid,name,img:tmpImg,cost:+$("sc").value||0,price,client:$("sl").value.trim(),phone:$("sf").value,note:$("so").value.trim(),date:today(),inst,...(window.b3SaleMetadata||{}),createdAt:new Date().toISOString(),events:[{id:uid(),label:'Venda registrada',actor:au?.currentUser?.email||'Registro local',at:new Date().toISOString()}]};
   const p=S.products.find(x=>x.id===pid);if(p&&p.stock>0)p.stock--;
   S.sales.push(s);save();closeM();tab="sales";render();
 }
@@ -995,5 +997,7 @@ if(FB.apiKey.startsWith("COLE")||!window.firebase){if(!CATS().length)S.catalog=s
 render();initCloud();
 </script>
 <script src="central.js"></script>
+<script src="business3.js"></script>
+<script src="inventory3.js"></script>
 </body>
 </html>
