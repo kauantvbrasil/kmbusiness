@@ -1,0 +1,10 @@
+{
+  "name": "km-business-preview",
+  "private": true,
+  "dependencies": {
+    "@supabase/supabase-js": "2.119.0"
+  },
+  "scripts": {
+    "test": "node tests/app.cjs && node tests/checkout.cjs"
+  }
+}

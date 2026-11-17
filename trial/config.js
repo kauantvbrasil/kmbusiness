@@ -1,0 +1,1 @@
+window.KM_CURRENT_CONFIG=Object.freeze({"url":"https://xzcwmhrdfueutareqxjw.supabase.co","key":"sb_publishable_n8AAf2_a_dWqYf-ASGYV3A_vBrWfW6X","gateway":"https://xzcwmhrdfueutareqxjw.supabase.co/functions/v1/km-current-gateway","catalog":"https://kmimportsz.github.io/kmbusiness/trial/catalogo/"});
