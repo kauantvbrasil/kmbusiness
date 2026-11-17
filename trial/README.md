@@ -42,3 +42,15 @@ A importação aceita o formato desta versão e mostra prévia. Importa somente 
 - Conferir as impressões digitais e contagens históricas antes/depois de qualquer publicação.
 
 Os arquivos de SQL em `database/` documentam a evolução implantada. Não executar todos novamente sobre um banco já configurado. As migrações correspondentes ficam no histórico do Supabase. O código da Edge Function está em `edge/`.
+
+## Gestão e histórico (revisão de 17/11/2026)
+
+A central inclui estoque (busca e filtro por marca, entrada, conferência e nova opção/tamanho a partir de um modelo), vendas diretas com vários itens, clientes, recebimentos parciais, despesas, agenda de retornos, relatório por período, precificação, simulador de parcelamento, consulta de movimentos e impressão do resumo da venda. São extensões da operação atual: vendas e recebimentos chamam as rotinas financeiras existentes, com escopo verificado no servidor, controle de revisão e chave de idempotência. Não há segundo livro financeiro. Registro de pagamento exige confirmação administrativa.
+
+O filtro por palavras na marca/modelo foi retirado: nomes não são uma classificação confiável de produtos. A separação por identificador da operação continua em vigor. Os modelos do catálogo aparecem no estoque do Business; adicionar uma opção/tamanho cria uma variação com quantidade independente. O catálogo agrupa marca/modelo e apresenta as opções sem expor a quantidade disponível na interface.
+
+O backup anterior enviado pelo proprietário foi verificado pelo SHA-256 e preservado integralmente em `kmuv2_private.business_documents`, com acesso somente por RPC administrativo. O arquivo contém 41 vendas, 4 despesas, 4 produtos, 10 cadastros de catálogo, 12 imagens de modelos, 2 configurações e 1 comprovante. Não colocar esse arquivo no GitHub. Os quatro produtos anteriores não são ativados na nova operação. O histórico é somente consulta; não recria lançamentos, pagamentos ou estoque e mantém o arquivo original para download. Os dados antigos do Firebase não são alterados.
+
+A importação de histórico aceita a cópia JSON do Business antigo, verifica a soma no navegador e pede revisão antes de preservar. O servidor limita tamanho, formato e autorização. O backup da nova central inclui também os arquivos históricos carregados, além dos modelos com fotos. A restauração operacional de modelos permanece separada da consulta histórica, para evitar duplicar vendas.
+
+Verificação adicional: `tests/business.cjs` e `database/test-business.sql` (exclusivamente BEGIN/ROLLBACK). Testam estoque compartilhado, nova opção, revisões, venda direta, recebimento parcial idempotente, isolamento de histórico, acesso anônimo bloqueado e integridade da importação.

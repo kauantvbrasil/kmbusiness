@@ -5,6 +5,6 @@
     "@supabase/supabase-js": "2.119.0"
   },
   "scripts": {
-    "test": "node tests/app.cjs && node tests/checkout.cjs"
+    "test": "node tests/app.cjs && node tests/checkout.cjs && node tests/business.cjs"
   }
 }

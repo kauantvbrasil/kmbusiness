@@ -54,7 +54,6 @@ create function kmuv2_private.save_model(p jsonb) returns uuid language plpgsql 
 declare pid uuid; revision_now bigint; old_stock integer; key text;begin
  perform kmuv2_private.authorize_admin();
  if coalesce(p->>'price','') !~ '^[0-9]{1,8}(\.[0-9]{1,2})?$' or coalesce(p->>'cost','') !~ '^[0-9]{1,8}(\.[0-9]{1,2})?$' or coalesce(p->>'stock','') !~ '^[0-9]{1,6}$' or p->>'kind' is distinct from 'apparel' or length(btrim(p->>'brand')) not between 1 and 80 or length(btrim(p->>'model')) not between 1 and 100 or length(btrim(p->>'size')) not between 1 and 60 or (p->>'price')::numeric<=0 or round((p->>'price')::numeric,2)<>(p->>'price')::numeric or (p->>'cost')::numeric<0 or (p->>'stock')::integer not between 0 and 100000 then raise exception 'Confira os dados do modelo.';end if;
- if lower(concat_ws(' ',p->>'brand',p->>'model')) ~ '(elfbar|elf bar|ignite|dinner lady|puffs|vape|nicotin)' then raise exception 'Este registro não pertence à operação atual.';end if;
  if p->>'photo' not like 'https://xzcwmhrdfueutareqxjw.supabase.co/storage/v1/object/public/kmuv2-photos/%' then raise exception 'Envie uma foto válida.';end if;
  if exists(select 1 from jsonb_array_elements_text(coalesce(p->'collections','[]'))x where x not in ('bestSellers','budget','newArrivals')) then raise exception 'Seleção inválida.';end if;
  key=lower(btrim(p->>'brand'))||'|'||lower(btrim(p->>'model'))||'|'||lower(btrim(p->>'size'));
