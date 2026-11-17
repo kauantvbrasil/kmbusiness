@@ -750,7 +750,7 @@ function receipts(){
   return `<div class="section-top"><h1>▤ Histórico de recibos</h1><button class="g" onclick="go('more')">Voltar</button></div>
   <div class="sub">Recibos reemitidos das vendas cadastradas. Nenhuma cópia nova é salva.</div><input id="receiptSearch" style="margin:12px 0" placeholder="Buscar cliente, produto, data ou valor" value="${esc(receiptSearch)}" oninput="receiptSearch=this.value;render();const e=$('receiptSearch');e.focus();e.setSelectionRange(e.value.length,e.value.length)">
   <div class="mini-meta">${list.length} registro(s) disponível(is)</div>
-  ${list.map(s=>{const p=paid(s),done=s.inst?.length&&s.inst.every(i=>i.paid);return `<div class="card item receipt-card"><div class="grow"><b>${esc(s.client||"Sem nome")}</b><div class="sub">${esc(s.name)} · ${dateHuman(s.date)}</div><div class="sub">${money(s.price)} · <span class="${done?"ok":"warn"}">${done?"Quitado":`Recebido ${money(p)}`}</span></div></div><div style="display:grid;gap:5px"><button onclick="printReceipt('${s.id}')">🧾 Abrir</button><button class="g" onclick="kmReceiptShare('${s.id}')">Compartilhar</button></div></div>`}).join("")||`<div class="empty">Nenhum recibo encontrado.</div>`}`;
+  ${list.map(s=>{const p=paid(s),done=s.inst?.length&&s.inst.every(i=>i.paid);return `<div class="card item receipt-card"><div class="grow"><b>${esc(s.client||"Sem nome")}</b><div class="sub">${esc(s.name)} · ${dateHuman(s.date)}</div><div class="sub">${money(s.price)} · <span class="${done?"ok":"warn"}">${done?"Quitado":`Recebido ${money(p)}`}</span></div></div><div style="display:grid;gap:5px"><button onclick="printReceipt('${s.id}')">🧾 Abrir</button><button class="g" onclick="kmReceiptShare('${s.id}')">Compartilhar PDF</button></div></div>`}).join("")||`<div class="empty">Nenhum recibo encontrado.</div>`}`;
 }
 
 
@@ -785,16 +785,13 @@ const kmVisits=()=>{
  return [...res.values()].sort((a,b)=>b.total-a.total);
 };
 function kmReceiptShare(id){
- const s=S.sales.find(x=>x.id===id);if(!s)return;
- const text=`K&M IMPORTS | Registro de venda\nCliente: ${s.client||"Não informado"}\nData: ${dateHuman(s.date)}\nProduto: ${s.name}\nValor: ${money(s.price)}\nRecebido: ${money(kmPaid(s))}\nPendente: ${money(Math.max(0,s.price-kmPaid(s)))}\nSituação: ${kmSaleDone(s)?"Quitado":"Pendente"}\nDocumento informativo, não substitui nota fiscal.`;
- if(navigator.share)navigator.share({title:"Registro K&M Imports",text}).catch(()=>{});
- else if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>alert("Resumo do recibo copiado."),()=>prompt("Copie o texto:",text));
- else prompt("Copie o texto:",text);
+ if(!S.sales.some(s=>s.id===id))return;
+ alert("Atualize o Business para carregar o compartilhamento do recibo em PDF.");
 }
 function kmCustomerDetails(key){
  const c=kmVisits().find(x=>x.key===key);if(!c)return;
  const sorted=[...c.sales].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
- modal(`<div class="row" style="justify-content:space-between"><h1 style="margin:0">Histórico de cliente</h1><button class="g" onclick="closeM()">✕</button></div><h2>${esc(c.client)}</h2><div class="sub">${esc(c.phone||"Telefone não cadastrado")}</div><div class="km-kpis">${kmKpi("Compras",c.sales.length)}${kmKpi("Total comprado",money(c.total))}${kmKpi("Total recebido",money(c.received))}${kmKpi("Saldo",money(c.total-c.received))}</div>${sorted.map(s=>`<div class="card item"><b>${esc(s.name)}</b><div class="sub">${dateHuman(s.date)} · ${money(s.price)} · ${kmSaleDone(s)?"Quitado":"Pendente"}</div><div class="row" style="margin-top:8px"><button class="g" onclick="printReceipt('${esc(s.id)}')">Recibo</button><button class="g" onclick="kmReceiptShare('${esc(s.id)}')">Compartilhar</button></div></div>`).join("")}`);
+ modal(`<div class="row" style="justify-content:space-between"><h1 style="margin:0">Histórico de cliente</h1><button class="g" onclick="closeM()">✕</button></div><h2>${esc(c.client)}</h2><div class="sub">${esc(c.phone||"Telefone não cadastrado")}</div><div class="km-kpis">${kmKpi("Compras",c.sales.length)}${kmKpi("Total comprado",money(c.total))}${kmKpi("Total recebido",money(c.received))}${kmKpi("Saldo",money(c.total-c.received))}</div>${sorted.map(s=>`<div class="card item"><b>${esc(s.name)}</b><div class="sub">${dateHuman(s.date)} · ${money(s.price)} · ${kmSaleDone(s)?"Quitado":"Pendente"}</div><div class="row" style="margin-top:8px"><button class="g" onclick="printReceipt('${esc(s.id)}')">Recibo</button><button class="g" onclick="kmReceiptShare('${esc(s.id)}')">Compartilhar PDF</button></div></div>`).join("")}`);
 }
 const kmRecentSale=(p)=>{
  const last=kmLastSale(p);return last?Math.max(0,Math.floor((kmDate(today())-last)/864e5)):null;
@@ -1005,6 +1002,7 @@ render();initCloud();
 <script src="inventory3.js"></script>
 <script src="visual.js"></script>
 <script src="vendor/qrcode-2.0.4.js"></script>
-<script src="receipt.js"></script>
+<script src="receipt-pdf.js?v=pdf-file-1"></script>
+<script src="receipt.js?v=pdf-file-1"></script>
 </body>
 </html>

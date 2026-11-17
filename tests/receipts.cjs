@@ -10,4 +10,13 @@ run("printReceipt('sale-test')");let d=popup.document;assert(d.querySelector('[d
 run('S.sales[0].inst.forEach(i=>{i.paid=true;i.pd=null});');run("printReceipt('sale-test')");d=popup.document;assert(d.querySelector('.document-meta>.status').textContent.includes('Quitado'));assert(d.querySelector('.settled-note'));assert(d.querySelector('tbody').textContent.includes('Não registrada'));popup.close();
 run('S.sales[0].inst.forEach(i=>i.paid=false)');run("printReceipt('sale-test')");d=popup.document;assert(d.querySelector('.document-meta>strong').textContent.includes('Resumo da compra'));assert(!d.querySelector('.settled-note'));popup.close();
 run(`S.sales[0].inst.forEach(i=>i.paid=true);S.sales[0].price=301;S.sales[0].client='<img src=x onerror="window.injected=true">';S.sales[0].note='<script>window.injected=true</script>';`);run("printReceipt('sale-test')");d=popup.document;assert(d.querySelector('.document-meta>.status').textContent.includes('conferir'));assert(d.querySelector('.data-review'));assert(!popup.injected);assert(!d.querySelector('.info-field img'));assert(d.querySelector('.notes').textContent.includes('<script>'));popup.close();
-assert.equal(w.writes,0);console.log('PASS receipts: amounts, statuses, full dates, real payment dates, private-field exclusion, support QR, escaped fields and no persistence changes');w.close();
+assert.equal(w.writes,0);console.log('PASS receipts: amounts, statuses, full dates, real payment dates, private-field exclusion, support QR, escaped fields and no persistence changes');(async()=>{
+ const file={name:'KM-Recibo-sale-test.pdf',type:'application/pdf',size:500};let shared=null,downloads=0;
+ w.KMReceiptPDF={create:async()=>file,canShare:nav=>typeof nav.share==='function',download:()=>downloads++};
+ run("printReceipt('sale-test')");await new Promise(r=>setTimeout(r,0));
+ assert(!popup.document.getElementById('copyReceipt'));assert(!popup.document.getElementById('shareReceipt').disabled);
+ Object.defineProperty(popup.navigator,'share',{configurable:true,value:async payload=>{shared=payload;}});
+ popup.document.getElementById('shareReceipt').click();await new Promise(r=>setTimeout(r,0));assert.deepEqual(Object.keys(shared),['files']);assert.equal(shared.files[0].type,'application/pdf');
+ Object.defineProperty(popup.navigator,'share',{configurable:true,value:undefined});popup.document.getElementById('shareReceipt').click();assert.equal(downloads,1);assert(popup.document.getElementById('receiptFeedback').textContent.includes('PDF foi baixado'));
+ popup.close();w.close();console.log('PASS PDF-only receipt sharing and file download fallback');
+})().catch(e=>{console.error(e);process.exitCode=1});
