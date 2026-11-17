@@ -2,7 +2,8 @@
   "name": "km-business",
   "private": true,
   "scripts": {
-    "test": "node tests/central.cjs && node tests/business3.cjs && node tests/inventory3.cjs"
+    "test": "node tests/central.cjs && node tests/business3.cjs && node tests/inventory3.cjs && node tests/receipts.cjs",
+    "build:receipt": "node scripts/build-receipt.cjs"
   },
   "devDependencies": {
     "jsdom": "31.0.1",
