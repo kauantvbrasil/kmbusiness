@@ -206,8 +206,8 @@ header .nav { flex-shrink: 0; }
 .drawer-socials a::after { margin-inline-start: auto; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .km-scroll-enter { animation: km-scroll-enter 520ms var(--km-ease) both; }
-  .km-scroll-enter:focus-within { animation: none; }
+  .km-scroll-reveal { opacity: var(--km-reveal-opacity, 1); }
+  .km-scroll-reveal:focus-within { opacity: 1; }
   #navigationDialog[open] { animation: km-drawer-enter 400ms var(--km-ease) both; }
   #navigationDialog[open] :is(.drawer-intro, .drawer-label, .drawer-links button, .drawer-socials, .drawer-note) {
     animation: km-drawer-item 330ms var(--km-ease) both;
@@ -225,10 +225,6 @@ header .nav { flex-shrink: 0; }
   .drawer-links button:nth-of-type(4) { --drawer-step: 115ms; }
   .drawer-socials { --drawer-delay: 380ms; }
   .drawer-note { --drawer-delay: 410ms; }
-}
-@keyframes km-scroll-enter {
-  from { opacity: .08; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 @keyframes km-drawer-enter {
   from { opacity: .4; transform: translateX(54px); }

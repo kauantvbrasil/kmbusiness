@@ -349,8 +349,8 @@ header .nav { flex-shrink: 0; }
 .drawer-socials a::after { margin-inline-start: auto; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .km-scroll-enter { animation: km-scroll-enter 520ms var(--km-ease) both; }
-  .km-scroll-enter:focus-within { animation: none; }
+  .km-scroll-reveal { opacity: var(--km-reveal-opacity, 1); }
+  .km-scroll-reveal:focus-within { opacity: 1; }
   #navigationDialog[open] { animation: km-drawer-enter 400ms var(--km-ease) both; }
   #navigationDialog[open] :is(.drawer-intro, .drawer-label, .drawer-links button, .drawer-socials, .drawer-note) {
     animation: km-drawer-item 330ms var(--km-ease) both;
@@ -368,10 +368,6 @@ header .nav { flex-shrink: 0; }
   .drawer-links button:nth-of-type(4) { --drawer-step: 115ms; }
   .drawer-socials { --drawer-delay: 380ms; }
   .drawer-note { --drawer-delay: 410ms; }
-}
-@keyframes km-scroll-enter {
-  from { opacity: .08; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 @keyframes km-drawer-enter {
   from { opacity: .4; transform: translateX(54px); }
@@ -506,38 +502,63 @@ privacySetup();
 (async()=>{try{data=await api('/api/catalog');restoreChoices();render()}catch(e){$('grid').innerHTML='<div class="empty"><h3>Não conseguimos carregar agora.</h3><p>Suas escolhas salvas continuam neste aparelho. Confira a conexão e tente novamente.</p><button type="button" class="secondary" data-retry="catalog">Tentar novamente</button></div>'}})();
 </script><!-- km-premium-script:start --><script>
 (() => {
-  if (!('IntersectionObserver' in window) ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const grid = document.getElementById('grid');
-  const seen = new WeakSet();
-  const observer = new IntersectionObserver(entries => {
-    for (const { target, isIntersecting } of entries) {
-      if (!isIntersecting) continue;
-      observer.unobserve(target);
-      target.classList.add('km-scroll-enter');
-    }
-  }, { threshold: 0.08 });
+  const pending = new Set();
+  let frame = 0;
 
-  function watch(element) {
-    if (seen.has(element)) return;
-    seen.add(element);
-    observer.observe(element);
+  function update() {
+    frame = 0;
+    const scrollTop = Math.max(0, window.scrollY);
+    const viewport = window.innerHeight;
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - viewport);
+    const distance = Math.min(190, viewport * 0.28);
+    const measurements = [];
+
+    for (const element of pending) {
+      const bounds = element.getBoundingClientRect();
+      if (!bounds.height) continue;
+      const top = scrollTop + bounds.top;
+      const start = Math.max(0, Math.min(top - viewport * 0.9, maxScroll - distance));
+      const travel = Math.min(distance, maxScroll - start);
+      const progress = travel > 0 ? Math.max(0, Math.min(1, (scrollTop - start) / travel)) : 1;
+      measurements.push([element, progress]);
+    }
+
+    for (const [element, progress] of measurements) {
+      if (progress === 1) {
+        pending.delete(element);
+        element.classList.remove('km-scroll-reveal');
+        element.style.removeProperty('--km-reveal-opacity');
+      } else {
+        element.style.setProperty('--km-reveal-opacity', String(0.16 + 0.84 * progress));
+        element.classList.add('km-scroll-reveal');
+      }
+    }
   }
 
-  document.querySelectorAll('#steps, #catalogo > :not(#grid), .footer').forEach(watch);
-  if (!grid) return;
-  Array.from(grid.children).forEach(watch);
-  new MutationObserver(records => {
-    for (const { addedNodes, removedNodes } of records) {
-      for (const node of removedNodes) {
-        if (node.nodeType === 1) observer.unobserve(node);
+  function schedule() {
+    if (!frame && pending.size) frame = window.requestAnimationFrame(update);
+  }
+
+  document.querySelectorAll('#steps, #catalogo > :not(#grid), .footer').forEach(element => pending.add(element));
+  if (grid) {
+    for (const element of grid.children) pending.add(element);
+    new MutationObserver(records => {
+      for (const { addedNodes, removedNodes } of records) {
+        for (const node of removedNodes) pending.delete(node);
+        for (const node of addedNodes) {
+          if (node.nodeType === 1) pending.add(node);
+        }
       }
-      for (const node of addedNodes) {
-        if (node.nodeType === 1) watch(node);
-      }
-    }
-  }).observe(grid, { childList: true });
+      schedule();
+    }).observe(grid, { childList: true });
+  }
+
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  update();
 })();
 </script><!-- km-premium-script:end --></body></html>
 
