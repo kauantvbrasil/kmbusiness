@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#050505">
+<title>K&M Imports | Cartão Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#050505;--blue:#0066ff;--light:#168bff;--muted:#9299a5;--gutter:clamp(18px,4vw,56px)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f7fa;font:400 15px/1.5 Inter,system-ui,sans-serif}a{-webkit-tap-highlight-color:transparent}a:focus-visible{outline:2px solid var(--light);outline-offset:4px}.wrap{max-width:1320px;margin:auto;padding-inline:var(--gutter)}header{height:80px;display:flex;align-items:center;border-bottom:1px solid #ffffff12}.brand{font-size:clamp(18px,3.9vw,27px);font-weight:750;letter-spacing:-.045em}.brand span{color:#3070ff;text-shadow:0 0 8px #155eff85;animation:pulse 5.6s ease-in-out infinite}@keyframes pulse{50%{text-shadow:0 0 15px #216dffb0}}.hero{margin:0}.km-cinema{position:relative;display:grid;place-items:center;height:clamp(180px,35vw,420px);margin-inline:calc(-1 * var(--gutter));border-block:1px solid #1e58c860;background:#030713;overflow:hidden;isolation:isolate}.km-lightfield,.km-grid,.km-tracks{position:absolute;inset:0}.km-lightfield{inset:-45%;background:radial-gradient(ellipse at 34% 61%,#082f9a80,transparent 31%),radial-gradient(ellipse at 67% 37%,#143b9e6b,transparent 28%);animation:lightfield 4.8s ease-in-out infinite alternate}.km-grid{inset:-60%;background:repeating-linear-gradient(90deg,#3c6ec134 0 1px,transparent 1px 48px),repeating-linear-gradient(0deg,#3c6ec134 0 1px,transparent 1px 48px);mask-image:radial-gradient(ellipse 39% 34%,#000 8%,transparent 100%);transform:rotate(-21deg);animation:grid 5s linear infinite}.km-tracks{inset:-55% -18%;transform:rotate(-25deg)}.km-tracks i{position:absolute;top:var(--lane);left:0;width:46%;height:var(--weight,2px);background:linear-gradient(90deg,transparent,#123a9f 44%,#3d7efa 91%,transparent);box-shadow:0 0 14px #1b53d477;animation:track var(--speed,3s) linear var(--delay) infinite}.km-tracks i:nth-child(1){--lane:18%;--delay:-1s}.km-tracks i:nth-child(2){--lane:32%;--delay:-2.5s;--speed:4s;--weight:5px}.km-tracks i:nth-child(3){--lane:43%;--delay:-.4s;--speed:2.8s}.km-tracks i:nth-child(4){--lane:63%;--delay:-2s;--speed:3.8s;--weight:4px}.km-tracks i:nth-child(5){--lane:73%;--delay:-.8s;--speed:2.6s}.km-tracks i:nth-child(6){--lane:86%;--delay:-1.7s}.km-orbit{position:absolute;width:clamp(260px,57%,650px);aspect-ratio:2.9;border:1px solid #4776d786;border-radius:50%;box-shadow:0 0 18px #1747b965,inset 0 0 16px #1747b936;transform:rotate(-13deg);animation:orbit 4s ease-in-out infinite alternate}.km-orbit:before{content:'';position:absolute;inset:-13px -24px;border:1px solid #4776d742;border-radius:inherit}.km-emblem{position:relative;width:clamp(185px,39%,440px);filter:brightness(1.1) drop-shadow(0 0 6px #a2ccff80) drop-shadow(0 0 15px #2674ff9c) drop-shadow(0 7px 4px #000e);animation:reveal .95s cubic-bezier(.2,.75,.24,1) both,float 4.6s 1s ease-in-out infinite}.km-emblem svg{display:block;width:100%;height:auto}.km-shutter{position:absolute;inset:-35% auto;width:76%;background:linear-gradient(110deg,#020711 48%,#0b235b 86%,#2358d5 99%,#5891ff);animation:shutterLeft .85s cubic-bezier(.65,0,.2,1) both}.km-shutter-left{left:0}.km-shutter-right{right:0;background:linear-gradient(290deg,#020711 48%,#0b235b 86%,#2358d5 99%,#5891ff);animation-name:shutterRight}@keyframes lightfield{from{transform:translate(-12%,8%) rotate(-14deg)}to{transform:translate(14%,-7%) rotate(15deg)}}@keyframes grid{from{transform:rotate(-21deg) translateX(0)}to{transform:rotate(-21deg) translateX(48px)}}@keyframes track{from{transform:translateX(-115%)}to{transform:translateX(240%)}}@keyframes orbit{from{transform:rotate(-20deg) scale(.92);opacity:.55}to{transform:rotate(-7deg) scale(1.09);opacity:1}}@keyframes reveal{from{opacity:.15;transform:scale(.72)}to{opacity:1;transform:scale(1)}}@keyframes float{50%{transform:translateY(-7%) scale(1.06)}}@keyframes shutterLeft{from{transform:translateX(-18%) skewX(-24deg)}to{transform:translateX(-135%) skewX(-24deg)}}@keyframes shutterRight{from{transform:translateX(18%) skewX(-24deg)}to{transform:translateX(135%) skewX(-24deg)}}.content{max-width:520px;margin:0 auto;padding:36px 0 55px;text-align:center}.eyebrow{color:#67a6ff;text-transform:uppercase;font-size:11px;letter-spacing:.24em;font-weight:700}.content h1{font-size:clamp(25px,6vw,36px);letter-spacing:-.045em;line-height:1.15;margin:12px 0}.intro{color:#a6adbb;margin:0 auto 29px;max-width:350px;font-size:14px}.links{display:grid;gap:12px}.link{display:flex;align-items:center;gap:14px;padding:16px 18px;min-height:74px;border:1px solid #2a3241;border-radius:15px;background:linear-gradient(125deg,#111723,#090b10);text-decoration:none;color:#f5f7fa;text-align:left;transition:transform .15s,border-color .15s,background .15s}.link:hover{border-color:#397cff;transform:translateY(-2px)}.link:active{transform:scale(.99)}.link.featured{background:linear-gradient(120deg,#0751d2,#0066ff);border-color:#4c94ff;box-shadow:0 10px 32px #0066ff29}.icon{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border-radius:11px;background:#ffffff13}.icon svg{width:22px;height:22px}.label{display:block;font-size:14px;font-weight:700}.hint{display:block;color:#a6adbb;font-size:12px;margin-top:2px}.featured .hint{color:#e3edff}.arrow{margin-left:auto;font-size:22px;color:#a8b9d4}.featured .arrow{color:#fff}.note{font-size:11px;color:#818995;margin-top:26px}footer{border-top:1px solid #ffffff12;text-align:center;color:#77808e;font-size:11px;padding:22px 10px 28px}@media(max-width:760px){:root{--gutter:20px}}@media(max-width:360px){:root{--gutter:16px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Menu do cartão digital. */
+.card-menu-header { justify-content: flex-end; }
+.card-menu-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff24;
+  border-radius: 10px; color: #f5f7fa; background: #0b0d12; cursor: pointer;
+}
+.card-menu-button:focus-visible, .card-menu-option:focus-visible {
+  outline: 2px solid var(--light); outline-offset: 4px;
+}
+#cardMenu {
+  width: min(380px, calc(100% - 32px)); max-height: calc(100dvh - 32px);
+  margin: 16px max(16px, calc((100vw - 1320px) / 2 + var(--gutter))) auto auto;
+  padding: 18px; border: 1px solid #2a3241; border-radius: 15px;
+  background: #0b0d12; color: #f5f7fa;
+}
+#cardMenu::backdrop { background: #000a; }
+.card-menu-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.card-menu-heading h2 { margin: 0; font-size: 16px; }
+.card-menu-option {
+  display: flex; align-items: center; width: 100%; min-height: 44px;
+  padding: 10px 12px; border: 1px solid #2a3241; border-radius: 10px;
+  background: transparent; color: inherit; font: inherit; text-align: left;
+  text-decoration: none; cursor: pointer;
+}
+details + details, details + .card-menu-option { margin-top: 8px; }
+.card-menu-copy { margin: 8px 0 12px; font-size: 14px; color: #a6adbb; }
+</style></head><body>
+<div class="wrap"><header class="card-menu-header">
+  <button type="button" class="card-menu-button" id="openCardMenu"
+    aria-label="Abrir menu" aria-haspopup="dialog" aria-controls="cardMenu" aria-expanded="false">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+</header>
+<main><section class="hero" aria-label="Banner K&M Imports"><div class="km-cinema"><div class="km-lightfield"></div><div class="km-grid"></div><div class="km-tracks"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="km-orbit"></div><div class="km-emblem"><svg viewBox="250 220 1020 535" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="K&amp;M Imports">
+      <defs>
+        <clipPath id="km-logo-outline">
+          <!-- Crown, swooshes and monogram follow the edges of the original artwork. -->
+          <path d="M638 282 678 302C668 303 677 325 704 331C743 335 768 304 734 284L761 242 789 284C756 298 770 338 818 332C840 331 853 314 845 302L884 282 846 356C793 338 727 339 676 356Z M681 363Q754 341 844 362L840 367Q759 347 682 367Z"/>
+          <path d="M735 401C930 336 1068 306 1170 338C1295 377 1229 480 1039 574C1160 497 1221 435 1184 389C1141 330 1013 331 735 401Z M348 525C285 578 267 630 304 650C358 690 572 660 722 625C539 657 392 665 335 639C303 624 306 579 348 525Z"/>
+          <path d="M378 389H449L428 480 388 515 596 389 691 390 416 564 402 637H369Q350 635 334 622Z M465 548 518 509 637 634H552Z M824 388H875L970 522 1109 388H1170L1150 478Q1130 513 1070 551L1083 478 960 604 873 482 843 636H780L781 627 826 624 790 584 795 548 832 510H803Z M1068 568Q1110 546 1145 524L1126 635H1052Z"/>
+          <path clip-rule="evenodd" d="M650 494C627 465 642 437 676 428C708 420 753 423 759 450C763 471 748 486 729 502L711 480C733 465 725 446 702 446C679 446 670 460 678 475L738 542 761 516 813 517 758 564 813 619 765 622 730 586C698 612 650 614 618 598C573 575 578 530 650 494Z M665 515C639 529 627 552 640 567C653 584 694 578 713 564Z"/>
+          <path d="M306 695 465 691V700Z M1077 691 1234 695 1077 700Z"/>
+          <path clip-rule="evenodd" d="M497 675H505V712H497Z M553 675H560L581 700 602 675H610V712H603V686L584 708H579L560 686V712H553Z M658 675H685C707 675 707 699 685 699H665V712H658Z M665 681V693H684C697 693 697 681 684 681Z M768 674C804 674 805 713 768 713C732 713 733 674 768 674Z M768 680C743 680 743 707 768 707C794 707 794 680 768 680Z M840 675H864C883 675 890 690 872 698L886 712H875L862 699H847V712H840Z M847 681V693H864C878 693 878 681 864 681Z M922 675H968V681H949V712H941V681H922Z M1047 679 1043 684C1037 680 1015 677 1014 685C1013 693 1049 687 1049 701C1049 716 1018 716 1005 706L1009 701C1018 708 1042 709 1042 702C1042 695 1006 700 1006 686C1006 673 1033 670 1047 679Z"/>
+        </clipPath>
+      </defs>
+      <image clip-path="url(#km-logo-outline)" href="https://kmimportsz.github.io/kmbusiness/catalogo/assets/km-logo.png" width="1536" height="1024"/>
+    </svg></div><div class="km-shutter km-shutter-left"></div><div class="km-shutter km-shutter-right"></div></div></section>
+<section class="content"><div class="eyebrow">Cartão digital oficial</div><h1>Tudo em um só lugar.</h1><p class="intro">Explore nosso catálogo, faça seu pedido ou acompanhe nossas novidades. Simples e rápido.</p><div class="links">
+<a class="link featured" href="https://kmimportsz.github.io/kmbusiness/catalogo/"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16l-1.2 13H5.2L4 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg></span><span><span class="label">Acessar catálogo</span><span class="hint">Conheça nossos produtos</span></span><span class="arrow">↗</span></a>
+<a class="link" href="https://wa.me/5511997981891?text=Ol%C3%A1%21%20Acessei%20o%20cart%C3%A3o%20digital%20da%20K%26M%20Imports%20e%20gostaria%20de%20fazer%20um%20pedido%20%F0%9F%92%99." target="_blank" rel="noopener noreferrer"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11.5a8.5 8.5 0 0 1-12.5 7.5L3 20l1.1-4.4A8.5 8.5 0 1 1 20 11.5Z"/><path d="M8 8c.4 3.2 2.8 5.6 6 6l2-1.6"/></svg></span><span><span class="label">Falar pelo WhatsApp</span><span class="hint">Faça seu pedido com uma mensagem pronta</span></span><span class="arrow">↗</span></a>
+<a class="link" id="instagramLink" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg></span><span><span class="label">Nosso Instagram</span><span class="hint">Acompanhe nossas novidades</span></span><span class="arrow">↗</span></a>
+</div><p class="note">Cartão digital K&amp;M Imports · Acesso rápido e seguro</p></section></main></div><footer>© K&amp;M Imports · Todos os direitos reservados</footer>
+<!-- PARA CONFIGURAR O INSTAGRAM: altere o href do elemento id="instagramLink". -->
+
+<dialog id="cardMenu" aria-labelledby="cardMenuTitle">
+  <div class="card-menu-heading">
+    <h2 id="cardMenuTitle">Menu</h2>
+    <form method="dialog">
+      <button type="submit" class="card-menu-button" aria-label="Fechar menu" autofocus>✕</button>
+    </form>
+  </div>
+  <details>
+    <summary class="card-menu-option">Quem somos nós</summary>
+    <p class="card-menu-copy">A K&amp;M Imports reúne modelos em um catálogo online. Você pode conhecer a seleção, tirar dúvidas e combinar seu pedido pelo WhatsApp.</p>
+  </details>
+  <details>
+    <summary class="card-menu-option">Formulário de avaliação</summary>
+    <p class="card-menu-copy">O link do formulário de avaliação ainda não está disponível.</p>
+  </details>
+</dialog>
+<script>
+  const cardMenu = document.getElementById('cardMenu');
+  const openCardMenu = document.getElementById('openCardMenu');
+
+  openCardMenu.addEventListener('click', () => {
+    cardMenu.showModal();
+    openCardMenu.setAttribute('aria-expanded', 'true');
+  });
+
+  cardMenu.addEventListener('close', () => {
+    openCardMenu.setAttribute('aria-expanded', 'false');
+    openCardMenu.focus();
+  });
+</script>
+</body></html>
