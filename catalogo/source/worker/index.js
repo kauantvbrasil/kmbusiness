@@ -221,10 +221,6 @@ a,button,input,select,textarea{outline-offset:4px}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid #168bff!important;outline-offset:4px}
 .primary{background:var(--blue);border-color:#168bff;border-radius:10px;min-height:48px;box-shadow:0 4px 20px #0066ff18;letter-spacing:.01em}
 .secondary,.contact,.cart-trigger,.menu-trigger{background:#0b0d12;border-color:#ffffff24;border-radius:10px;min-height:44px;color:#f5f7fa}
-.hero{padding:64px 0 44px;gap:40px;min-height:400px;isolation:isolate;overflow:visible;grid-template-columns:1fr 1.08fr}
-.hero>div:first-child{position:relative;z-index:1}.hero h1{font-size:clamp(48px,6.5vw,82px);letter-spacing:-.065em;line-height:1.03;margin:22px 0}.hero h1 span{color:#b7c0ce}
-.hero .intro{max-width:360px;color:#a8afbb;line-height:1.85;font-size:14px}.eyebrow{color:#8fbfff;letter-spacing:.22em;font-size:10px}.dot{background:#168bff;box-shadow:0 0 12px #168bff88}
-.hero .primary{margin-top:12px}.steps{border-color:#ffffff18;padding:22px 0;justify-content:space-between;gap:20px;color:#a8afbb}.steps b{color:#168bff;font-variant-numeric:tabular-nums}
 .catalog{padding-top:48px}.section-title h2{font-size:clamp(26px,3vw,36px);letter-spacing:-.045em}.count{font-size:12px;color:#a8afbb}
 .catalog-tabs{gap:6px;margin-top:30px;padding:6px;background:#0b0d12;border:1px solid #ffffff12;border-radius:14px;width:fit-content;max-width:100%}
 .catalog-tab{border-color:transparent;background:transparent;border-radius:9px;color:#aeb5c1;min-height:44px;font-size:13px;padding:11px 18px}
@@ -242,37 +238,196 @@ input,select,textarea{accent-color:#168bff}.filter-form-grid select,.filter-form
 dialog{border-color:#ffffff2e;background:#0b0d12;border-radius:20px;box-shadow:0 28px 100px #000b}dialog::backdrop{background:#000b;backdrop-filter:blur(8px)}
 .summary-top,.product-modal-top,.drawer-head{border-color:#ffffff1a}.summary-top{background:radial-gradient(ellipse at top right,#0066ff12,transparent 70%)}.summary-top h2 span{color:#aeb5c1}.summary-content,.summary-customer,.summary-fulfillment,.order-notes-section,.summary-total,.summary-support{border-color:#ffffff1a}.summary-item,.delivery-option{border-color:#ffffff24;background:#050505}.delivery-option:has(input:checked){border-color:#168bff;background:#0066ff0c}.summary-close,.round-close{min-width:44px;min-height:44px;background:#151820;border-color:#ffffff26;color:#f5f7fa}.summary-guidance,.fulfillment-caption,.delivery-privacy,.detail-footnote{color:#a8afbb}.summary-remove,.summary-back,.clear-choices{min-height:44px}.summary-total strong,.detail-price{font-variant-numeric:tabular-nums}
 #navigationDialog{background:#0b0d12;border-color:#ffffff26}.drawer-links button{border-color:#ffffff18;color:#e3e7ed;min-height:54px}.drawer-label{color:#9299a5}.drawer-socials a{background:#151820;border-color:#ffffff20}.drawer-intro h2{letter-spacing:-.04em}.drawer-intro h2 span{color:#aeb5c1}.privacy-choice{background:#0b0d12;border-color:#ffffff24;border-radius:12px}.toast{background:#151820;border-color:#168bff70;border-radius:12px;line-height:1.6}.footer{border-color:#ffffff18;color:#9299a5}
-/* Cinematic stage: CSS-only light and geometry; original logo remains unmodified. */
-.art.km-cinema{position:relative;inset:auto;width:100%;height:320px;opacity:1;pointer-events:none;background:#050505;isolation:isolate;overflow:hidden;border:1px solid #ffffff10;border-radius:20px;contain:paint}
-.km-cinema:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 54% 52%,#0066ff22,transparent 60%),linear-gradient(135deg,transparent 45%,#168bff09 50%,transparent 55%)}
-.km-cinema:after{content:'';position:absolute;left:10%;right:10%;height:1px;bottom:13%;background:linear-gradient(90deg,transparent,#168bff80,transparent);opacity:.7}
-.km-geometry{position:absolute;left:50%;top:50%;width:210px;height:210px;transform:translate(-50%,-50%) rotate(45deg);border:1px solid #168bff50;border-radius:26px;box-shadow:inset 0 0 32px #0066ff0c,0 0 40px #0066ff09}
-.km-geometry:before,.km-geometry:after{content:'';position:absolute;inset:22px;border:1px solid #168bff25;border-radius:18px}.km-geometry:after{inset:-24px;border-color:#168bff18;border-radius:34px}
-.km-glow{position:absolute;width:70%;height:70%;left:15%;top:15%;border-radius:50%;background:radial-gradient(ellipse,#0066ff30,transparent 65%);animation:km-breathe 7s ease-in-out infinite}
-.km-beam{position:absolute;left:12%;top:-30%;width:1px;height:160%;background:linear-gradient(transparent,#168bff99,transparent);transform:rotate(35deg);animation:km-beam 12s ease-in-out infinite;opacity:.45}.km-beam.km-beam-two{left:auto;right:20%;animation-delay:-6s;animation-duration:16s;opacity:.25}
-.km-particles{position:absolute;inset:0;animation:km-drift 14s ease-in-out infinite}.km-particles i{position:absolute;width:2px;height:2px;background:#82bdff;box-shadow:0 0 5px #168bff;border-radius:50%;opacity:.55}.km-particles i:nth-child(1){left:15%;top:22%}.km-particles i:nth-child(2){left:73%;top:30%}.km-particles i:nth-child(3){left:28%;top:73%}.km-particles i:nth-child(4){left:83%;top:68%}.km-particles i:nth-child(5){left:52%;top:16%}.km-particles i:nth-child(6){left:65%;top:82%}
-.km-emblem{position:absolute;left:50%;top:50%;width:200px;transform:translate(-50%,-50%);z-index:2;mix-blend-mode:screen;line-height:0}.km-emblem svg{display:block;width:100%;height:auto;aspect-ratio:1020/535}
-.km-motion-toggle{position:absolute;right:14px;bottom:14px;z-index:3;min-height:44px;display:flex;gap:7px;align-items:center;border:1px solid #ffffff26;border-radius:8px;background:#0b0d12;color:#b9c2cf;padding:8px 12px;font:11px Inter,system-ui,sans-serif;cursor:pointer;pointer-events:auto}.km-motion-toggle svg{width:12px;height:12px}.km-motion-toggle[aria-pressed=true]{border-color:#168bff80;color:#f5f7fa}
-.km-boot{display:none;position:fixed;inset:0;background:#050505;z-index:1000;pointer-events:none}.km-initializing .km-boot,.km-boot.km-boot-leaving{display:block}.km-initializing .km-emblem{position:fixed;z-index:1002;left:50%;top:50%;width:220px}.km-initializing .km-cinema{overflow:visible;contain:none}.km-initializing .km-glow{position:fixed;z-index:1001;inset:20% 15%;width:70%;height:60%}.km-initializing .km-beam{position:fixed;z-index:1001}.km-initializing .km-particles{position:fixed;z-index:1001}.km-initializing .km-motion-toggle{visibility:hidden}
-.km-boot-status{position:absolute;top:calc(50% + 96px);width:100%;text-align:center;color:#9299a5;font:11px Inter,system-ui,sans-serif;letter-spacing:.04em}.km-boot-indicator{display:block;margin:0 auto 16px;width:64px;height:2px;background:#151820;overflow:hidden;border-radius:2px}.km-boot-indicator:after{content:'';display:block;width:50%;height:100%;background:#168bff;animation:km-loading 1.2s ease-in-out infinite}
-.km-skip-intro{pointer-events:auto;position:absolute;bottom:max(32px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);border:1px solid #ffffff2a;background:#0b0d12;color:#b7c0ce;font:12px Inter,system-ui,sans-serif;padding:12px 20px;min-height:44px;border-radius:8px;white-space:nowrap}
-.km-motion-paused .km-cinema *,.km-motion-paused .km-boot-indicator:after,.km-tab-hidden .km-cinema *,.km-tab-hidden .km-boot-indicator:after{animation-play-state:paused!important}.km-motion-paused .grid>.loading,.km-tab-hidden .grid>.loading{animation-play-state:paused}
-@keyframes km-breathe{0%,100%{opacity:.4;transform:scale(.95)}50%{opacity:.9;transform:scale(1.08)}}
-@keyframes km-beam{0%,100%{transform:translateX(-20px) rotate(35deg);opacity:.15}50%{transform:translateX(36px) rotate(35deg);opacity:.55}}
-@keyframes km-drift{0%,100%{transform:translate3d(0,0,0);opacity:.4}50%{transform:translate3d(8px,-10px,0);opacity:.9}}
-@keyframes km-loading{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
-@keyframes km-skeleton{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-@media(hover:hover) and (pointer:fine){.primary:hover{background:#1674ff;border-color:#69adff}.secondary:hover,.contact:hover,.cart-trigger:hover,.menu-trigger:hover{background:#151820;border-color:#ffffff50}.product:hover{border-color:#ffffff40}.product.selected:hover{border-color:#168bff}.chip:hover,.catalog-tab:hover{background:#151820;color:#fff}.drawer-links button:hover{background:#151820}.km-motion-toggle:hover{border-color:#168bff80}}
-@media(max-width:900px){.hero{gap:22px;grid-template-columns:1fr 1fr}.art.km-cinema{height:290px}.details{display:block}.price{margin-top:12px}}
-@media(max-width:760px){.wrap{padding-inline:20px}header{min-height:78px}.nav{gap:8px}.hero{padding:32px 0 28px;min-height:0;grid-template-columns:minmax(0,1fr);gap:24px}.hero h1{font-size:56px;margin:16px 0}.hero .intro{max-width:340px;font-size:14px}.hero .primary{margin-top:8px}.art.km-cinema{height:180px;border-radius:14px}.km-geometry{width:128px;height:128px;border-radius:18px}.km-geometry:before{inset:14px;border-radius:12px}.km-geometry:after{inset:-16px;border-radius:23px}.km-emblem{width:140px}.km-motion-toggle{right:8px;bottom:8px;padding:8px;font-size:10px}.steps{gap:12px;padding:18px 0;font-size:10px}.steps b{display:block;margin:0 0 5px}.catalog{padding-top:32px}.catalog-tabs{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:5px;margin-top:24px}.catalog-tab{font-size:12px;padding:10px 6px}.tools{align-items:stretch;margin-top:18px;gap:12px}.search{flex-basis:100%;width:100%;font-size:16px}.chips{width:100%;gap:6px}.chip{padding:9px 12px;font-size:12px}.grid{gap:12px}.details{padding:14px}.model{font-size:16px}.card-brand{font-size:9px}.price{font-size:15px}.brand-heading{padding-top:22px}.brand-heading h3{font-size:22px}.checkout{width:calc(100% - 24px);min-height:78px;padding:13px;gap:12px;border-radius:14px;bottom:calc(12px + env(safe-area-inset-bottom,0px))}.checkout strong{font-size:14px}.checkout small{font-size:11px;line-height:1.5}.checkout .primary{font-size:12px;min-height:48px;padding:12px 14px;gap:10px}.summary-top{padding:26px 22px}.summary-top h2{font-size:34px}dialog{border-radius:16px;max-height:calc(100dvh - 24px)}.product-modal-body{padding:22px}.footer{font-size:11px;gap:18px}.km-initializing .km-emblem{width:200px}}
-@media(max-width:360px){.wrap{padding-inline:16px}.hero h1{font-size:48px}.checkout .primary{font-size:11px;padding-inline:10px}.filter-badge{max-width:86px}.nav{gap:6px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation:none!important;transition:none!important}.product:hover .photo-open img{transform:none!important}.km-boot{display:none!important}}
+@media(hover:hover) and (pointer:fine){.primary:hover{background:#1674ff;border-color:#69adff}.secondary:hover,.contact:hover,.cart-trigger:hover,.menu-trigger:hover{background:#151820;border-color:#ffffff50}.product:hover{border-color:#ffffff40}.product.selected:hover{border-color:#168bff}.chip:hover,.catalog-tab:hover{background:#151820;color:#fff}.drawer-links button:hover{background:#151820}}
+@media(max-width:900px){.details{display:block}.price{margin-top:12px}}
+@media(max-width:760px){.wrap{padding-inline:20px}header{min-height:78px}.nav{gap:8px}.steps{gap:12px;padding:18px 0;font-size:10px}.steps b{display:block;margin:0 0 5px}.catalog{padding-top:32px}.catalog-tabs{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:5px;margin-top:24px}.catalog-tab{font-size:12px;padding:10px 6px}.tools{align-items:stretch;margin-top:18px;gap:12px}.search{flex-basis:100%;width:100%;font-size:16px}.chips{width:100%;gap:6px}.chip{padding:9px 12px;font-size:12px}.grid{gap:12px}.details{padding:14px}.model{font-size:16px}.card-brand{font-size:9px}.price{font-size:15px}.brand-heading{padding-top:22px}.brand-heading h3{font-size:22px}.checkout{width:calc(100% - 24px);min-height:78px;padding:13px;gap:12px;border-radius:14px;bottom:calc(12px + env(safe-area-inset-bottom,0px))}.checkout strong{font-size:14px}.checkout small{font-size:11px;line-height:1.5}.checkout .primary{font-size:12px;min-height:48px;padding:12px 14px;gap:10px}.summary-top{padding:26px 22px}.summary-top h2{font-size:34px}dialog{border-radius:16px;max-height:calc(100dvh - 24px)}.product-modal-body{padding:22px}.footer{font-size:11px;gap:18px}}
+@media(max-width:360px){.wrap{padding-inline:16px}.checkout .primary{font-size:11px;padding-inline:10px}.filter-badge{max-width:86px}.nav{gap:6px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation:none!important;transition:none!important}.product:hover .photo-open img{transform:none!important}}
 
 .grid>.loading:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 20%,#ffffff05 50%,transparent 80%);animation:km-skeleton 2.2s ease-in-out infinite}
 
-.km-motion-paused .grid>.loading:after,.km-tab-hidden .grid>.loading:after{animation-play-state:paused}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.km-cinema *,.km-boot-indicator:after,.grid>.loading:after{animation:none!important;transition:none!important}.photo-open img{transition:none!important}}
-</style><!-- km-premium-style:end --></head><body><div class="wrap"><header><a class="logo" aria-label="K&amp;M Imports — início" href="/"><span class="brand-logo-frame"><svg class="brand-logo-art" focusable="false" viewBox="250 220 1020 535" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="K&amp;M Imports" preserveAspectRatio="xMidYMid meet"><image href="https://kmimportsz.github.io/kmbusiness/catalogo/assets/km-logo.png" x="0" y="0" width="1536" height="1024" preserveAspectRatio="xMidYMid meet"/></svg></span></a><nav class="nav"><button type="button" class="cart-trigger" id="openCart" aria-label="Abrir sacola"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 7h16l-1.2 13H5.2L4 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg><span class="cart-label">Minha sacola</span><span class="cart-counter" id="cartCount" hidden>0</span></button><button type="button" class="menu-trigger" id="openNavigation" aria-label="Abrir menu" aria-controls="navigationDialog" aria-expanded="false"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button><a href="#" class="contact" id="headerContact">Fale com a loja ↗</a></nav></header><main><section class="hero" id="hero"><div><div class="eyebrow"><i class="dot"></i> A SUA PRÓXIMA ESCOLHA</div><h1>Catálogo<br><span>Clientes</span></h1><p class="intro">Explore a seleção, marque seus favoritos e fale com a gente. Tudo em um só lugar.</p><a class="primary" href="#catalogo">Explorar catálogo <span>↗</span></a></div><!-- km-premium-banner:start --><div class="art km-cinema" id="kmCinema" aria-label="Identidade K&amp;M Imports"><div class="km-glow" aria-hidden="true"></div><div class="km-geometry" aria-hidden="true"></div><div class="km-beam" aria-hidden="true"></div><div class="km-beam km-beam-two" aria-hidden="true"></div><div class="km-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="km-emblem" id="kmEmblem"><svg viewBox="250 220 1020 535" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="K&amp;M Imports" preserveAspectRatio="xMidYMid meet"><image href="https://kmimportsz.github.io/kmbusiness/catalogo/assets/km-logo.png" x="0" y="0" width="1536" height="1024" preserveAspectRatio="xMidYMid meet"/></svg></div><button type="button" class="km-motion-toggle" id="kmMotionToggle" aria-pressed="false" aria-label="Pausar animações"><svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M3 2h2v8H3zm4 0h2v8H7z"/></svg><span>Pausar animações</span></button></div><!-- km-premium-banner:end --></section><div class="steps" id="steps"><span><b>01 /</b> Explore a seleção</span><span><b>02 /</b> Marque seus favoritos</span><span><b>03 /</b> Fale com a loja</span></div><section id="adminSection" class="hidden"><div class="section-title admin-title"><h2>Administração</h2><a href="/" class="secondary">Ver vitrine ↗</a></div><div id="loginBox" class="adminbox hidden"><h2>Seu espaço de gestão.</h2><p class="notice">Use a mesma conta do ChatGPT que criou este site. Somente essa conta pode gerenciar o catálogo.</p><a class="primary" href="/signin-with-chatgpt" target="_top">Entrar com ChatGPT →</a><p class="notice">Depois de entrar, abra “Área administrativa” no rodapé da vitrine.</p></div><div id="adminControls" class="hidden"><div class="actions"><button class="primary" id="newProduct">+ Adicionar item</button><button class="secondary" id="insightsButton">Estatísticas e diagnóstico</button><button class="secondary" id="orderButton">Organizar catálogo</button><button class="secondary" id="settingsButton">Contato e atendimento</button><a class="secondary" href="/api/export">↓ Baixar backup completo</a><a class="secondary" href="/signout-with-chatgpt" target="_top">Sair</a></div><p class="notice">Os itens salvos aparecem na vitrine. Só você pode adicionar, editar ou excluir. Antes de cada alteração, uma cópia da versão anterior e das fotos fica no histórico. Baixe também o backup completo e guarde fora do site.</p></div><section id="insightsPanel" class="insights-panel hidden" aria-labelledby="insightsTitle"><div class="section-title"><div><span class="eyebrow">K&M · VISÃO DO CATÁLOGO</span><h2 id="insightsTitle">Estatísticas e diagnóstico</h2></div></div><div class="insights-toolbar"><label for="insightsPeriod">Período</label><select id="insightsPeriod"><option value="7">Últimos 7 dias</option><option value="30">Últimos 30 dias</option><option value="90">Últimos 90 dias</option></select><button type="button" class="secondary" id="refreshInsights">Atualizar indicadores</button></div><p id="insightsUpdated" class="notice" role="status"></p><div id="insightsContent"></div><details class="diagnostics-details"><summary>Diagnóstico técnico · acesso administrativo</summary><p class="notice">Códigos de falha sem dados pessoais. Marcar como resolvido organiza o acompanhamento; não corrige o sistema. Uma nova ocorrência reabre o diagnóstico.</p><div id="diagnosticsContent"></div></details></section></section><section class="catalog" id="catalogo"><div class="section-title"><div><div class="eyebrow" style="margin-bottom:12px">ESCOLHIDOS PARA VOCÊ</div><h2 id="catalogTitle">Explore o catálogo<span style="color:#417aff">.</span></h2><div class="count" id="count">Carregando seleção…</div></div><span style="color:#58739d;font:12px 'Inter'">K&M / COLLECTION</span></div><div class="catalog-tabs" aria-label="Seleções do catálogo"><button class="catalog-tab" data-tab="all" aria-pressed="true">Todos</button><button class="catalog-tab" data-tab="bestSellers" aria-pressed="false">Mais vendidos</button><button class="catalog-tab" data-tab="budget" aria-pressed="false">Mais baratos</button><button class="catalog-tab" data-tab="newArrivals" aria-pressed="false">Novidades</button></div><div class="collection-tools hidden" id="collectionTools"><button class="primary" id="chooseCollection">+ Escolher modelos cadastrados</button></div><div class="tools"><input class="search" id="search" placeholder="Buscar na seleção…" aria-label="Buscar modelos"><div class="chips" id="chips"></div></div><details class="filter-panel" id="filterPanel"><summary><span class="filter-summary-label"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filtrar e ordenar</span><span id="filterBadge" class="filter-badge">Personalize sua busca</span><span class="filter-chevron" aria-hidden="true">⌄</span></summary><form id="catalogFilterForm"><div class="filter-form-grid"><label class="available-filter"><input type="checkbox" id="onlyAvailable"><span>Somente disponíveis</span></label><label>Ordenar por<select id="priceSort"><option value="curated">Ordem da loja</option><option value="priceAsc">Menor valor</option><option value="priceDesc">Maior valor</option></select></label><fieldset class="price-range"><legend>Faixa de preço · opcional</legend><div><label>De (R$)<input id="minimumPrice" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0,00"></label><label>Até (R$)<input id="maximumPrice" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Sem limite"></label></div></fieldset></div><div class="filter-actions"><button class="primary" type="submit">Aplicar filtros →</button><button class="secondary" type="button" id="resetCatalogFilters">Limpar filtros</button></div><p class="filter-message" id="filterMessage" role="status" aria-live="polite"></p></form></details><p class="catalog-gesture-tip">Toque na foto para ver de perto. Use <strong>+</strong> para colocar na sacola e ajustar a quantidade.</p><button class="catalog-help-link" type="button" id="catalogHelp">Primeira vez por aqui? Veja como pedir →</button>
+.km-catalog-title {
+  margin: 0;
+  color: #f5f7ff;
+  font-size: clamp(17px, 3.9vw, 32px);
+  font-weight: 750;
+  letter-spacing: -.045em;
+  line-height: 1.12;
+}
+.km-neon-title {
+  color: #3070ff;
+  text-shadow: 0 0 8px #155eff85, 0 0 16px #104dff38;
+  animation: km-title-pulse 5.6s ease-in-out infinite;
+}
+@keyframes km-title-pulse {
+  0%, 68%, 100% { color: #3070ff; text-shadow: 0 0 8px #155eff85, 0 0 16px #104dff38; }
+  82% { color: #3b7aff; text-shadow: 0 0 9px #216dffb0, 0 0 18px #1452ff60; }
+}
+header .nav { flex-shrink: 0; }
+.hero {
+  display: block;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+.art.km-cinema {
+  position: relative;
+  inset: auto;
+  display: grid;
+  place-items: center;
+  width: auto;
+  height: clamp(180px, 35vw, 420px);
+  margin-inline: calc(-1 * clamp(18px, 4vw, 56px));
+  border-block: 1px solid #1e58c860;
+  background: #030713;
+  overflow: hidden;
+  isolation: isolate;
+  opacity: 1;
+  pointer-events: none;
+}
+.km-lightfield, .km-grid, .km-tracks { position: absolute; inset: 0; }
+.km-lightfield {
+  inset: -45%;
+  background: radial-gradient(ellipse at 34% 61%, #082f9a80, transparent 31%),
+    radial-gradient(ellipse at 67% 37%, #143b9e6b, transparent 28%);
+  animation: km-lightfield 4.8s ease-in-out infinite alternate;
+}
+.km-grid {
+  inset: -60%;
+  background: repeating-linear-gradient(90deg, #3c6ec134 0 1px, transparent 1px 48px),
+    repeating-linear-gradient(0deg, #3c6ec134 0 1px, transparent 1px 48px);
+  mask-image: radial-gradient(ellipse 39% 34%, #000 8%, transparent 100%);
+  transform: rotate(-21deg);
+  animation: km-grid 5s linear infinite;
+}
+.km-tracks { inset: -55% -18%; transform: rotate(-25deg); }
+.km-tracks i {
+  position: absolute;
+  top: var(--lane);
+  left: 0;
+  width: 46%;
+  height: var(--weight, 2px);
+  background: linear-gradient(90deg, transparent, #123a9f 44%, #3d7efa 91%, transparent);
+  box-shadow: 0 0 14px #1b53d477;
+  animation: km-track var(--speed, 3s) linear var(--delay) infinite;
+}
+.km-tracks i:nth-child(1) { --lane: 18%; --delay: -1s; }
+.km-tracks i:nth-child(2) { --lane: 32%; --delay: -2.5s; --speed: 4s; --weight: 5px; }
+.km-tracks i:nth-child(3) { --lane: 43%; --delay: -.4s; --speed: 2.8s; }
+.km-tracks i:nth-child(4) { --lane: 63%; --delay: -2s; --speed: 3.8s; --weight: 4px; }
+.km-tracks i:nth-child(5) { --lane: 73%; --delay: -.8s; --speed: 2.6s; }
+.km-tracks i:nth-child(6) { --lane: 86%; --delay: -1.7s; }
+.km-orbit {
+  position: absolute;
+  width: clamp(260px, 57%, 650px);
+  aspect-ratio: 2.9;
+  border: 1px solid #4776d786;
+  border-radius: 50%;
+  box-shadow: 0 0 18px #1747b965, inset 0 0 16px #1747b936;
+  transform: rotate(-13deg);
+  animation: km-orbit 4s ease-in-out infinite alternate;
+}
+.km-orbit::before {
+  content: '';
+  position: absolute;
+  inset: -13px -24px;
+  border: 1px solid #4776d742;
+  border-radius: inherit;
+}
+.km-emblem {
+  position: relative;
+  width: clamp(185px, 39%, 440px);
+  filter: brightness(1.1) drop-shadow(0 0 6px #a2ccff80)
+    drop-shadow(0 0 15px #2674ff9c)
+    drop-shadow(0 7px 4px #000e) drop-shadow(0 12px 9px #000c);
+  animation: km-reveal .95s cubic-bezier(.2,.75,.24,1) both,
+    km-float 4.6s 1s ease-in-out infinite;
+}
+.km-emblem svg { display: block; width: 100%; height: auto; }
+.km-shutter {
+  position: absolute;
+  inset: -35% auto;
+  width: 76%;
+  background: linear-gradient(110deg, #020711 48%, #0b235b 86%, #2358d5 99%, #5891ff);
+  transform: translateX(-135%) skewX(-24deg);
+  animation: km-shutter-left .85s cubic-bezier(.65,0,.2,1) both;
+}
+.km-shutter-left { left: 0; }
+.km-shutter-right {
+  right: 0;
+  background: linear-gradient(290deg, #020711 48%, #0b235b 86%, #2358d5 99%, #5891ff);
+  transform: translateX(135%) skewX(-24deg);
+  animation-name: km-shutter-right;
+}
+@keyframes km-lightfield {
+  from { transform: translate(-12%, 8%) rotate(-14deg); }
+  to { transform: translate(14%, -7%) rotate(15deg); }
+}
+@keyframes km-grid {
+  from { transform: rotate(-21deg) translateX(0); }
+  to { transform: rotate(-21deg) translateX(48px); }
+}
+@keyframes km-track {
+  from { transform: translateX(-115%); }
+  to { transform: translateX(240%); }
+}
+@keyframes km-orbit {
+  from { transform: rotate(-20deg) scale(.92); opacity: .55; }
+  to { transform: rotate(-7deg) scale(1.09); opacity: 1; }
+}
+@keyframes km-reveal {
+  from { opacity: .15; transform: scale(.72); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes km-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-7%) scale(1.06); }
+}
+@keyframes km-shutter-left {
+  from { transform: translateX(-18%) skewX(-24deg); }
+  to { transform: translateX(-135%) skewX(-24deg); }
+}
+@keyframes km-shutter-right {
+  from { transform: translateX(18%) skewX(-24deg); }
+  to { transform: translateX(135%) skewX(-24deg); }
+}
+@keyframes km-skeleton {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+@media (max-width: 760px) {
+  .art.km-cinema { margin-inline: -20px; }
+  .hero + .steps { margin-top: 12px; }
+}
+@media (max-width: 360px) {
+  .art.km-cinema { margin-inline: -16px; }
+  header .menu-trigger span { display: none; }
+}
+</style><!-- km-premium-style:end --></head><body><div class="wrap"><header><h1 class="km-catalog-title">Catálogo <span class="km-neon-title">Clientes</span></h1><nav class="nav"><button type="button" class="cart-trigger" id="openCart" aria-label="Abrir sacola"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 7h16l-1.2 13H5.2L4 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg><span class="cart-label">Minha sacola</span><span class="cart-counter" id="cartCount" hidden>0</span></button><button type="button" class="menu-trigger" id="openNavigation" aria-label="Abrir menu" aria-controls="navigationDialog" aria-expanded="false"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button><a href="#" class="contact" id="headerContact">Fale com a loja ↗</a></nav></header><main><section class="hero" id="hero"><!-- km-premium-banner:start --><div class="art km-cinema" id="kmCinema">
+  <div class="km-lightfield" aria-hidden="true"></div>
+  <div class="km-grid" aria-hidden="true"></div>
+  <div class="km-tracks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="km-orbit" aria-hidden="true"></div>
+  <div class="km-emblem">
+    <svg viewBox="250 220 1020 535" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="K&amp;M Imports">
+      <defs>
+        <clipPath id="km-logo-outline">
+          <!-- Crown, swooshes and monogram follow the edges of the original artwork. -->
+          <path d="M638 282 678 302C668 303 677 325 704 331C743 335 768 304 734 284L761 242 789 284C756 298 770 338 818 332C840 331 853 314 845 302L884 282 846 356C793 338 727 339 676 356Z M681 363Q754 341 844 362L840 367Q759 347 682 367Z"/>
+          <path d="M735 401C930 336 1068 306 1170 338C1295 377 1229 480 1039 574C1160 497 1221 435 1184 389C1141 330 1013 331 735 401Z M348 525C285 578 267 630 304 650C358 690 572 660 722 625C539 657 392 665 335 639C303 624 306 579 348 525Z"/>
+          <path d="M378 389H449L428 480 388 515 596 389 691 390 416 564 402 637H369Q350 635 334 622Z M465 548 518 509 637 634H552Z M824 388H875L970 522 1109 388H1170L1150 478Q1130 513 1070 551L1083 478 960 604 873 482 843 636H780L781 627 826 624 790 584 795 548 832 510H803Z M1068 568Q1110 546 1145 524L1126 635H1052Z"/>
+          <path clip-rule="evenodd" d="M650 494C627 465 642 437 676 428C708 420 753 423 759 450C763 471 748 486 729 502L711 480C733 465 725 446 702 446C679 446 670 460 678 475L738 542 761 516 813 517 758 564 813 619 765 622 730 586C698 612 650 614 618 598C573 575 578 530 650 494Z M665 515C639 529 627 552 640 567C653 584 694 578 713 564Z"/>
+          <path d="M306 695 465 691V700Z M1077 691 1234 695 1077 700Z"/>
+          <path clip-rule="evenodd" d="M497 675H505V712H497Z M553 675H560L581 700 602 675H610V712H603V686L584 708H579L560 686V712H553Z M658 675H685C707 675 707 699 685 699H665V712H658Z M665 681V693H684C697 693 697 681 684 681Z M768 674C804 674 805 713 768 713C732 713 733 674 768 674Z M768 680C743 680 743 707 768 707C794 707 794 680 768 680Z M840 675H864C883 675 890 690 872 698L886 712H875L862 699H847V712H840Z M847 681V693H864C878 693 878 681 864 681Z M922 675H968V681H949V712H941V681H922Z M1047 679 1043 684C1037 680 1015 677 1014 685C1013 693 1049 687 1049 701C1049 716 1018 716 1005 706L1009 701C1018 708 1042 709 1042 702C1042 695 1006 700 1006 686C1006 673 1033 670 1047 679Z"/>
+        </clipPath>
+      </defs>
+      <image clip-path="url(#km-logo-outline)" href="https://kmimportsz.github.io/kmbusiness/catalogo/assets/km-logo.png" width="1536" height="1024"/>
+    </svg>
+  </div>
+  <div class="km-shutter km-shutter-left" aria-hidden="true"></div>
+  <div class="km-shutter km-shutter-right" aria-hidden="true"></div>
+</div><!-- km-premium-banner:end --></section><div class="steps" id="steps"><span><b>01 /</b> Explore a seleção</span><span><b>02 /</b> Marque seus favoritos</span><span><b>03 /</b> Fale com a loja</span></div><section id="adminSection" class="hidden"><div class="section-title admin-title"><h2>Administração</h2><a href="/" class="secondary">Ver vitrine ↗</a></div><div id="loginBox" class="adminbox hidden"><h2>Seu espaço de gestão.</h2><p class="notice">Use a mesma conta do ChatGPT que criou este site. Somente essa conta pode gerenciar o catálogo.</p><a class="primary" href="/signin-with-chatgpt" target="_top">Entrar com ChatGPT →</a><p class="notice">Depois de entrar, abra “Área administrativa” no rodapé da vitrine.</p></div><div id="adminControls" class="hidden"><div class="actions"><button class="primary" id="newProduct">+ Adicionar item</button><button class="secondary" id="insightsButton">Estatísticas e diagnóstico</button><button class="secondary" id="orderButton">Organizar catálogo</button><button class="secondary" id="settingsButton">Contato e atendimento</button><a class="secondary" href="/api/export">↓ Baixar backup completo</a><a class="secondary" href="/signout-with-chatgpt" target="_top">Sair</a></div><p class="notice">Os itens salvos aparecem na vitrine. Só você pode adicionar, editar ou excluir. Antes de cada alteração, uma cópia da versão anterior e das fotos fica no histórico. Baixe também o backup completo e guarde fora do site.</p></div><section id="insightsPanel" class="insights-panel hidden" aria-labelledby="insightsTitle"><div class="section-title"><div><span class="eyebrow">K&M · VISÃO DO CATÁLOGO</span><h2 id="insightsTitle">Estatísticas e diagnóstico</h2></div></div><div class="insights-toolbar"><label for="insightsPeriod">Período</label><select id="insightsPeriod"><option value="7">Últimos 7 dias</option><option value="30">Últimos 30 dias</option><option value="90">Últimos 90 dias</option></select><button type="button" class="secondary" id="refreshInsights">Atualizar indicadores</button></div><p id="insightsUpdated" class="notice" role="status"></p><div id="insightsContent"></div><details class="diagnostics-details"><summary>Diagnóstico técnico · acesso administrativo</summary><p class="notice">Códigos de falha sem dados pessoais. Marcar como resolvido organiza o acompanhamento; não corrige o sistema. Uma nova ocorrência reabre o diagnóstico.</p><div id="diagnosticsContent"></div></details></section></section><section class="catalog" id="catalogo"><div class="section-title"><div><div class="eyebrow" style="margin-bottom:12px">ESCOLHIDOS PARA VOCÊ</div><h2 id="catalogTitle">Explore o <span class="km-neon-title">catálogo.</span></h2><div class="count" id="count">Carregando seleção…</div></div><span style="color:#58739d;font:12px 'Inter'">K&M / COLLECTION</span></div><div class="catalog-tabs" aria-label="Seleções do catálogo"><button class="catalog-tab" data-tab="all" aria-pressed="true">Todos</button><button class="catalog-tab" data-tab="bestSellers" aria-pressed="false">Mais vendidos</button><button class="catalog-tab" data-tab="budget" aria-pressed="false">Mais baratos</button><button class="catalog-tab" data-tab="newArrivals" aria-pressed="false">Novidades</button></div><div class="collection-tools hidden" id="collectionTools"><button class="primary" id="chooseCollection">+ Escolher modelos cadastrados</button></div><div class="tools"><input class="search" id="search" placeholder="Buscar na seleção…" aria-label="Buscar modelos"><div class="chips" id="chips"></div></div><details class="filter-panel" id="filterPanel"><summary><span class="filter-summary-label"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filtrar e ordenar</span><span id="filterBadge" class="filter-badge">Personalize sua busca</span><span class="filter-chevron" aria-hidden="true">⌄</span></summary><form id="catalogFilterForm"><div class="filter-form-grid"><label class="available-filter"><input type="checkbox" id="onlyAvailable"><span>Somente disponíveis</span></label><label>Ordenar por<select id="priceSort"><option value="curated">Ordem da loja</option><option value="priceAsc">Menor valor</option><option value="priceDesc">Maior valor</option></select></label><fieldset class="price-range"><legend>Faixa de preço · opcional</legend><div><label>De (R$)<input id="minimumPrice" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0,00"></label><label>Até (R$)<input id="maximumPrice" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Sem limite"></label></div></fieldset></div><div class="filter-actions"><button class="primary" type="submit">Aplicar filtros →</button><button class="secondary" type="button" id="resetCatalogFilters">Limpar filtros</button></div><p class="filter-message" id="filterMessage" role="status" aria-live="polite"></p></form></details><p class="catalog-gesture-tip">Toque na foto para ver de perto. Use <strong>+</strong> para colocar na sacola e ajustar a quantidade.</p><button class="catalog-help-link" type="button" id="catalogHelp">Primeira vez por aqui? Veja como pedir →</button>
 <section id="privacyChoice" class="privacy-choice hidden" aria-label="Preferências de estatísticas"><p><strong>Podemos melhorar o catálogo com sua ajuda?</strong><br>Estatísticas opcionais mostram modelos e buscas mais acessados, sem nome, endereço ou conteúdo de mensagens. Recusar não muda sua experiência.</p><div class="privacy-actions"><button type="button" class="secondary" id="declineMetrics">Recusar</button><button type="button" class="secondary" id="acceptMetrics">Permitir estatísticas</button></div></section><div class="grid" id="grid"><p class="loading">Carregando catálogo…</p></div></section></main><footer class="footer"><span>© K&M · Todos os direitos reservados.</span><a href="/admin">Área administrativa ↗</a><button type="button" class="privacy-link" id="privacySettings">Privacidade</button></footer></div><aside class="checkout" id="checkout"><div><strong id="cartBarTitle">Escolheu algum modelo?</strong><small id="selectionText">Marque seus favoritos para enviar à loja.</small></div><a class="primary" id="send" target="_blank" rel="noopener">Revisar sacola <span>→</span></a></aside><dialog id="productDialog"><form id="productForm"><div class="section-title"><h2 id="dialogTitle">Adicionar item</h2><button type="button" class="secondary" id="closeDialog" aria-label="Fechar">×</button></div><input name="id" type="hidden"><label>Foto<input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp"></label><img id="photoPreview" class="preview hidden" alt="Prévia da foto"><p class="notice">JPG, PNG ou WebP · até 5 MB</p><label>Marca<input name="brand" required maxlength="80" placeholder="Nike"></label><div class="fields"><label>Modelo<input name="model" required maxlength="100" placeholder="Zara"></label><label>Tamanho<input name="size" required maxlength="60" placeholder="M"></label><label>Valor (R$)<input name="price" type="number" step="0.01" min="0" required placeholder="110,00"></label></div><label class="availability-field">Disponibilidade<select name="available"><option value="true">Disponível</option><option value="false">Esgotado</option></select></label><button class="primary" id="saveProduct">Salvar item →</button></form></dialog><dialog id="collectionDialog"><form id="collectionForm"><div class="section-title"><h2 id="collectionTitle">Escolher modelos</h2><button class="secondary" type="button" id="closeCollection" aria-label="Fechar">×</button></div><p class="notice">Marque os itens já cadastrados. As fotos, tamanhos e valores serão os mesmos do catálogo. Desmarcar tira o item só desta aba.</p><div id="collectionOptions" class="collection-options"></div><button class="primary" id="saveCollection">Salvar seleção →</button></form></dialog><dialog id="orderDialog"><form id="orderForm"><div class="section-title"><h2>Organizar catálogo</h2><button class="secondary" type="button" id="closeOrder" aria-label="Fechar">×</button></div><p class="notice">Use as setas para escolher a ordem das marcas e dos modelos de cada marca. A mesma ordem vale nas abas do catálogo.</p><div id="orderList"></div><button class="primary" id="saveOrder">Salvar ordem →</button></form></dialog><dialog id="settingsDialog"><h2>Contato e atendimento</h2><p class="notice">Configure o WhatsApp e o prazo real de resposta. Estes campos são informativos; não definem horário de entrega.</p><form id="settingsForm"><label>WhatsApp com DDI e DDD<input name="phone" required pattern="[0-9]{10,15}" placeholder="5511999999999" inputmode="tel"></label><label>Prazo estimado de resposta (opcional)<input name="replyTime" maxlength="120" placeholder="Ex.: em até 30 minutos durante o atendimento"></label><label>Horário de atendimento (opcional)<input name="serviceHours" maxlength="150" placeholder="Informe os dias e horários reais da loja"></label><div class="actions"><button class="primary">Salvar</button><button type="button" id="closeSettings" class="secondary">Cancelar</button></div></form></dialog><dialog id="summaryDialog" aria-labelledby="summaryTitle"><div class="summary-top"><svg class="bag-hero-mark" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M18 43h84l-6 83H24l-6-83Z"/><path d="M39 48V30a21 21 0 0 1 42 0v18"/><path d="M42 79l12 12 26-28"/></svg><button class="summary-close" type="button" id="closeSummary" aria-label="Fechar resumo">×</button><div class="eyebrow"><i class="dot"></i> K&M · SUA SACOLA</div><h2 id="summaryTitle">Sua sacola.<br><span>Do seu jeito.</span></h2><p>Seus favoritos, reunidos aqui. Confira modelos, quantidades e valores; depois, combine os detalhes com a loja.</p></div><div class="summary-content"><div class="summary-section-label"><span>Itens da sua sacola</span><span id="summaryCount"></span></div><div class="summary-utility"><p class="selection-storage-note" id="choicesStorageNote"></p><button type="button" class="clear-choices" id="clearChoices">Limpar seleção</button></div><p class="summary-guidance">Confira os itens abaixo. Depois, informe seu nome e escolha como receber. O pedido continua no WhatsApp quando você confirmar.</p><div id="summaryItems"></div></div><section class="summary-customer" aria-labelledby="customerTitle"><h3 class="fulfillment-title" id="customerTitle">Quem está pedindo?</h3><p class="fulfillment-caption">Informe seu nome para identificarmos o pedido no WhatsApp.</p><div class="customer-fields"><label>Nome e sobrenome<input id="customerName" type="text" autocomplete="name" maxlength="100" placeholder="Como podemos chamar você?" required></label></div><p class="delivery-privacy">Ao confirmar, seus dados e as escolhas serão incluídos na mensagem que você enviará à loja pelo WhatsApp.</p></section><section class="summary-fulfillment" aria-labelledby="fulfillmentTitle"><h3 class="fulfillment-title" id="fulfillmentTitle">Como você quer receber?</h3><p class="fulfillment-caption">Escolha a opção e confira os detalhes antes de enviar à loja.</p><div class="delivery-options" id="deliveryOptions"><label class="delivery-option"><input type="radio" name="deliveryMode" value="delivery"><span><strong>Entrega via motoboy</strong><small>Taxa calculada conforme endereço e região.</small></span></label><label class="delivery-option"><input type="radio" name="deliveryMode" value="pickup"><span><strong>Retirada no local previamente combinado</strong><small>Sem taxa de entrega. Combine o local pelo WhatsApp.</small></span></label></div><div id="deliveryAddressFields" class="delivery-address-fields hidden"><div class="delivery-address-grid"><label>CEP<input id="deliveryCep" inputmode="numeric" autocomplete="postal-code" maxlength="9" pattern="[0-9]{5}-?[0-9]{3}" placeholder="00000-000" required></label><label>Número<input id="deliveryNumber" inputmode="text" autocomplete="off" maxlength="16" placeholder="Número do imóvel" required></label><label class="wide">Endereço<input id="deliveryStreet" autocomplete="address-line1" maxlength="160" placeholder="Rua ou avenida" required></label><label class="wide">Ponto de referência<input id="deliveryReference" maxlength="200" placeholder="Ex.: próximo à praça; se não houver, informe “sem referência”" required></label></div><p id="deliveryLocality" class="delivery-locality"></p><button type="button" class="primary delivery-calculate" id="calculateDelivery">Conferir entrega →</button><p id="deliveryQuoteMessage" class="delivery-quote-message" role="status" aria-live="polite">Informe o endereço completo para conferir a entrega.</p><p id="deliveryAttribution" class="delivery-attribution hidden">Powered by <a href="https://www.geoapify.com/" target="_blank" rel="noopener">Geoapify</a> · Dados © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>. Limite distrital: Prefeitura de São Paulo / GeoSampa.</p><p class="delivery-privacy">Seu endereço será usado para conferir a entrega e enviado à loja no WhatsApp quando você confirmar. Pagamento e detalhes finais são combinados diretamente com a loja.</p></div></section><section class="order-notes-section"><label for="orderNotes">Observações do pedido <span class="notice">· opcional</span></label><textarea id="orderNotes" maxlength="500" placeholder="Quer avisar algum detalhe à loja?"></textarea><div class="notes-meta"><span>Incluídas na mensagem do WhatsApp.</span><span id="notesCount">0/500</span></div></section><div class="summary-bottom"><div class="summary-breakdown"><div class="summary-breakdown-row"><span>Itens</span><strong id="summarySubtotal"></strong></div><div class="summary-breakdown-row"><span>Entrega / retirada</span><strong id="summaryShipping"></strong></div><p id="summaryShippingDistance" class="summary-distance"></p></div><div class="summary-total-row"><span class="summary-grand-label" id="summaryGrandLabel">Total do pedido</span><strong id="summaryTotal">R$ 0,00</strong></div><p class="notice" id="summaryTotalNote"></p><p id="checkoutHelp" class="checkout-help" role="status" aria-live="polite"></p><a class="primary summary-confirm" id="confirmOrder" target="_blank" rel="noopener">Confirmar no WhatsApp <span aria-hidden="true">↗</span></a><p class="summary-assurance"><span aria-hidden="true">✓</span> Você confirma os detalhes diretamente com a loja.</p><div class="response-info"><strong>Atendimento pelo WhatsApp</strong><p id="responseEstimate"></p><p id="responseHours"></p></div><div class="summary-support"><button type="button" id="summaryHelp">Ver passo a passo</button><a id="summarySupport" target="_blank" rel="noopener">Pedir ajuda à loja</a></div><button type="button" class="summary-back" id="continueShopping">← Voltar ao catálogo</button></div></dialog><dialog id="navigationDialog" aria-labelledby="navigationTitle"><div class="drawer-head"><a class="drawer-brand" aria-label="K&amp;M Imports — início" href="https://kmimportsz.github.io/kmbusiness/catalogo/"><span class="brand-logo-frame"><svg class="brand-logo-art" focusable="false" viewBox="250 220 1020 535" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="K&amp;M Imports" preserveAspectRatio="xMidYMid meet"><image href="https://kmimportsz.github.io/kmbusiness/catalogo/assets/km-logo.png" x="0" y="0" width="1536" height="1024" preserveAspectRatio="xMidYMid meet"/></svg></span></a><button type="button" class="round-close" id="closeNavigation" autofocus aria-label="Fechar menu">×</button></div><div class="drawer-intro"><span class="eyebrow">FEITO PARA VOCÊ</span><h2 id="navigationTitle">Encontre sua<br><span>próxima escolha.</span></h2><p>Explore os modelos e organize seu pedido com calma.</p></div><nav class="drawer-links" aria-label="Navegação do catálogo"><div class="drawer-section"><span class="drawer-label">Explore o catálogo</span><button type="button" data-menu-tab="all">Todos os modelos <span>↗</span></button><button type="button" data-menu-tab="bestSellers">Mais vendidos <span>↗</span></button><button type="button" data-menu-tab="budget">Mais baratos <span>↗</span></button><button type="button" data-menu-tab="newArrivals">Novidades <span>↗</span></button></div><div class="drawer-section"><span class="drawer-label">Seu pedido</span><button type="button" data-menu-action="bag">Minha sacola <span>↗</span></button><button type="button" data-menu-info="help">Como fazer um pedido <span>↗</span></button><button type="button" data-menu-info="delivery">Entrega e retirada <span>↗</span></button></div><div class="drawer-section"><span class="drawer-label">Sobre a K&M</span><button type="button" data-menu-info="about">Quem somos <span>↗</span></button></div></nav><div class="drawer-socials"><a href="https://www.instagram.com/kmimportsz/" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg><span>Instagram<small>@kmimportsz</small></span><b>↗</b></a><a id="menuWhatsApp" href="#" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.2A8.5 8.5 0 1 1 20 11.5Z"/><path d="M8 7.5c0 4 2.5 6.5 6.5 7l1-2-2-1-1 1c-1.5-.5-2.5-1.5-3-3l1-1-1-2-1.5 1Z"/></svg><span>WhatsApp<small>Fale com a loja</small></span><b>↗</b></a></div><p class="drawer-note">Escolha no catálogo. Combine os detalhes com a loja.</p></dialog>
 <dialog id="informationDialog" aria-labelledby="informationTitle"><div class="info-head"><span class="eyebrow">K&M · COM VOCÊ</span><button type="button" class="round-close" id="closeInformation" aria-label="Fechar informações">×</button></div><h2 id="informationTitle"></h2><div id="informationBody" class="info-body"></div><a id="informationContact" class="primary info-contact" target="_blank" rel="noopener">Falar com a loja no WhatsApp ↗</a></dialog>
 <dialog id="productDetailsDialog" aria-labelledby="productDetailsTitle"><div class="product-modal-top"><span class="eyebrow">VEJA DE PERTO</span><button type="button" class="round-close" id="closeProductDetails" aria-label="Fechar detalhes do modelo">×</button></div><div class="product-modal-layout"><div class="product-large-photo"><img id="productDetailsImage" alt=""></div><div class="product-modal-body"><span class="detail-brand" id="productDetailsBrand"></span><h2 id="productDetailsTitle"></h2><div class="detail-meta"><span id="productDetailsSize"></span><span id="productDetailsStock"></span></div><strong class="detail-price" id="productDetailsPrice"></strong><p class="detail-quantity-label">Adicionar ou ajustar na sacola</p><div id="productDetailsQuantity" class="detail-quantity"></div><div class="detail-share-actions"><button type="button" class="secondary" id="shareProduct">Compartilhar modelo ↗</button><a class="secondary" id="askAboutProduct" target="_blank" rel="noopener">Perguntar sobre este modelo ↗</a></div><label class="share-link-fallback hidden" id="shareLinkLabel">Link deste modelo<input id="productShareLink" readonly aria-label="Link para copiar e compartilhar"></label><p id="productShareFeedback" class="detail-feedback" role="status" aria-live="polite"></p><p class="detail-footnote">Os preços e a disponibilidade são conferidos novamente ao revisar a sacola.</p></div></div></dialog>
@@ -398,75 +553,4 @@ $('diagnosticsContent').onclick=async e=>{const button=e.target.closest('button[
 privacySetup();
 
 init();
-</script><!-- km-premium-script:start --><script>
-/* Presentation only: observe existing loading UI, never wrap requests or mutate catalog data. */
-(() => {
-  'use strict';
-  const body = document.body;
-  const scene = document.getElementById('kmCinema');
-  const emblem = document.getElementById('kmEmblem');
-  const grid = document.getElementById('grid');
-  const toggle = document.getElementById('kmMotionToggle');
-  if (!scene || !emblem || !grid || !toggle) return;
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let paused = reduced.matches;
-  let observer, boot, completed = false, flight;
-  const startedAt = performance.now();
-  const updateMotion = () => {
-    body.classList.toggle('km-motion-paused', paused || reduced.matches);
-    if (paused || reduced.matches) flight?.cancel();
-    toggle.setAttribute('aria-pressed', String(paused || reduced.matches));
-    toggle.querySelector('span').textContent = paused || reduced.matches ? 'Animações pausadas' : 'Pausar animações';
-    toggle.setAttribute('aria-label', paused || reduced.matches ? 'Retomar animações' : 'Pausar animações');
-    toggle.disabled = reduced.matches;
-  };
-  toggle.addEventListener('click', () => { paused = !paused; updateMotion(); });
-  const visibility = () => { body.classList.toggle('km-tab-hidden', document.hidden); if (document.hidden) flight?.cancel(); };
-  window.addEventListener('resize', () => flight?.cancel());
-  document.addEventListener('visibilitychange', visibility);
-  visibility(); updateMotion();
-  function finish(animate = true) {
-    if (completed) return;
-    completed = true;
-    observer?.disconnect();
-    const from = emblem.getBoundingClientRect();
-    body.classList.remove('km-initializing');
-    const immediate = performance.now() - startedAt < 120 || !animate || reduced.matches || paused || document.hidden || !emblem.animate;
-    if (immediate) { boot?.remove(); return; }
-    const to = emblem.getBoundingClientRect();
-    if (!to.width || !to.height) { boot?.remove(); return; }
-    boot.classList.add('km-boot-leaving');
-    boot.querySelector('.km-boot-status')?.remove();
-    boot.querySelector('button')?.remove();
-    const veil = boot.animate([{opacity:1},{opacity:0}], {duration:420, easing:'ease-out'});
-    veil.finished.catch(() => {}).finally(() => boot.remove());
-    emblem.style.zIndex = '1002';
-    // FLIP keeps the same logo node throughout. Only transform/opacity animate.
-    flight = emblem.animate([
-      { transform: 'translate(-50%, -50%) translate(' + (from.left + from.width/2 - to.left - to.width/2) + 'px,' + (from.top + from.height/2 - to.top - to.height/2) + 'px) scale(' + from.width/to.width + ')' },
-      { transform: 'translate(-50%, -50%) translate(0px,0px) scale(1)' }
-    ], { duration: 680, easing: 'cubic-bezier(.22,1,.36,1)' });
-    flight.finished.catch(() => {}).finally(() => { emblem.style.zIndex = ''; });
-  }
-  const preference = () => { updateMotion(); if (reduced.matches) { flight?.cancel(); finish(false); } };
-  if (reduced.addEventListener) reduced.addEventListener('change', preference);
-  else reduced.addListener(preference);
-  // The existing loader disappears after the real catalog request settles, including errors.
-  if (!grid.querySelector('.loading') || reduced.matches || location.pathname === '/admin') { completed = true; return; }
-  boot = document.createElement('div');
-  boot.className = 'km-boot';
-  boot.innerHTML = '<div class="km-boot-status" role="status"><span class="km-boot-indicator" aria-hidden="true"></span>Carregando catálogo…</div><button type="button" class="km-skip-intro">Ir para o catálogo</button>';
-  body.append(boot);
-  boot.querySelector('button').addEventListener('click', () => finish(false));
-  document.addEventListener('focusin', event => { if (!completed && !boot.contains(event.target)) finish(false); });
-  body.classList.add('km-initializing');
-  boot.querySelector('button').addEventListener('click', () => finish(false));
-  // Never trap keyboard users behind an ornamental loading scene.
-  document.addEventListener('focusin', event => { if (!completed && !boot.contains(event.target)) finish(false); });
-  window.addEventListener('pagehide', () => finish(false), { once:true });
-  window.addEventListener('resize', () => { if (completed) flight?.cancel(); });
-  observer = new MutationObserver(() => { if (!grid.querySelector('.loading')) finish(); });
-  observer.observe(grid, { childList:true, subtree:true });
-  if (!grid.querySelector('.loading')) finish();
-})();
-</script><!-- km-premium-script:end --></body></html>`;
+</script></body></html>`;
