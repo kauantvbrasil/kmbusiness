@@ -1,5 +1,5 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),{JSDOM}=require('jsdom');
-const root=require('node:path').resolve(__dirname,'..');const html=fs.readFileSync(root+'/index.html','utf8'),source=fs.readFileSync(root+'/app.js','utf8');
+const root=require('node:path').resolve(__dirname,'..');const html=fs.readFileSync(root+'/gestao.html','utf8'),source=fs.readFileSync(root+'/app.js','utf8');
 const photo='https://xzcwmhrdfueutareqxjw.supabase.co/storage/v1/object/public/kmuv2-photos/test.png';
 const model={id:'11111111-1111-4111-8111-111111111111',revision:1,marca:'Marca',modelo:'Modelo Azul',variacao:'M',preco_venda:100,preco_custo:40,estoque_atual:3,ativo:true,visible:true,collections:['newArrivals'],foto_url:photo,descricao:'Detalhes'};
 const order={id:'22222222-2222-4222-8222-222222222222',code:'KM-TESTE',customer_name:'Cliente Teste',items:[{id:model.id,brand:'Marca',model:'Modelo Azul',size:'M',quantity:2,price:100,photo}],subtotal:200,shipping:0,mode:'pickup',notes:'',created_at:new Date().toISOString(),status:'pending'};

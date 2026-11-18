@@ -54,3 +54,15 @@ O backup anterior enviado pelo proprietário foi verificado pelo SHA-256 e prese
 A importação de histórico aceita a cópia JSON do Business antigo, verifica a soma no navegador e pede revisão antes de preservar. O servidor limita tamanho, formato e autorização. O backup da nova central inclui também os arquivos históricos carregados, além dos modelos com fotos. A restauração operacional de modelos permanece separada da consulta histórica, para evitar duplicar vendas.
 
 Verificação adicional: `tests/business.cjs` e `database/test-business.sql` (exclusivamente BEGIN/ROLLBACK). Testam estoque compartilhado, nova opção, revisões, venda direta, recebimento parcial idempotente, isolamento de histórico, acesso anônimo bloqueado e integridade da importação.
+
+## Interface original restaurada (18/11/2026)
+
+`index.html` agora parte diretamente do arquivo original da raiz do repositório. Mantém os estilos originais `experience.css` e `visual.css`, o dashboard, navegação, gráficos, vendas, cobranças, clientes, financeiro, calendário, relatórios, operações, recibos e formulários. As cópias `classic-central.js`, `classic-business3.js` e `classic-inventory3.js` preservam os módulos originais e acrescentam apenas pontos de persistência na integração autenticada. O backend antigo não é inicializado e seu armazenamento local não é lido ou sobrescrito.
+
+`classic-bridge.js` projeta o histórico privado e os registros atuais no mesmo estado que as telas originais já utilizam. Assim, os 41 registros anteriores entram nos indicadores, gráficos e consultas das próprias telas, sem criar lançamentos financeiros duplicados. O backup original continua imutável. Seus quatro produtos não entram no estoque atual. Os números são calculados do arquivo, sem copiar valores fixos da imagem de referência.
+
+Novos modelos, opções e solicitações usam os mesmos serviços de estoque e pedidos existentes. `gestao.html` conserva os controles de integração, abertos em janelas dentro do Business original. A comunicação usa somente a origem exata e a janela do editor. Salvamentos são conferidos no servidor e o painel recarrega os dados após a confirmação. O catálogo público continua no mesmo endereço.
+
+As telas originais de nova venda, parcelamento, entrada em lote e conferência física usam RPCs com autorização, escopo e idempotência. Metas, fichas, retornos, comprovantes e fechamentos usam metadados privados com controle de conflito. A edição de novas vendas usa as rotinas financeiras existentes, mantém recebimentos conferidos e recusa versões desatualizadas. Os registros anteriores são consultáveis nas telas originais, sem participar das novas automações.
+
+Teste adicional: `tests/classic.cjs`; pode receber `KM_TEST_ARCHIVE_PATH` apontando para uma cópia privada para conferir o dashboard contra o arquivo real. `database/test-classic.sql` só pode ser executado em BEGIN/ROLLBACK. Inclui venda parcelada, repetição idempotente, edição, estoque em lote, conflitos de metadados, isolamento de produtos históricos e acesso anônimo negado. A validação em DOM e banco não substitui uma conferência manual no aparelho do proprietário.
