@@ -10,10 +10,13 @@ for(const path of ['public/catalogo.html','worker/index.js']){
  const restored=current.replace(/<!-- km-premium-style:start -->[\s\S]*?<!-- km-premium-style:end -->/g,'').replace(/<!-- km-premium-script:start -->[\s\S]*?<!-- km-premium-script:end -->/g,'').replace(/<!-- km-premium-banner:start -->[\s\S]*?<!-- km-premium-banner:end -->/g,oldBanner);
  const layout = html => html
    .replace(/(<body><div class="wrap"><header>).*?(<nav class="nav">)/s,'$1$2')
+   .replace(/(<dialog id="navigationDialog"[^>]*>).*?(<\/dialog>)/s,'$1$2')
    .replace(/(<h2 id="catalogTitle">).*?(<\/h2>)/s,'$1$2')
    .replace(/(<main><section class="hero" id="hero">).*?(<div class="art")/s,'$1$2');
  assert.match(current, /<header><h1 class="km-catalog-title">Catálogo <span class="km-neon-title">Clientes<\/span><\/h1><nav/);
  assert.match(current, /<section class="hero" id="hero"><!-- km-premium-banner:start -->/);
+ assert.match(current, /<span class="km-neon-title">próxima escolha\.<\/span>/);
+ assert.doesNotMatch(current.match(/<dialog id="navigationDialog".*?<\/dialog>/s)[0], /↗/);
  assert.doesNotMatch(current, /kmMotionToggle|Pausar animações/);
  assert.equal(layout(restored),layout(original),path+': functional code and original document must remain byte-identical after stripping visual additions');
  for(const match of current.matchAll(/<script>([\s\S]*?)<\/script>/g))new vm.Script(match[1]);

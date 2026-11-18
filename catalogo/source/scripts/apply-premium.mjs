@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 const css=fs.readFileSync('visual/premium.css','utf8').trim();
+const motion=fs.readFileSync('visual/motion.js','utf8').trim();
 const banner=fs.readFileSync('visual/banner.html','utf8').trim();
 for(const path of ['public/catalogo.html','worker/index.js']){
  let source=fs.readFileSync(path,'utf8');
@@ -9,5 +10,6 @@ for(const path of ['public/catalogo.html','worker/index.js']){
  if(!source.includes(old))throw Error('Original banner missing: '+path);
  source=source.replace(old,'<!-- km-premium-banner:start -->'+banner+'<!-- km-premium-banner:end -->');
  source=source.replace('</head>','<!-- km-premium-style:start --><style>\n'+css+'\n</style><!-- km-premium-style:end --></head>');
+ source=source.replace('</body>','<!-- km-premium-script:start --><script>\n'+motion+'\n</script><!-- km-premium-script:end --></body>');
  fs.writeFileSync(path,source);
 }

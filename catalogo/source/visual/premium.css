@@ -191,3 +191,50 @@ header .nav { flex-shrink: 0; }
   .art.km-cinema { margin-inline: -16px; }
   header .menu-trigger span { display: none; }
 }
+
+.drawer-intro h2 .km-neon-title { color: #3070ff; }
+.drawer-links button::after, .drawer-socials a::after {
+  content: '';
+  flex: 0 0 7px;
+  width: 7px;
+  height: 7px;
+  margin-inline: 6px 3px;
+  border-top: 1.5px solid #6298ff;
+  border-right: 1.5px solid #6298ff;
+  transform: rotate(45deg);
+}
+.drawer-socials a::after { margin-inline-start: auto; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .km-scroll-enter { animation: km-scroll-enter 520ms var(--km-ease) both; }
+  .km-scroll-enter:focus-within { animation: none; }
+  #navigationDialog[open] { animation: km-drawer-enter 400ms var(--km-ease) both; }
+  #navigationDialog[open] :is(.drawer-intro, .drawer-label, .drawer-links button, .drawer-socials, .drawer-note) {
+    animation: km-drawer-item 330ms var(--km-ease) both;
+    animation-delay: var(--drawer-delay, 65ms);
+  }
+  #navigationDialog[open] :is(.drawer-links button, .drawer-socials):focus-within { animation: none; }
+  .drawer-section:nth-child(1) { --drawer-start: 105ms; }
+  .drawer-section:nth-child(2) { --drawer-start: 230ms; }
+  .drawer-section:nth-child(3) { --drawer-start: 325ms; }
+  .drawer-label { --drawer-delay: var(--drawer-start); }
+  .drawer-links button { --drawer-delay: calc(var(--drawer-start) + var(--drawer-step)); }
+  .drawer-links button:nth-of-type(1) { --drawer-step: 25ms; }
+  .drawer-links button:nth-of-type(2) { --drawer-step: 55ms; }
+  .drawer-links button:nth-of-type(3) { --drawer-step: 85ms; }
+  .drawer-links button:nth-of-type(4) { --drawer-step: 115ms; }
+  .drawer-socials { --drawer-delay: 380ms; }
+  .drawer-note { --drawer-delay: 410ms; }
+}
+@keyframes km-scroll-enter {
+  from { opacity: .08; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes km-drawer-enter {
+  from { opacity: .4; transform: translateX(54px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes km-drawer-item {
+  from { opacity: 0; transform: translateX(18px); }
+  to { opacity: 1; transform: translateX(0); }
+}
