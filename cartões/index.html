@@ -17,13 +17,22 @@
 .card-menu-button:focus-visible, .card-menu-option:focus-visible {
   outline: 2px solid var(--light); outline-offset: 4px;
 }
+html:has(#cardMenu[open]) { overflow: hidden; }
 #cardMenu {
-  width: min(380px, calc(100% - 32px)); max-height: calc(100dvh - 32px);
-  margin: 16px max(16px, calc((100vw - 1320px) / 2 + var(--gutter))) auto auto;
-  padding: 18px; border: 1px solid #2a3241; border-radius: 15px;
+  position: fixed; inset: 0;
+  width: 100%; height: 100%; height: 100dvh;
+  max-width: none; max-height: none; margin: 0;
+  padding: 18px var(--gutter);
+  border: 0; border-radius: 0; overflow-y: auto; overscroll-behavior: contain;
   background: #0b0d12; color: #f5f7fa;
 }
-#cardMenu::backdrop { background: #000a; }
+#cardMenu[open] { display: flex; flex-direction: column; }
+#cardMenu::backdrop { background: #0b0d12; }
+.card-menu-footer {
+  margin-top: auto; padding: 24px 0 4px; border: 0;
+  font-size: 11px; color: var(--muted);
+}
+.card-menu-footer p { margin: 4px 0; }
 .card-menu-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .card-menu-heading h2 { margin: 0; font-size: 16px; }
 .card-menu-option {
@@ -75,9 +84,13 @@ details + details, details + .card-menu-option { margin-top: 8px; }
     <p class="card-menu-copy">A K&amp;M Imports reúne modelos em um catálogo online. Você pode conhecer a seleção, tirar dúvidas e combinar seu pedido pelo WhatsApp.</p>
   </details>
   <details>
-    <summary class="card-menu-option">Formulário de avaliação</summary>
+    <summary class="card-menu-option">Avalie nós 💙</summary>
     <p class="card-menu-copy">O link do formulário de avaliação ainda não está disponível.</p>
   </details>
+  <footer class="card-menu-footer">
+    <p>Cartão digital oficial da K&amp;M Imports.</p>
+    <p>Dúvidas sobre produtos ou pedidos? Fale com a loja pelo WhatsApp.</p>
+  </footer>
 </dialog>
 <script>
   const cardMenu = document.getElementById('cardMenu');
