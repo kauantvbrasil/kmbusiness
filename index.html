@@ -204,13 +204,13 @@ function allInst(){const a=[];S.sales.forEach(s=>s.inst.forEach((i,n)=>a.push({s
 
 function render(){
   $("nav").innerHTML=`<div class="topline"><div class="brandmark"><b>K&M BUSINESS</b><small>${({home:"PAINEL",cobr:"COBRANÇAS",sales:"VENDAS",prod:"ESTOQUE",more:"FERRAMENTAS",ops:"OPERAÇÕES",command:"INTELIGÊNCIA",calendar:"AGENDA",receipts:"RECIBOS",insights:"INDICADORES",km:"FINANCEIRO"})[tab]||"GESTÃO"}</small></div><button class="menu-open" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMenu(true)">☰</button></div>`;
-  $("fab").style.display=(tab==="prod"||tab==="more"||["km","insights","calendar","receipts","command","ops"].includes(tab))?"none":"block";
+  $("fab").style.display=(tab==="prod"||tab==="more"||["km","insights","calendar","receipts","command","ops","catalog"].includes(tab))?"none":"block";
   if(tryClose())save();
-  $("app").innerHTML={home,cobr,sales,prod,more,km,insights,calendarFinance,receipts,command:kmCommand,ops:operationCenter}[tab]();
+  $("app").innerHTML={home,cobr,sales,prod,more,km,insights,calendarFinance,receipts,command:kmCommand,ops:operationCenter,catalog:publicCatalogPanel}[tab]();
 }
 const go=t=>{toggleMenu(false);tab=t;render();scrollTo(0,0)};
 function toggleMenu(open){const layer=$("menuOverlay"),drawer=$("menuDrawer");if(!layer||!drawer)return;layer.classList.toggle("open",!!open);document.body.style.overflow=open?"hidden":"";if(!open)return;
-const items=[["home","◈","Início"],["sales","▤","Vendas"],["cobr","◷","Cobranças"],["prod","▣","Estoque"],["ops","⚡","Central de operações"],["command","◆","Visão estratégica"],["insights","▥","Indicadores por período"],["calendar","▦","Calendário financeiro"],["receipts","🧾","Recibos"],["km","📊","Inteligência financeira"],["more","⚙","Mais / Configurações"]];
+const items=[["home","◈","Início"],["sales","▤","Vendas"],["cobr","◷","Cobranças"],["prod","▣","Estoque"],["catalog","▦","Catálogo"],["ops","⚡","Central de operações"],["command","◆","Visão estratégica"],["insights","▥","Indicadores por período"],["calendar","▦","Calendário financeiro"],["receipts","🧾","Recibos"],["km","📊","Inteligência financeira"],["more","⚙","Mais / Configurações"]];
 drawer.innerHTML=`<div class="drawer-title"><div><b>K&M IMPORTS</b><div class="sub">Seu espaço de trabalho</div></div><button class="g" onclick="toggleMenu(false)" aria-label="Fechar menu">✕</button></div>`+items.map(([k,ic,txt])=>`<button class="drawer-link ${tab===k?"on":""}" onclick="go('${k}')"><span>${ic}</span>${txt}</button>`).join("");}
 document.addEventListener("keydown",e=>{if(e.key==="Escape")toggleMenu(false)});
 
@@ -381,6 +381,18 @@ const CATS=()=>S.catalog||(S.catalog=[]);
 const catData=()=>CATS().length?CATS():seedCat();
 const byName=(a,b)=>a.name.localeCompare(b.name,"pt");
 let cb="",cm=-1,cf=-1;
+function publicCatalogPanel(){
+  const editor = "https://km-camisetas-catalogo.inventivetoucan16.chatgpt.site/admin";
+  return `<section id="publicCatalogPanel" class="card" aria-label="Catálogo público">
+    <div class="row" style="flex-wrap:wrap;gap:12px;margin-bottom:12px">
+      <a href="./catalogo/" target="_blank" rel="noopener">Ver vitrine pública</a>
+      <a href="${editor}" target="_blank" rel="noopener">Abrir editor em outra aba</a>
+      <button type="button" class="g" onclick="catOpen()">Marcas e sabores do estoque</button>
+    </div>
+    <p class="sub">As alterações feitas no editor são publicadas na vitrine. Se o login não funcionar aqui, abra o editor em outra aba e entre com a conta do ChatGPT que administra o catálogo.</p>
+    <iframe src="${editor}" title="Editor do catálogo público" style="display:block;width:100%;height:75vh;min-height:480px;border:0;border-radius:12px;background:#000"></iframe>
+  </section>`;
+}
 function catOpen(){cf=-1;if(!CATS().length){if(cloudOn)return alert("Ainda sincronizando o catálogo. Tente de novo em alguns segundos.");S.catalog=seedCat();save()}cb="";cm=-1;catUI()}
 const cBrand=()=>CATS().find(x=>x.id===cb);
 function catUI(){
@@ -1001,7 +1013,7 @@ render();initCloud();
 <script src="central.js"></script>
 <script src="business3.js"></script>
 <script src="inventory3.js"></script>
-<script src="visual.js"></script>
+<script src="visual.js?v=catalogo-1"></script>
 <script src="vendor/qrcode-2.0.4.js"></script>
 <script src="receipt-pdf.js?v=pdf-file-1"></script>
 <script src="receipt.js?v=pdf-file-1"></script>
