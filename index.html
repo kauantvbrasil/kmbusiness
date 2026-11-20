@@ -986,22 +986,76 @@ function listen(){
     if(!$("modal").innerHTML&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))render();
   },e=>console.error(e)));
 }
+// At most one authentication request at a time. This UI pause is not a server unblock.
+let authLoginBusy=false,authLoginMode=0,authLoginTimer=null;
+const AUTH_LOGIN_PAUSE_KEY='km_auth_login_pause_v1';
+let authLoginBlockedUntil=0;
+try{const saved=Number(sessionStorage.getItem(AUTH_LOGIN_PAUSE_KEY));if(Number.isFinite(saved)&&saved>Date.now())authLoginBlockedUntil=Math.min(saved,Date.now()+60000);}catch(e){}
+function authLoginMessage(message,code=''){
+ const target=$('lm');if(target)target.textContent=message+(code?' Código: '+code:'');
+}
+function authResetLoginPause(){
+ authLoginBlockedUntil=0;if(authLoginTimer!==null){clearTimeout(authLoginTimer);authLoginTimer=null;}
+ try{sessionStorage.removeItem(AUTH_LOGIN_PAUSE_KEY);}catch(e){}
+}
+function authPaintLogin(){
+ if(authLoginTimer!==null){clearTimeout(authLoginTimer);authLoginTimer=null;}
+ const submit=$('loginSubmit'),create=$('loginCreate'),form=$('kmLoginForm');if(!submit||!create||!form)return;
+ const remaining=Math.max(0,Math.ceil((authLoginBlockedUntil-Date.now())/1000));
+ submit.disabled=create.disabled=authLoginBusy||remaining>0;
+ form.setAttribute('aria-busy',String(authLoginBusy));
+ submit.textContent=remaining>0?'Aguarde '+remaining+'s':authLoginBusy&&authLoginMode===0?'Entrando…':'Entrar';
+ create.textContent=authLoginBusy&&authLoginMode===1?'Criando conta…':'Criar conta';
+ if(remaining>0)authLoginTimer=setTimeout(authPaintLogin,1000);
+ else if(authLoginBlockedUntil)authResetLoginPause();
+}
 function loginUI(){
-  $("login").innerHTML=`<div class="modal" style="align-items:center"><div class="sheet" style="border-radius:18px;max-width:380px"><h1>Seu negócio, bem cuidado.</h1>
-  <label>E-mail</label><input id="le" type="email" autocomplete="username"><label>Senha (mín. 6 caracteres)</label><input id="lp" type="password" autocomplete="current-password">
-  <div id="lm" class="bad sub" style="margin:8px 0"></div><div class="row"><button onclick="doLogin(0)">Entrar</button><button class="g" onclick="doLogin(1)">Criar conta</button></div></div></div>`;
+ $('login').innerHTML=`<div class="modal" style="align-items:center"><div class="sheet" style="border-radius:18px;max-width:380px"><h1>Seu negócio, bem cuidado.</h1>
+ <form id="kmLoginForm" onsubmit="event.preventDefault();doLogin(0)">
+ <label for="le">E-mail</label><input id="le" name="email" type="email" autocomplete="username" inputmode="email" autocapitalize="none" spellcheck="false" required>
+ <label for="lp">Senha (mín. 6 caracteres)</label><input id="lp" name="password" type="password" autocomplete="current-password" minlength="6" required>
+ <div id="lm" class="bad sub" role="status" aria-live="polite" style="margin:8px 0"></div><div class="row"><button id="loginSubmit" type="submit">Entrar</button><button id="loginCreate" type="button" class="g" onclick="doLogin(1)">Criar conta</button></div></form></div></div>`;
+ if(authLoginBlockedUntil>Date.now())authLoginMessage('O Firebase limitou temporariamente as tentativas. Aguarde antes de tentar novamente. A limitação do serviço pode durar mais que a pausa desta tela.','auth/too-many-requests');
+ authPaintLogin();
 }
-function doLogin(n){
-  const e=$("le").value.trim(),p=$("lp").value;
-  (n?au.createUserWithEmailAndPassword(e,p):au.signInWithEmailAndPassword(e,p)).catch(x=>$("lm").textContent="Não deu: "+x.code);
+async function doLogin(n){
+ if(authLoginBusy||authLoginBlockedUntil>Date.now()){authPaintLogin();return;}
+ const form=$('kmLoginForm'),email=$('le'),password=$('lp');if(!form||!email||!password)return;
+ email.value=email.value.trim();if(!form.reportValidity())return;
+ if(!au){authLoginMessage('O serviço de acesso ainda não está disponível. Confira a conexão e atualize a página.');return;}
+ authLoginBusy=true;authLoginMode=n===1?1:0;authLoginMessage(authLoginMode===1?'Criando sua conta…':'Conferindo seu acesso…');authPaintLogin();
+ try{
+  if(authLoginMode===1)await au.createUserWithEmailAndPassword(email.value,password.value);
+  else await au.signInWithEmailAndPassword(email.value,password.value);
+  authResetLoginPause();authLoginMessage('Acesso autorizado. Carregando sua central…');
+ }catch(error){
+  const code=String(error?.code||'auth/unknown');
+  const messages={
+   'auth/too-many-requests':'O Firebase limitou temporariamente novas tentativas por excesso de pedidos ou atividade incomum. Aguarde e evite tentar repetidamente. A limitação do serviço pode durar mais que a pausa desta tela.',
+   'auth/invalid-credential':'Não foi possível entrar com esses dados. Confira o e-mail e a senha antes de tentar novamente.',
+   'auth/wrong-password':'Não foi possível entrar com esses dados. Confira o e-mail e a senha antes de tentar novamente.',
+   'auth/user-not-found':'Não foi possível entrar com esses dados. Confira o e-mail e a senha antes de tentar novamente.',
+   'auth/invalid-email':'Confira o formato do e-mail informado.',
+   'auth/email-already-in-use':'Esse e-mail já possui uma conta. Use Entrar com a senha dessa conta.',
+   'auth/weak-password':'Escolha uma senha com pelo menos 6 caracteres.',
+   'auth/network-request-failed':'A conexão não permitiu concluir o acesso. Confira a internet antes de tentar novamente.',
+   'auth/user-disabled':'Esta conta está desativada. Fale com o responsável pelo acesso.'
+  };
+  if(code==='auth/too-many-requests'){
+   authLoginBlockedUntil=Date.now()+60000;
+   try{sessionStorage.setItem(AUTH_LOGIN_PAUSE_KEY,String(authLoginBlockedUntil));}catch(e){}
+  }
+  authLoginMessage(messages[code]||'Não foi possível concluir o acesso. Confira os dados e a conexão antes de tentar novamente.',code);
+ }finally{authLoginBusy=false;authPaintLogin();}
 }
+
 function initCloud(){
   if(FB.apiKey.startsWith("COLE")||!window.firebase)return;
   firebase.initializeApp(FB);au=firebase.auth();db=firebase.firestore();
   try{db.enablePersistence({synchronizeTabs:true}).catch(()=>{})}catch(e){}
   au.onAuthStateChanged(u=>{
     if(u){
-      cloudOn=true;$("login").innerHTML="";
+      authResetLoginPause();cloudOn=true;$("login").innerHTML="";
       try{if(!localStorage.getItem(KEY+"_m")){cloudSave();localStorage.setItem(KEY+"_m","1")}}catch(e){}
       listen();render();
     }else{cloudOn=false;unsubs.forEach(f=>f());unsubs=[];loginUI()}
